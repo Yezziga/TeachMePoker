@@ -10,10 +10,13 @@ import gui.GameController;
 
 
 /**
- *
  * 
  * @author Rikard Almgren
  * @version 1.0
+ * 
+ * @author dalvig
+ * @version 2.1
+ * Playing around with winning hand and hand strength of AI players to find a way to show the winning hand 
  *
  */
 public class SPController extends Thread {
