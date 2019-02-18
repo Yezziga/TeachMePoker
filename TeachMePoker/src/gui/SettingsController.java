@@ -9,6 +9,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
@@ -17,6 +18,10 @@ import javafx.scene.layout.Pane;
  * 
  * @author Lykke Levin
  * @version 1.0
+ * 
+ * @author dalvig
+ * @version 2.1 
+ * Added possibility to turn music on and off
  *
  */
 public class SettingsController {
@@ -61,9 +66,19 @@ public class SettingsController {
 	private Pane tutorialPane;
 	@FXML
 	private ImageView btnNext;
+	
+	@FXML
+	private ImageView btnBack;
 
 	private Sound sound = new Sound();
 	private TutorialController tutorialWindow;
+	
+	@FXML
+	private ImageView ivSound;
+	
+	private Image soundOn = new Image("images/soundButton.png");
+	
+	private Image soundOff = new Image("images/soundOffButton.png");
 
 	/**
 	 * Method for initializing FXML. 
@@ -281,5 +296,16 @@ public class SettingsController {
 	 */
 	public String getName() {
 		return name;
+	}
+	
+	public void soundSetting() {
+		 if (sound.mp.getVolume() > 0) {
+		      sound.mp.setVolume(0);
+		      ivSound.setImage(soundOff);
+		       
+		    } else if (sound.mp.getVolume() == 0) {
+		      sound.mp.setVolume(1);
+		      ivSound.setImage(soundOn);
+		  }
 	}
 }

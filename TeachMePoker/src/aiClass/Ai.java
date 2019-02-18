@@ -2,6 +2,7 @@ package aiClass;
 
 import java.util.ArrayList;
 import deck.Card;
+import gui.WinnerBox;
 
 
 /**
@@ -10,6 +11,11 @@ import deck.Card;
  * 
  * @author Max Frennessen 17-05-25
  * @version 2.0
+ * 
+ * 
+ * @author dalvig
+ * @version 2.1
+ * Playing around with first & second card of AI players to find a way to show the winning hand 
  */
 
 public class Ai {
@@ -28,6 +34,11 @@ public class Ai {
   private int highCard;
   private int handStrength;
   private int AllInViability = 99;
+  
+  private String firstCard; 
+  private String secondCard;
+  private WinnerBox winnerBox;
+  
 
 
   /**
@@ -59,10 +70,33 @@ public class Ai {
     if (card2.getCardValue() > highCard) {
       highCard = card2.getCardValue();
     }
+    
+    
     aiCards.add(firstCard);
+    System.out.println(firstCard + "  boo");
+    setFirstCard(firstCard);
     aiCards.add(secondCard);
+    System.out.println(secondCard + "  luck"); 
+    setSecondCard(secondCard);
   }
 
+  public void setFirstCard(String firstCard) {
+	  this.firstCard = firstCard;
+	  System.out.println("Yey managed to set " + firstCard + " for " + name );
+  }
+  
+  public String getFirstCard() {
+	  return firstCard;
+  }
+  
+  public void setSecondCard(String secondCard) {
+	  this.secondCard = secondCard;
+	  System.out.println("setting second card " + secondCard + " for " + name);
+  }
+  
+  public String getSecondCard() {
+	  return secondCard;
+  }
 
   /**
    * Makes decision for the starting hand

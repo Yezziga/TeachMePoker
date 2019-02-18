@@ -6,7 +6,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FMController">
+<!--add sound button. Plus add sound off button and   -->
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FMController">
    <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -23,12 +25,18 @@
                   <Insets bottom="50.0" />
                </VBox.margin>
             </ImageView>
-            <ImageView fx:id="ivLoadGame" disable="true" fitHeight="250.0" fitWidth="290.0" onMouseClicked="#LoadGameClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+            <!--remove visible = false to show load game button  --> 
+            <ImageView fx:id="ivLoadGame" disable="true" fitHeight="250.0" fitWidth="290.0" onMouseClicked="#LoadGameClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/loadGame.png" />
                </image>
             </ImageView>
          </children>
       </VBox>
+      <ImageView id="soundButton.png" fx:id="ivSound" fitHeight="45.0" fitWidth="45.0" layoutX="1202.0" layoutY="14.0" onMouseReleased="#soundSetting">
+					<image>
+						<Image url="@images/soundButton.png" />
+					</image>
+				</ImageView>
    </children>
 </Pane>

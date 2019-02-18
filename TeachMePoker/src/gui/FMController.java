@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -11,6 +12,10 @@ import javafx.scene.image.ImageView;
  * 
  * @author Lykke Levin
  * @version 1.0
+ *
+ ** @author dalvig
+ *  @version 2.1 
+ * Added possibility to turn music on and off
  *
  */
 
@@ -24,6 +29,12 @@ public class FMController {
 	private ImageView ivNewGame;
 	@FXML
 	private ImageView ivLoadGame;
+	@FXML
+	private ImageView ivSound;
+	
+	private Image soundOn = new Image("images/soundButton.png");
+	
+	private Image soundOff = new Image("images/soundOffButton.png");
 
 	/**
 	 * Generated method for the FXML.
@@ -69,6 +80,21 @@ public class FMController {
 		sound = new Sound();
 		sound.playSound("wrong");
 
+	}
+	
+	/**
+	 * Turns background music on and off
+	 */
+	
+	public void soundSetting() {
+		 if (sound.mp.getVolume() > 0) {
+		      sound.mp.setVolume(0);
+		      ivSound.setImage(soundOff);
+		       
+		    } else if (sound.mp.getVolume() == 0) {
+		      sound.mp.setVolume(1);
+		      ivSound.setImage(soundOn);
+		  }
 	}
 
 }

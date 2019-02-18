@@ -21,6 +21,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
+
+  <!--add sound off button. Trace what happens when the sound goes off and add same functionality in First Menu  --> 
+    <!--Make save button visible. Add database to save game. What should it save? The cards of all the current players?
+    The current scores of everyone? Just how much you have scored? -->
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GameController">
 	<children>
 		<AnchorPane id="AnchorPaneAll" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0">
