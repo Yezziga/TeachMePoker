@@ -204,6 +204,10 @@ public class GameController {
   private TutorialController tutorialWindow;
   private int AllInViability = 0;
   private Label[] collectionOfPots;
+  
+  private Ai AI;
+  private String winnerCard1 = "";
+  private String winnerCard2 = "";
 
 
   /**
@@ -684,7 +688,9 @@ public class GameController {
       highCard = card2.getCardValue();
     }
     cards.add(card1); // Adds two cards to hand.
+ 
     cards.add(card2);
+
     this.hand = new Hand(cards);
 
     isReady = true;
@@ -1289,7 +1295,7 @@ public class GameController {
         winnerBox = new WinnerBox();
         winnerBox.displayWinner("Förlust",
             "Tyvärr, du förlorade och dina pengar är slut. Bättre lycka nästa gång!", 5,
-            winnerHand);
+            winnerHand, winnerCard1, winnerCard2);
 
         changeScene.switchToMainMenu();
 
@@ -1369,16 +1375,17 @@ public class GameController {
   }
 
 
+
   /**
    * Creates a winnerWindow that displays the winner of the round.
    * 
    * @param winner Name of the winner from spController.
    * @param hand Int number from spController that represent the value of the winning hand. 
    */
-  public void setWinnerLabel(String winner, int hand) {
+  public void setWinnerLabel(String winner, int hand, String winnerCard1, String winnerCard2) {
 
     String winnerOfRound = winner;
-
+   
 
     if (hand == 0) {
       winnerHand = "högsta kort";
@@ -1420,26 +1427,26 @@ public class GameController {
     if (!winnerOfRound.equals(getUsername()) && (hand < 10)) {
       Platform.runLater(() -> {
         winnerBox = new WinnerBox();
-        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 2, winnerHand);
+        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 2, winnerHand, winnerCard1, winnerCard2 );
       });
     } else if (winnerOfRound.equals(getUsername()) && (hand < 10)) {
       Platform.runLater(() -> {
         sound.playSound("coinSound");
         winnerBox = new WinnerBox();
-        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 1, winnerHand);
+        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 1, winnerHand, winnerCard1, winnerCard2);
 
       });
     } else if (winnerOfRound.equals(getUsername()) && (hand > 10)) {
       Platform.runLater(() -> {
         sound.playSound("coinSound");
         winnerBox = new WinnerBox();
-        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 3, winnerHand);
+        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 3, winnerHand, winnerCard1, winnerCard2);
 
       });
     } else if (!winnerOfRound.equals(getUsername()) && (hand > 10)) {
       Platform.runLater(() -> {
         winnerBox = new WinnerBox();
-        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 4, winnerHand);
+        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 4, winnerHand, winnerCard1, winnerCard2);
 
       });
     }

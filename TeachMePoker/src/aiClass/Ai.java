@@ -66,6 +66,7 @@ public class Ai {
     char B = card2.getCardSuit().charAt(0);
     String firstCard = card1.getCardValue() + "," + String.valueOf(A);
     String secondCard = card2.getCardValue() + "," + String.valueOf(B);
+   
     this.highCard = card1.getCardValue();
     if (card2.getCardValue() > highCard) {
       highCard = card2.getCardValue();
@@ -341,6 +342,21 @@ public class Ai {
   public int getHighCard() {
 
     return highCard;
+  }
+  
+  /**
+   * Returns the ai-players first and second card - 
+   * trying to show the winners hand
+   * version 2.1 
+   * @return
+   */
+  
+  public String getCardOne() {
+	  return firstCard;
+  }
+  
+  public String getCardTwo() {
+	  return secondCard;
   }
 
 

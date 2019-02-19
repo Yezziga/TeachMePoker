@@ -39,14 +39,14 @@ public class WinnerBox {
 	 * @param handStrength String to print the handstrength the player or AI won with. 
 	 * @return answer Boolean that returns an answer.
 	 */
-	public boolean displayWinner(String title, String message, int nr, String handStrength) {
+	public boolean displayWinner(String title, String message, int nr, String handStrength, String winnerCard1, String winnerCard2) {
 		
-		String aiWin = new String("Rundan vanns av " + message + " som hade " + handStrength );
-		String playerWin = new String("Grattis " + message + ", du vann den här rundan! Du vann med " + handStrength );
-		String playerWinAIFold = new String("Grattis " + message + ". " + handStrength );
-		String aiWinOthersFold = new String("Rundan vanns av " + message + " " + handStrength);
+		String aiWin = new String("Rundan vanns av " + message + " som hade " + handStrength + " " + winnerCard1 + " " + winnerCard2);
+		String playerWin = new String("Grattis " + message + ", du vann den här rundan! Du vann med " + handStrength + " " + winnerCard1 + " " + winnerCard2 );
+		String playerWinAIFold = new String("Grattis " + message + ". " + handStrength + " " + winnerCard1 + " " + winnerCard2 );
+		String aiWinOthersFold = new String("Rundan vanns av " + message + " " + handStrength + " " + winnerCard1 + " " + winnerCard2);
 		String playerLose = new String (message);
-		
+
 		
 		
 		window.initModality(Modality.APPLICATION_MODAL);
