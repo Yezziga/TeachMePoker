@@ -1,4 +1,4 @@
-package controller;
+	package controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,10 +10,13 @@ import gui.GameController;
 
 
 /**
- *
  * 
  * @author Rikard Almgren
  * @version 1.0
+ * 
+ * @author dalvig
+ * @version 2.1
+ * Playing around with winning hand and hand strength of AI players to find a way to show the winning hand 
  *
  */
 public class SPController extends Thread {
@@ -250,6 +253,7 @@ public class SPController extends Thread {
               gController.setPlayerPot(currentPotSize);
               winner = gController.getUsername();
               gController.setWinnerLabel(winner, 99);
+              System.out.println(winner + "99??");
               winnerDeclared = true;
               break;
             }
@@ -269,6 +273,7 @@ public class SPController extends Thread {
                 aiPlayers.get(currentPlayer).updateWinner(currentPotSize);
                 winner = aiPlayers.get(currentPlayer).getName();
                 gController.setWinnerLabel(winner, 98);
+                System.out.println(winner + "98?! oranges" + currentPlayer + " " + card1 + " " + card2);
                 winnerDeclared = true;
                 break;
               }
@@ -395,6 +400,8 @@ public class SPController extends Thread {
           gController.setPlayerPot(currentPotSize);
           winner = gController.getUsername();
           gController.setWinnerLabel(winner, gController.getHandStrength());
+          System.out.println("grapes" + winner + " " + gController.getHandStrength());
+          
           // draw
         } else if (gController.getHandStrength() == bestHand) {
           // Player wins
@@ -402,12 +409,16 @@ public class SPController extends Thread {
             gController.setPlayerPot(currentPotSize);
             winner = gController.getUsername();
             gController.setWinnerLabel(winner, gController.getHandStrength());
+            System.out.println("ginger" + winner + "" + gController.getHandStrength());
+            
             // Draw
           } else if (gController.getGetHighCard() == bestHandPlayer.getHighCard()) {
             bestHandPlayer.updateWinner(currentPotSize / 2);
             gController.setPlayerPot(currentPotSize / 2);
             winner = gController.getUsername() + " och " + bestHandPlayer.getName();
             gController.setWinnerLabel(winner, bestHand);
+            System.out.println(winner + " " + bestHand + "check winner, player hasnt folded. Plums");
+            
             // AI wins and there are second winners.
           } else {
             if (!secWin.isEmpty()) {
@@ -420,6 +431,8 @@ public class SPController extends Thread {
               bestHandPlayer.updateWinner(currentPotSize);
               winner = bestHandPlayer.getName();
               gController.setWinnerLabel(winner, bestHand);
+              System.out.println("oranges " + winner + " " + bestHand);
+              
             }
           }
           // Same thing as above but the player lost and no draw.
@@ -434,6 +447,7 @@ public class SPController extends Thread {
             bestHandPlayer.updateWinner(currentPotSize);
             winner = bestHandPlayer.getName();
             gController.setWinnerLabel(winner, bestHand);
+            System.out.println(bestHand + " strawberries " + winner);
           }
         }
         // Same thing as above but the player had folded.
@@ -448,6 +462,7 @@ public class SPController extends Thread {
           bestHandPlayer.updateWinner(currentPotSize);
           winner = bestHandPlayer.getName();
           gController.setWinnerLabel(winner, bestHand);
+          System.out.println(winner + " blueberries " + bestHand);
         }
       }
     }
@@ -507,11 +522,13 @@ public class SPController extends Thread {
             gController.setPlayerPot(allInPotSize);
             winner = gController.getUsername();
             gController.setWinnerLabel(winner, gController.getHandStrength());
+            System.out.println(winner + " lemons " + gController.getHandStrength() );
           } else if (gController.getHandStrength() == bestHand) {
             if (gController.getGetHighCard() > bestHandPlayer.getHighCard()) {
               gController.setPlayerPot(allInPotSize);
               winner = gController.getUsername();
               gController.setWinnerLabel(winner, gController.getHandStrength());
+              
             } else if (gController.getGetHighCard() == bestHandPlayer.getHighCard()) {
               bestHandPlayer.updateWinner(allInPotSize / 2);
               gController.setPlayerPot(allInPotSize / 2);

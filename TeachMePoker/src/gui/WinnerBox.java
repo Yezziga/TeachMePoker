@@ -2,6 +2,8 @@ package gui;
 
 
 import java.nio.file.Paths;
+
+import aiClass.Ai;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,6 +23,7 @@ import javafx.stage.Stage;
  */
 public class WinnerBox {
 
+	private Ai AI;
 	public boolean answer = false;
 	public Stage window = new Stage();
 	public Font font = new Font("Tw Cen MT", 18);
@@ -38,11 +41,13 @@ public class WinnerBox {
 	 */
 	public boolean displayWinner(String title, String message, int nr, String handStrength) {
 		
-		String aiWin = new String("Rundan vanns av " + message + " som hade " + handStrength);
-		String playerWin = new String("Grattis " + message + ", du vann den här rundan! Du vann med " + handStrength);
-		String playerWinAIFold = new String("Grattis " + message + ". " + handStrength);
+		String aiWin = new String("Rundan vanns av " + message + " som hade " + handStrength );
+		String playerWin = new String("Grattis " + message + ", du vann den här rundan! Du vann med " + handStrength );
+		String playerWinAIFold = new String("Grattis " + message + ". " + handStrength );
 		String aiWinOthersFold = new String("Rundan vanns av " + message + " " + handStrength);
 		String playerLose = new String (message);
+		
+		
 		
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle(title);
@@ -59,15 +64,23 @@ public class WinnerBox {
 		
 		if(nr == 1){
 			messageText.setText(playerWin);
+		
 		} else if(nr == 2){
 			messageText.setText(aiWin);
+			
 		} else if(nr == 3){
 			messageText.setText(playerWinAIFold);
+		
+			
 		} else if(nr == 4){
 		messageText.setText(aiWinOthersFold);
+
+		
 		}
 		else if (nr == 5){
 			messageText.setText(playerLose);
+		
+	
 		}
 		
 		btnOk.setOnMouseReleased(e -> {

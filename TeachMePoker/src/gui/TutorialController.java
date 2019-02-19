@@ -18,6 +18,11 @@ import javafx.stage.Stage;
  * Tutorial state.
  * 
  * @author Vedrana Zeba
+ * 
+ * 
+ * @author dalvig
+ * @version 2.1 
+ * Added functionality so player can move backwards, and forwards, in the tutorial. 
  */
 public class TutorialController {
 
@@ -27,6 +32,9 @@ public class TutorialController {
 	private Pane tutorialPane;
 	@FXML
 	private ImageView btnNext;
+	@FXML
+	private ImageView btnBack; 
+	
 
 	public int tutorialProgress;
 	public SettingsController settingsController;
@@ -75,9 +83,9 @@ public class TutorialController {
 		window.show();
 
 		this.tutorialProgress = 0;
-		placeImg();
-
+		placeImg();	
 	}
+	
 	/**
 	 * Initializes the tutorial window and all UI objects. Loads tutorial.fxml and starts the "button-listener" for next.
 	 * If the user cancels the tutorial mid-way, the window closes and the user is sent back to the game.
@@ -96,8 +104,10 @@ public class TutorialController {
 
 	this.tutorialProgress = 0;
 	placeImg();
+	
 	}
 	
+
 	/**
 	 * Activates correct listener based on tutorialProgress. There are 17 steps, the last step launches the game.
 	 */
@@ -105,9 +115,11 @@ public class TutorialController {
 		this.tutorialProgress = tutorialProgress+1;
 		System.out.println(tutorialProgress);
 		String buttonName = "nästaButton";
+	
 		if(tutorialProgress == 17){
 			buttonName = "spelaButton"; 
 		}
+		
 		tutorialPane.requestLayout();
 		Image image = new Image(Paths.get("resources/images/tutorial" + tutorialProgress + ".png").toUri().toString(), 1280, 720, true, true);
 		imgTutorial = new ImageView(image);
@@ -118,12 +130,24 @@ public class TutorialController {
 		btnNext.setX(1090);
 		btnNext.setY(570.5);
 		tutorialPane.getChildren().add(btnNext);
-
-
+		
+	if (tutorialProgress > 1) {
+		image = new Image(Paths.get("resources/images/backButton.png").toUri().toString(), 170, 95, true, true);
+			btnBack = new ImageView(image);
+			btnBack.setX(1120);
+			btnBack.setY(480);
+			tutorialPane.getChildren().add(btnBack);
+		}
+		
 		if(tutorialProgress == 17){
 			addButtonListenerPlay();
-		}else{
+			addButtonListenerBack();
+		}else if(tutorialProgress == 1) {
 			addButtonListenerNext();
+		} else {	
+			
+			addButtonListenerNext();
+			addButtonListenerBack();
 		}
 	}
 
@@ -149,6 +173,46 @@ public class TutorialController {
 					settingsController.startGameWindow();
 				}
 				closeProgram();
+			}
+		});
+	}
+	
+	/**
+	 * Method to move back one step in the tutorial progression 
+	 */
+	public void placeImg2(){
+		this.tutorialProgress = tutorialProgress-1;
+		
+		tutorialPane.requestLayout();
+		Image image = new Image(Paths.get("resources/images/tutorial" + tutorialProgress + ".png").toUri().toString(), 1280, 720, true, true);
+		imgTutorial = new ImageView(image);
+		tutorialPane.getChildren().add(imgTutorial);
+
+		image = new Image(Paths.get("resources/images/nästaButton.png").toUri().toString(), 170, 95, true, true);
+		btnNext = new ImageView(image);
+		btnNext.setX(1090);
+		btnNext.setY(570.5);
+		tutorialPane.getChildren().add(btnNext);
+		
+		if (tutorialProgress > 1) {
+			image = new Image(Paths.get("resources/images/backButton.png").toUri().toString(), 170, 95, true, true);
+				btnBack = new ImageView(image);
+				btnBack.setX(1120);
+				btnBack.setY(460);
+				tutorialPane.getChildren().add(btnBack);
+		}	
+		addButtonListenerNext();
+		addButtonListenerBack();
+	}
+	
+	/**
+	 * Listener for going back one step in the tutorial .
+	 * 
+	 */
+	public void addButtonListenerBack(){
+		btnBack.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override public void handle(MouseEvent event) {
+				placeImg2();
 			}
 		});
 	}

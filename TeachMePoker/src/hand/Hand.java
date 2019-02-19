@@ -31,7 +31,7 @@ public class Hand {
 		helper = calc.Help();
 		advice = calc.advice();
 		pwrBar = calc.calcPwrBarLvl();
-		toHighlight = calc.toHiglight();
+		toHighlight = calc.toHiglight(); 
 
 		System.out.println(" -NEW HAND- ");
 		System.out.println(aiCards);

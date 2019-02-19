@@ -23,6 +23,11 @@ import javafx.scene.layout.Pane;
  * 
  * @author Amin Harirchian, Vedrana Zeba, Lykke Levin, Rikard Almgren
  * @version 1.0 
+ * 
+ * @author dalvig 
+ * @version 2.1 
+ * Added a different image for when the sound is on or off,
+ * and tried to make a clearer picture to show when which AI player is currently playing
  *
  */
 
@@ -164,6 +169,10 @@ public class GameController {
   public Label subPotSix;
   @FXML
   public Label mainPot;
+  
+  public Image soundOn = new Image("images/soundButton.png");
+  
+  public Image soundOff = new Image("images/soundOffButton.png");
 
   private WinnerBox winnerBox;
   private ConfirmBox confirmBox;
@@ -299,7 +308,7 @@ public class GameController {
     Image showCards = new Image(Paths.get(resource + "aiBarWithCards.png").toUri().toString(), 122,
         158, true, true);
     Image showActiveCards =
-        new Image(Paths.get(resource + "aiBarWithCardsCurrentPlayer.png").toUri().toString(), 122,
+        new Image(Paths.get(resource + "aiBarWithCardsCurrentPlayer4.png").toUri().toString(), 122,
             158, true, true);
 
     if (state == "inactive") {
@@ -532,6 +541,7 @@ public class GameController {
       sound.chipMulti.setVolume(0);
       sound.coinSound.setVolume(0);
       sound.wrongSound.setVolume(0);
+      ivSound.setImage(soundOff);
     } else if (sound.cardFold.getVolume() == 0) {
       sound.cardFold.setVolume(1);
       sound.checkSound.setVolume(1);
@@ -542,6 +552,7 @@ public class GameController {
       sound.chipMulti.setVolume(1);
       sound.coinSound.setVolume(1);
       sound.wrongSound.setVolume(1);
+      ivSound.setImage(soundOn);
     }
   }
 
