@@ -11,6 +11,8 @@ import deck.Card;
 import hand.Hand;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
@@ -1295,13 +1297,15 @@ public class GameController {
    */
   public void aboutBox() {
 
-    confirmBox = new ConfirmBox();
-    confirmBox.display("Om projektet",
-        "Detta projekt är format och skapat av "
-            + "Vedrana Zeba, Rikard Almgren, Amin Harirchian, Max Frennessen och Lykke Levin under "
-            + "vårterminen 2017 som en del av kursen Systemutveckling och projekt 1.");
+		Alert aboutBox = new Alert(AlertType.INFORMATION);
+		aboutBox.setTitle("Om Projektet");
+		aboutBox.setHeaderText(null);
+		aboutBox.setContentText("Detta projekt är format och skapat av"
+				+ "\nVedrana Zeba, Rikard Almgren, Amin Harirchian, "
+				+ "\nMax Frennessen och Lykke Levin under vårterminen 2017 \nsom en del av kursen Systemutveckling och projekt 1. ");
 
-  }
+		aboutBox.showAndWait();
+	}
 
 
   /**

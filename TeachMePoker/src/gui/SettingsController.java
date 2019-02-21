@@ -5,6 +5,8 @@ import controller.SPController;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -20,8 +22,7 @@ import javafx.scene.layout.Pane;
  * @version 1.0
  * 
  * @author dalvig
- * @version 2.1 
- * Added possibility to turn music on and off
+ * @version 2.1 Added possibility to turn music on and off
  *
  */
 public class SettingsController {
@@ -66,22 +67,23 @@ public class SettingsController {
 	private Pane tutorialPane;
 	@FXML
 	private ImageView btnNext;
-	
+
 	@FXML
 	private ImageView btnBack;
 
 	private Sound sound = new Sound();
 	private TutorialController tutorialWindow;
-	
+
 	@FXML
 	private ImageView ivSound;
-	
+
 	private Image soundOn = new Image("images/soundButton.png");
-	
+
 	private Image soundOff = new Image("images/soundOffButton.png");
 
 	/**
-	 * Method for initializing FXML. 
+	 * Method for initializing FXML.
+	 * 
 	 * @throws Exception
 	 */
 	public void initialize() throws Exception {
@@ -92,7 +94,7 @@ public class SettingsController {
 	}
 
 	/**
-	 * Stores the name from the TextField that the user has inserted. 
+	 * Stores the name from the TextField that the user has inserted.
 	 */
 	public void tfNameInputChange() {
 		this.name = tfNameInput.getText();
@@ -100,6 +102,7 @@ public class SettingsController {
 
 	/**
 	 * Sets the changeScene for this SettingsController
+	 * 
 	 * @param sceneChanger an instance of the class ChangeScene
 	 */
 	public void setChangeScene(ChangeScene sceneChanger) {
@@ -108,7 +111,7 @@ public class SettingsController {
 	}
 
 	/**
-	 * Stores the value from the Slider that the user has chosen. 
+	 * Stores the value from the Slider that the user has chosen.
 	 */
 	public void aiSliderChange() {
 		Double val = aiSlider.getValue();
@@ -117,7 +120,7 @@ public class SettingsController {
 	}
 
 	/**
-	 * Stores the value from the Slider that the user has chosen. 
+	 * Stores the value from the Slider that the user has chosen.
 	 */
 	public void potSliderChange() {
 
@@ -127,7 +130,7 @@ public class SettingsController {
 	}
 
 	/**
-	 * If ComboBox is selected by the user, disable the button true. 
+	 * If ComboBox is selected by the user, disable the button true.
 	 */
 	public void cbOnClicked() {
 
@@ -141,7 +144,7 @@ public class SettingsController {
 	}
 
 	/**
-	 * If ComboBox is selected by the user, disable the button true. 
+	 * If ComboBox is selected by the user, disable the button true.
 	 */
 	public void cbOffClicked() {
 
@@ -155,11 +158,12 @@ public class SettingsController {
 	}
 
 	/**
-	 * Starts the game and checks so the Username it not empty and checks if the Tutorial should be playing at the beginning. 
+	 * Starts the game and checks so the Username it not empty and checks if the
+	 * Tutorial should be playing at the beginning.
+	 * 
 	 * @throws IOException
 	 */
 	public void startGame() throws IOException {
-
 
 		potSliderChange();
 		aiSliderChange();
@@ -168,40 +172,41 @@ public class SettingsController {
 			spController = new SPController();
 			changeScene.setSPController(spController);
 
-
 			if (cbOn.isSelected()) {
 				System.out.println("Tutorial ska visas");
 				Platform.runLater(() -> {
 
-				try {
-					this.tutorialWindow = new TutorialController(this, 1);
-					tutorialWindow.setupUI();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					try {
+						this.tutorialWindow = new TutorialController(this, 1);
+						tutorialWindow.setupUI();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				});
 
-			} else{
-				//do it here
+			} else {
+				// do it here
 				startGameWindow();
 			}
 		} else if (tfNameInput.getText().isEmpty()) {
 			sound.playSound("wrong");
-			confirmBox = new ConfirmBox();
-			boolean result =
-					confirmBox.display("Varning", "Du måste välja ett användarnamn för att starta spelet");
-			System.out.println("Du måste välja ett användarnamn");
-			System.out.println(result);
+			Alert invalidUsernameBox = new Alert(AlertType.ERROR);
+			invalidUsernameBox.setTitle("Varning");
+			invalidUsernameBox.setHeaderText(null);
+			invalidUsernameBox.setContentText("Du måste välja ett användarnamn för att starta spelet.");
 
+			System.out.println("Du måste välja ett användarnamn");
+
+			invalidUsernameBox.showAndWait();
 		}
 
 	}
-	
+
 	/**
-	 * Creates the progressForm and the loadingbar. 
+	 * Creates the progressForm and the loadingbar.
 	 */
-	public void startGameWindow(){
+	public void startGameWindow() {
 		ProgressForm pForm = new ProgressForm();
 		// In real life this task would do something useful and return
 		// some meaningful result:
@@ -245,9 +250,9 @@ public class SettingsController {
 		});
 		System.out.println("Spel startas!");
 	}
-	
+
 	/**
-	 * Shows a label if question mark is hovered. 
+	 * Shows a label if question mark is hovered.
 	 */
 	public void ivQuestionAiHovered() {
 
@@ -257,7 +262,7 @@ public class SettingsController {
 	}
 
 	/**
-	 * Shows a label if question mark is hovered. 
+	 * Shows a label if question mark is hovered.
 	 */
 	public void ivQuestionPotHovered() {
 
@@ -267,7 +272,7 @@ public class SettingsController {
 	}
 
 	/**
-	 * Shows a label if question mark is hovered. 
+	 * Shows a label if question mark is hovered.
 	 */
 	public void ivQuestionTutorialHovered() {
 
@@ -276,7 +281,8 @@ public class SettingsController {
 	}
 
 	/**
-	 *  Tells class changeScene to perform the swithScene-action. 
+	 * Tells class changeScene to perform the swithScene-action.
+	 * 
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
@@ -292,20 +298,21 @@ public class SettingsController {
 
 	/**
 	 * Name of the user.
-	 * @return String name of the user. 
+	 * 
+	 * @return String name of the user.
 	 */
 	public String getName() {
 		return name;
 	}
-	
+
 	public void soundSetting() {
-		 if (sound.mp.getVolume() > 0) {
-		      sound.mp.setVolume(0);
-		      ivSound.setImage(soundOff);
-		       
-		    } else if (sound.mp.getVolume() == 0) {
-		      sound.mp.setVolume(1);
-		      ivSound.setImage(soundOn);
-		  }
+		if (sound.mp.getVolume() > 0) {
+			sound.mp.setVolume(0);
+			ivSound.setImage(soundOff);
+
+		} else if (sound.mp.getVolume() == 0) {
+			sound.mp.setVolume(1);
+			ivSound.setImage(soundOn);
+		}
 	}
 }
