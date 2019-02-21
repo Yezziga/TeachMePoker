@@ -28,8 +28,11 @@ import javafx.scene.layout.Pane;
  * @author dalvig 
  * @version 2.1 
  * Added a different image for when the sound is on or off,
- * and tried to make a clearer picture to show when which AI player is currently playing
- *
+ * and tried to make a clearer picture to show when which AI player is currently playing.
+ * 
+ * @version 2.2
+ * Changed players cards when folded to make it clearer she is no longer in the current round. 
+ * Added functionality to send the winners two cards. 
  */
 
 public class GameController {
@@ -206,10 +209,13 @@ public class GameController {
   private int AllInViability = 0;
   private Label[] collectionOfPots;
   
-  private Ai AI;
-  private String winnerCard1 = "";
-  private String winnerCard2 = "";
 
+
+  private int bestPlayerCardOneNumber = 0;
+  private String bestPlayerCardOneLetter = "";
+  
+  private int bestPlayerCardTwoNumber = 0;
+  private String bestPlayerCardTwoLetter = "";
 
   /**
    * Method for initializing FXML
@@ -375,6 +381,26 @@ public class GameController {
     playerMadeDecision = true;
     updatePlayerValues("Fold");
     sound.playSound("fold");
+    
+    playerCardsArea.requestLayout();
+    playerCardsArea.getChildren().clear();
+    cards.clear();
+    
+    Image imageTemp = null;
+    ImageView imgCard1 = new ImageView(imageTemp);
+    ImageView imgCard2 = new ImageView(imageTemp);
+
+    Image image = new Image(Paths.get("resources/images/foldedCard.png").toUri().toString(), 114, 148, true, true);
+    imgCard1 = new ImageView(image);
+    playerCardsArea.getChildren().add(imgCard1);
+    imgCard1.setX(0);
+    imgCard1.setY(0);
+
+    image = new Image(Paths.get("resources/images/foldedCard.png").toUri().toString(), 114, 148, true, true);
+    imgCard2 = new ImageView(image);
+    playerCardsArea.getChildren().add(imgCard2);
+    imgCard2.setX(105);
+    imgCard2.setY(0);
   }
 
 
@@ -641,6 +667,7 @@ public class GameController {
    */
   public void endOfRound(int ai) {
 
+	
     Platform.runLater(new Runnable() {
 
       private volatile boolean shutdown;
@@ -653,6 +680,7 @@ public class GameController {
           setLabelUIAiBarPot(ai, Integer.toString(aiPlayers.get(ai).aiPot()));
           setLabelUIAiBarAction(ai, "");
           shutdown = true;
+         
         }
       }
     });
@@ -667,6 +695,7 @@ public class GameController {
    */
   public void setStartingHand(Card card1, Card card2) {
 
+	playerMadeDecision = false;
     isReady = false;
     Platform.runLater(() -> {
       clearFlopTurnRiver(); // Clears the table cards
@@ -705,7 +734,10 @@ public class GameController {
    * getHighlightedCards (important during pre-flop situation).
    */
   public void checkHand() {
-
+	  if (playerMadeDecision == true && (decision == "fold"))  {
+		  	
+		  System.out.println("bubbles");
+	  } else {
     Platform.runLater(() -> {
 
       hand.reCalc();
@@ -745,6 +777,8 @@ public class GameController {
       imgCard2.setY(0);
       updatePlayerValues("");
     });
+    
+	  } 
   }
 
 
@@ -1296,7 +1330,7 @@ public class GameController {
         winnerBox = new WinnerBox();
         winnerBox.displayWinner("Förlust",
             "Tyvärr, du förlorade och dina pengar är slut. Bättre lycka nästa gång!", 5,
-            winnerHand, winnerCard1, winnerCard2);
+            winnerHand, bestPlayerCardOneNumber, bestPlayerCardOneLetter, bestPlayerCardTwoNumber, bestPlayerCardTwoLetter);
 
         changeScene.switchToMainMenu();
 
@@ -1383,7 +1417,7 @@ public class GameController {
    * @param winner Name of the winner from spController.
    * @param hand Int number from spController that represent the value of the winning hand. 
    */
-  public void setWinnerLabel(String winner, int hand, String winnerCard1, String winnerCard2) {
+  public void setWinnerLabel(String winner, int hand, int cardOneNumber, String cardOneLetter, int cardTwoNumber, String cardTwoLetter) {
 
     String winnerOfRound = winner;
    
@@ -1428,26 +1462,26 @@ public class GameController {
     if (!winnerOfRound.equals(getUsername()) && (hand < 10)) {
       Platform.runLater(() -> {
         winnerBox = new WinnerBox();
-        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 2, winnerHand, winnerCard1, winnerCard2 );
+        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 2, winnerHand, cardOneNumber, cardOneLetter, cardTwoNumber, cardTwoLetter);
       });
     } else if (winnerOfRound.equals(getUsername()) && (hand < 10)) {
       Platform.runLater(() -> {
         sound.playSound("coinSound");
         winnerBox = new WinnerBox();
-        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 1, winnerHand, winnerCard1, winnerCard2);
+        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 1, winnerHand, cardOneNumber, cardOneLetter, cardTwoNumber, cardTwoLetter);
 
       });
     } else if (winnerOfRound.equals(getUsername()) && (hand > 10)) {
       Platform.runLater(() -> {
         sound.playSound("coinSound");
         winnerBox = new WinnerBox();
-        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 3, winnerHand, winnerCard1, winnerCard2);
+        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 3, winnerHand, cardOneNumber, cardOneLetter, cardTwoNumber, cardTwoLetter);
 
       });
     } else if (!winnerOfRound.equals(getUsername()) && (hand > 10)) {
       Platform.runLater(() -> {
         winnerBox = new WinnerBox();
-        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 4, winnerHand, winnerCard1, winnerCard2);
+        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 4, winnerHand, cardOneNumber, cardOneLetter, cardTwoNumber, cardTwoLetter);
 
       });
     }

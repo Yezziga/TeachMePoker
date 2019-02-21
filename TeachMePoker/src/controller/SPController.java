@@ -253,7 +253,7 @@ public class SPController extends Thread {
             if (!(checkLivePlayers() > 1)) {
               gController.setPlayerPot(currentPotSize);
               winner = gController.getUsername();
-              gController.setWinnerLabel(winner, 99, "", "");
+              gController.setWinnerLabel(winner, 99, 0, "", 3, "");
               System.out.println(winner + "99??");
               winnerDeclared = true;
               break;
@@ -273,7 +273,7 @@ public class SPController extends Thread {
               if (!(checkLivePlayers() > 1)) {
                 aiPlayers.get(currentPlayer).updateWinner(currentPotSize);
                 winner = aiPlayers.get(currentPlayer).getName();
-                gController.setWinnerLabel(winner, 98, "", "");
+                gController.setWinnerLabel(winner, 98, 1, "", 2, "");
                 System.out.println(winner + "98?! oranges" + currentPlayer + " " + card1 + " " + card2);
                 winnerDeclared = true;
                 break;
@@ -400,8 +400,7 @@ public class SPController extends Thread {
         if (gController.getHandStrength() > bestHand) {
           gController.setPlayerPot(currentPotSize);
           winner = gController.getUsername();
-          gController.setWinnerLabel(winner, gController.getHandStrength(), bestHandPlayer.getCardOne() , bestHandPlayer.getCardTwo());
-          System.out.println("grapes" + winner + " " + gController.getHandStrength() + bestHandPlayer.getCardOne() );
+          gController.setWinnerLabel(winner, gController.getHandStrength(), bestHandPlayer.getFirstCardNumber(), bestHandPlayer.getFirstCardLetter(), bestHandPlayer.getSecondCardNumber(), bestHandPlayer.getSecondCardLetter());
           
           // draw
         } else if (gController.getHandStrength() == bestHand) {
@@ -409,16 +408,14 @@ public class SPController extends Thread {
           if (gController.getGetHighCard() > bestHandPlayer.getHighCard()) {
             gController.setPlayerPot(currentPotSize);
             winner = gController.getUsername();
-            gController.setWinnerLabel(winner, gController.getHandStrength(), bestHandPlayer.getCardOne(), bestHandPlayer.getCardTwo());
-            System.out.println("ginger" + winner + "" + gController.getHandStrength() + bestHandPlayer.getCardOne() );
-            
+            gController.setWinnerLabel(winner, gController.getHandStrength(),  bestHandPlayer.getFirstCardNumber(), bestHandPlayer.getFirstCardLetter(), bestHandPlayer.getSecondCardNumber(), bestHandPlayer.getSecondCardLetter());
+      
             // Draw
           } else if (gController.getGetHighCard() == bestHandPlayer.getHighCard()) {
             bestHandPlayer.updateWinner(currentPotSize / 2);
             gController.setPlayerPot(currentPotSize / 2);
             winner = gController.getUsername() + " och " + bestHandPlayer.getName();
-            gController.setWinnerLabel(winner, bestHand , bestHandPlayer.getCardOne() , bestHandPlayer.getCardTwo());
-            System.out.println(winner + " " + bestHand + "check winner, player hasnt folded. Plums" + bestHandPlayer.getCardOne() );
+            gController.setWinnerLabel(winner, bestHand ,  bestHandPlayer.getFirstCardNumber(), bestHandPlayer.getFirstCardLetter(), bestHandPlayer.getSecondCardNumber(), bestHandPlayer.getSecondCardLetter());
             
             // AI wins and there are second winners.
           } else {
@@ -431,9 +428,7 @@ public class SPController extends Thread {
             } else {
               bestHandPlayer.updateWinner(currentPotSize);
               winner = bestHandPlayer.getName();
-              gController.setWinnerLabel(winner, bestHand , bestHandPlayer.getCardOne() , bestHandPlayer.getCardTwo());
-              System.out.println("oranges " + winner + " " + bestHand + bestHandPlayer.getCardOne() );
-              
+              gController.setWinnerLabel(winner, bestHand ,  bestHandPlayer.getFirstCardNumber(), bestHandPlayer.getFirstCardLetter(), bestHandPlayer.getSecondCardNumber(), bestHandPlayer.getSecondCardLetter());
             }
           }
           // Same thing as above but the player lost and no draw.
@@ -447,8 +442,7 @@ public class SPController extends Thread {
           } else {
             bestHandPlayer.updateWinner(currentPotSize);
             winner = bestHandPlayer.getName();
-            gController.setWinnerLabel(winner, bestHand, bestHandPlayer.getCardOne() , bestHandPlayer.getCardTwo());
-            System.out.println(bestHand + " strawberries " + winner + bestHandPlayer.getCardOne() );
+            gController.setWinnerLabel(winner, bestHand,  bestHandPlayer.getFirstCardNumber(), bestHandPlayer.getFirstCardLetter(), bestHandPlayer.getSecondCardNumber(), bestHandPlayer.getSecondCardLetter());
           }
         }
         // Same thing as above but the player had folded.
@@ -462,8 +456,7 @@ public class SPController extends Thread {
         } else {
           bestHandPlayer.updateWinner(currentPotSize);
           winner = bestHandPlayer.getName();
-          gController.setWinnerLabel(winner, bestHand , bestHandPlayer.getCardOne(), bestHandPlayer.getCardTwo());
-          System.out.println(winner + " blueberries " + bestHand + " " + bestHandPlayer.getCardOne()  );
+          gController.setWinnerLabel(winner, bestHand ,  bestHandPlayer.getFirstCardNumber(), bestHandPlayer.getFirstCardLetter(), bestHandPlayer.getSecondCardNumber(), bestHandPlayer.getSecondCardLetter());
         }
       }
     }
@@ -500,6 +493,11 @@ public class SPController extends Thread {
         String bestPlayerCardOne = "";
         String bestPlayerCardTwo = "";
         
+        int bestPlayerCardOneNumber = 0;
+        String bestPlayerCardOneLetter = "";
+        int bestPlayerCardTwoNumber = 0;
+        String bestPlayerCardTwoLetter = "";
+        
         int bestHand = 0;
         Ai bestHandPlayer = new Ai(0, "");
         for (Ai ai : aiPlayers) {
@@ -526,32 +524,49 @@ public class SPController extends Thread {
             gController.setPlayerPot(allInPotSize);
             winner = gController.getUsername();
             
+            bestPlayerCardOneNumber = bestHandPlayer.getFirstCardNumber();
+            bestPlayerCardOneLetter = bestHandPlayer.getFirstCardLetter();
+            bestPlayerCardTwoNumber = bestHandPlayer.getSecondCardNumber();
+            bestPlayerCardTwoLetter = bestHandPlayer.getSecondCardLetter();
+            
+            
             bestPlayerCardOne = bestHandPlayer.getCardOne();
             bestPlayerCardTwo =  bestHandPlayer.getCardTwo();
             
-            gController.setWinnerLabel(winner, gController.getHandStrength() , bestHandPlayer.getCardOne(), bestHandPlayer.getCardTwo());
+            gController.setWinnerLabel(winner, gController.getHandStrength() , bestPlayerCardOneNumber, bestPlayerCardOneLetter, bestPlayerCardTwoNumber, bestPlayerCardTwoLetter);
             System.out.println(winner + " " + bestPlayerCardOne + "flowers");
           } else if (gController.getHandStrength() == bestHand) {
             if (gController.getGetHighCard() > bestHandPlayer.getHighCard()) {
               gController.setPlayerPot(allInPotSize);
               winner = gController.getUsername();
               
+              bestPlayerCardOneNumber = bestHandPlayer.getFirstCardNumber();
+              bestPlayerCardOneLetter = bestHandPlayer.getFirstCardLetter();
+              bestPlayerCardTwoNumber = bestHandPlayer.getSecondCardNumber();
+              bestPlayerCardTwoLetter = bestHandPlayer.getSecondCardLetter();
+              
+              
               bestPlayerCardOne = bestHandPlayer.getCardOne();
               bestPlayerCardTwo =  bestHandPlayer.getCardTwo();
               
               System.out.println(bestPlayerCardTwo + "ghosts"); 
-              gController.setWinnerLabel(winner, gController.getHandStrength() , bestHandPlayer.getCardOne() , bestHandPlayer.getCardTwo());
+              gController.setWinnerLabel(winner, gController.getHandStrength() , bestPlayerCardOneNumber, bestPlayerCardOneLetter, bestPlayerCardTwoNumber, bestPlayerCardTwoLetter);
               
             } else if (gController.getGetHighCard() == bestHandPlayer.getHighCard()) {
               bestHandPlayer.updateWinner(allInPotSize / 2);
               gController.setPlayerPot(allInPotSize / 2);
               winner = gController.getUsername() + " och " + bestHandPlayer.getName();
               
+              bestPlayerCardOneNumber = bestHandPlayer.getFirstCardNumber();
+              bestPlayerCardOneLetter = bestHandPlayer.getFirstCardLetter();
+              bestPlayerCardTwoNumber = bestHandPlayer.getSecondCardNumber();
+              bestPlayerCardTwoLetter = bestHandPlayer.getSecondCardLetter();
+              
               bestPlayerCardOne = bestHandPlayer.getCardOne();
               bestPlayerCardTwo =  bestHandPlayer.getCardTwo();
               System.out.println(bestPlayerCardTwo + "babe");
               
-              gController.setWinnerLabel(winner, bestHand , bestHandPlayer.getCardOne(), bestHandPlayer.getCardTwo());
+              gController.setWinnerLabel(winner, bestHand , bestPlayerCardOneNumber, bestPlayerCardOneLetter, bestPlayerCardTwoNumber, bestPlayerCardTwoLetter);
             } else {
               if (!secWin.isEmpty()) {
                 int divBy = allInPotSize = secWin.size();
@@ -563,11 +578,16 @@ public class SPController extends Thread {
                 bestHandPlayer.updateWinner(allInPotSize);
                 winner = bestHandPlayer.getName();
                 
+                bestPlayerCardOneNumber = bestHandPlayer.getFirstCardNumber();
+                bestPlayerCardOneLetter = bestHandPlayer.getFirstCardLetter();
+                bestPlayerCardTwoNumber = bestHandPlayer.getSecondCardNumber();
+                bestPlayerCardTwoLetter = bestHandPlayer.getSecondCardLetter();
+                
                 bestPlayerCardOne = bestHandPlayer.getCardOne();
                 bestPlayerCardTwo =  bestHandPlayer.getCardTwo();
                 System.out.println(bestPlayerCardTwo + "whoop");
                 
-                gController.setWinnerLabel(winner, bestHand , bestHandPlayer.getCardOne() , bestHandPlayer.getCardTwo());
+                gController.setWinnerLabel(winner, bestHand , bestPlayerCardOneNumber, bestPlayerCardOneLetter, bestPlayerCardTwoNumber, bestPlayerCardTwoLetter);
               }
             }
           } else {
@@ -580,11 +600,16 @@ public class SPController extends Thread {
               bestHandPlayer.updateWinner(allInPotSize);
               winner = bestHandPlayer.getName();
               
+              bestPlayerCardOneNumber = bestHandPlayer.getFirstCardNumber();
+              bestPlayerCardOneLetter = bestHandPlayer.getFirstCardLetter();
+              bestPlayerCardTwoNumber = bestHandPlayer.getSecondCardNumber();
+              bestPlayerCardTwoLetter = bestHandPlayer.getSecondCardLetter();
+              
               bestPlayerCardOne = bestHandPlayer.getCardOne();
               bestPlayerCardTwo =  bestHandPlayer.getCardTwo();
               System.out.println(bestPlayerCardOne + "burgers");
               
-              gController.setWinnerLabel(winner, bestHand , bestHandPlayer.getCardOne() , bestHandPlayer.getCardTwo());
+              gController.setWinnerLabel(winner, bestHand , bestPlayerCardOneNumber, bestPlayerCardOneLetter, bestPlayerCardTwoNumber, bestPlayerCardTwoLetter);
             }
           }
         } else {
@@ -598,11 +623,16 @@ public class SPController extends Thread {
             bestHandPlayer.updateWinner(allInPotSize);
             winner = bestHandPlayer.getName();
             
+            bestPlayerCardOneNumber = bestHandPlayer.getFirstCardNumber();
+            bestPlayerCardOneLetter = bestHandPlayer.getFirstCardLetter();
+            bestPlayerCardTwoNumber = bestHandPlayer.getSecondCardNumber();
+            bestPlayerCardTwoLetter = bestHandPlayer.getSecondCardLetter();
+            
            bestPlayerCardOne = bestHandPlayer.getCardOne();
-          bestPlayerCardTwo =  bestHandPlayer.getCardTwo();
-          System.out.println(bestPlayerCardOne + "pizza");
+           bestPlayerCardTwo =  bestHandPlayer.getCardTwo();
+           System.out.println(bestPlayerCardOne + "pizza");
           
-            gController.setWinnerLabel(winner, bestHand , bestHandPlayer.getCardOne(), bestHandPlayer.getCardTwo());
+            gController.setWinnerLabel(winner, bestHand , bestPlayerCardOneNumber, bestPlayerCardOneLetter, bestPlayerCardTwoNumber, bestPlayerCardTwoLetter);
           }
         }
       }

@@ -40,6 +40,11 @@ public class Ai {
   private String secondCard;
   private WinnerBox winnerBox;
   
+  private int firstCardNumber;
+  private char firstCardLetter;
+  private int secondCardNumber;
+  private char secondCardLetter;
+  
 
 
   /**
@@ -65,6 +70,12 @@ public class Ai {
     aiCards.clear(); // resets the arraylist.
     char A = card1.getCardSuit().charAt(0);
     char B = card2.getCardSuit().charAt(0);
+    int firstCardNumber = card1.getCardValue();
+    char firstCardLetter = card1.getCardSuit().charAt(0);
+    int secondCardNumber = card2.getCardValue();
+    char secondCardLetter = card2.getCardSuit().charAt(0);
+    
+
     String firstCard = card1.getCardValue() + "," + String.valueOf(A);
     String secondCard = card2.getCardValue() + "," + String.valueOf(B);
    
@@ -72,32 +83,49 @@ public class Ai {
     if (card2.getCardValue() > highCard) {
       highCard = card2.getCardValue();
     }
-    
+      
+    setFirstCardNumber(firstCardNumber);
+    setFirstCardLetter(firstCardLetter);
+    setSecondCardNumber(secondCardNumber);
+    setSecondCardLetter(secondCardLetter);
     
     aiCards.add(firstCard);
-    System.out.println(firstCard + "  boo");
-    setFirstCard(firstCard);
     aiCards.add(secondCard);
-    System.out.println(secondCard + "  luck"); 
-    setSecondCard(secondCard);
+   
+  }
+  
+  public void setFirstCardNumber(int firstCardNumber) {
+	  this.firstCardNumber = firstCardNumber;
+	  System.out.println("set first card number to " + firstCardNumber + " for " + name);
   }
 
-  public void setFirstCard(String firstCard) {
-	  this.firstCard = firstCard;
-	  System.out.println("Yey managed to set " + firstCard + " for " + name );
+  public int getFirstCardNumber() {
+	  return firstCardNumber;
   }
   
-  public String getFirstCard() {
-	  return firstCard;
+  public void setFirstCardLetter(char firstCardLetter) {
+	  this.firstCardLetter = firstCardLetter;
+	  System.out.println("ahoy set first card letter to " + firstCardLetter + " for " + name);
   }
   
-  public void setSecondCard(String secondCard) {
-	  this.secondCard = secondCard;
-	  System.out.println("setting second card " + secondCard + " for " + name);
+  public String getFirstCardLetter() {
+	  return String.valueOf(firstCardLetter);
   }
   
-  public String getSecondCard() {
-	  return secondCard;
+  public void setSecondCardNumber(int secondCardNumber) {
+	  this.secondCardNumber = secondCardNumber;
+  }
+  
+  public int getSecondCardNumber() {
+	  return secondCardNumber;
+  }
+  
+  public void setSecondCardLetter(char secondCardLetter) {
+	  this.secondCardLetter = secondCardLetter;
+  }
+
+  public String getSecondCardLetter() {
+	  return String.valueOf(secondCardLetter);
   }
 
   /**
@@ -352,6 +380,7 @@ public class Ai {
    * @return
    */
   
+
   public String getCardOne() {
 	  return firstCard;
   }
