@@ -120,7 +120,7 @@ public class WinnerBox {
 		card2.setFitWidth(70);
 		card2.setLayoutX(300);
 		card2.setLayoutY(90);
-	
+
 		
 
 		pane.getChildren().addAll(back, messageText, btnOk, card1, card2);

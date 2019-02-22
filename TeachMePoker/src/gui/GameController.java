@@ -35,6 +35,11 @@ import javafx.scene.layout.Pane;
  * @version 2.2
  * Changed players cards when folded to make it clearer she is no longer in the current round. 
  * Added functionality to send the winners two cards. 
+ * 
+ * @version 2.3 
+ * Folded cards are now more transparent, so player can see her folded cards, but it is obvious she is no
+ * longer in the round.
+ * Changed confirm box to alert box, for when a player tries to start a game without entering a username.
  */
 
 public class GameController {
@@ -384,9 +389,9 @@ public class GameController {
     updatePlayerValues("Fold");
     sound.playSound("fold");
     
-    playerCardsArea.requestLayout();
-    playerCardsArea.getChildren().clear();
-    cards.clear();
+//    playerCardsArea.requestLayout();
+//    playerCardsArea.getChildren().clear();
+//    cards.clear();
     
     Image imageTemp = null;
     ImageView imgCard1 = new ImageView(imageTemp);
@@ -397,12 +402,14 @@ public class GameController {
     playerCardsArea.getChildren().add(imgCard1);
     imgCard1.setX(0);
     imgCard1.setY(0);
+    imgCard1.setOpacity(0.5);
 
     image = new Image(Paths.get("resources/images/foldedCard.png").toUri().toString(), 114, 148, true, true);
     imgCard2 = new ImageView(image);
     playerCardsArea.getChildren().add(imgCard2);
     imgCard2.setX(105);
     imgCard2.setY(0);
+    imgCard2.setOpacity(0.5);
   }
 
 

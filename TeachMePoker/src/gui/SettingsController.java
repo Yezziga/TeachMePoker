@@ -24,6 +24,9 @@ import javafx.scene.layout.Pane;
  * @author dalvig
  * @version 2.1 Added possibility to turn music on and off
  *
+ *@author Kold
+ * @version 2.2 Changed from confirm box to alert box, on two separate places.
+ * In the "about project" and when a player tries to play without entering a name. 
  */
 public class SettingsController {
 	private SPController spController;
@@ -33,6 +36,7 @@ public class SettingsController {
 	private String name;
 	private int aiValue;
 	private int potValue;
+	private FMController fm;
 
 	@FXML
 	private TextField tfNameInput;

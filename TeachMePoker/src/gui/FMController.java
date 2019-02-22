@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
  * @version 1.0
  *
  ** @author dalvig
- *  @version 2.1 
+ *  @version 2.1
  * Added possibility to turn music on and off
  *
  */
@@ -23,6 +23,7 @@ public class FMController {
 
 	private ChangeScene changeScene;
 	private Sound sound;
+	private SettingsController sc;
 	@FXML
 	private TextField tfNameInput;
 	@FXML
@@ -62,7 +63,7 @@ public class FMController {
 	public void NewGameClicked() throws Exception {
 
 		changeScene.switchScenetoSetting();
-
+		
 	}
 
 	/**
