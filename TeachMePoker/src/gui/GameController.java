@@ -210,19 +210,11 @@ public class GameController {
   private int[][] aiPositions;
   private int highCard;
   private int prevPlayerActive;
-  private String winnerHand = " ";
+  private String handType = " ";
   private Sound sound = new Sound();
   private TutorialController tutorialWindow;
   private int AllInViability = 0;
   private Label[] collectionOfPots;
-  
-
-
-  private int bestPlayerCardOneNumber = 0;
-  private String bestPlayerCardOneLetter = "";
-  
-  private int bestPlayerCardTwoNumber = 0;
-  private String bestPlayerCardTwoLetter = "";
 
   /**
    * Method for initializing FXML
@@ -1341,7 +1333,7 @@ public class GameController {
         winnerBox = new WinnerBox();
         winnerBox.displayWinner("Förlust",
             "Tyvärr, du förlorade och dina pengar är slut. Bättre lycka nästa gång!", 5,
-            winnerHand, bestPlayerCardOneNumber, bestPlayerCardOneLetter, bestPlayerCardTwoNumber, bestPlayerCardTwoLetter);
+            handType, null, null, null);
 
         changeScene.switchToMainMenu();
 
@@ -1428,71 +1420,71 @@ public class GameController {
    * @param winner Name of the winner from spController.
    * @param hand Int number from spController that represent the value of the winning hand. 
    */
-  public void setWinnerLabel(String winner, int hand, int cardOneNumber, String cardOneLetter, int cardTwoNumber, String cardTwoLetter) {
+  public void setWinnerLabel(String winner, int hand, ArrayList<Card> winningCombination, ArrayList<Card> winningHand, ArrayList<Card> allCards) {
 
     String winnerOfRound = winner;
    
 
     if (hand == 0) {
-      winnerHand = "högsta kort";
+      handType = "högsta kort";
     }
     if (hand == 1) {
-      winnerHand = "ett par";
+      handType = "ett par";
     }
     if (hand == 2) {
-      winnerHand = "två par";
+      handType = "två par";
     }
     if (hand == 3) {
-      winnerHand = "triss";
+      handType = "triss";
     }
     if (hand == 4) {
-      winnerHand = "straight";
+      handType = "straight";
     }
     if (hand == 5) {
-      winnerHand = "flush";
+      handType = "flush";
     }
     if (hand == 6) {
-      winnerHand = "full house";
+      handType = "full house";
     }
     if (hand == 7) {
-      winnerHand = "four of a kind";
+      handType = "four of a kind";
     }
     if (hand == 8) {
-      winnerHand = "straight flush";
+      handType = "straight flush";
     }
     if (hand == 99) {
-      winnerHand = "Du vann när resten av spelarna foldade!";
+      handType = "Du vann när resten av spelarna foldade!";
     }
     if (hand == 98) {
-      winnerHand = "när resterande spelare foldade.";
+      handType = "när resterande spelare foldade.";
     }
     if (hand == 97) {
-      winnerHand = "Du förlorade!";
+      handType = "Du förlorade!";
     }
 
     if (!winnerOfRound.equals(getUsername()) && (hand < 10)) {
       Platform.runLater(() -> {
         winnerBox = new WinnerBox();
-        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 2, winnerHand, cardOneNumber, cardOneLetter, cardTwoNumber, cardTwoLetter);
+        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 2, handType, winningCombination, winningHand, allCards);
       });
     } else if (winnerOfRound.equals(getUsername()) && (hand < 10)) {
       Platform.runLater(() -> {
         sound.playSound("coinSound");
         winnerBox = new WinnerBox();
-        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 1, winnerHand, cardOneNumber, cardOneLetter, cardTwoNumber, cardTwoLetter);
+        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 1, handType, winningCombination, winningHand, allCards);
 
       });
     } else if (winnerOfRound.equals(getUsername()) && (hand > 10)) {
       Platform.runLater(() -> {
         sound.playSound("coinSound");
         winnerBox = new WinnerBox();
-        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 3, winnerHand, cardOneNumber, cardOneLetter, cardTwoNumber, cardTwoLetter);
+        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 3, handType, winningCombination, winningHand, allCards);
 
       });
     } else if (!winnerOfRound.equals(getUsername()) && (hand > 10)) {
       Platform.runLater(() -> {
         winnerBox = new WinnerBox();
-        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 4, winnerHand, cardOneNumber, cardOneLetter, cardTwoNumber, cardTwoLetter);
+        winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 4, handType, winningCombination, winningHand, allCards);
 
       });
     }
@@ -1577,6 +1569,17 @@ public class GameController {
       mainPot.setVisible(true);
     });
   }
+  
+  public ArrayList<Card> getPlayerCards() {
+	  return cards;
+  }
 
+  public Card getCardOne() {
+	  return card1;
+  }
+  
+  public Card getCardTwo() {
+	  return card2;
+  }
 
 }

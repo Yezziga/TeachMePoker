@@ -3,8 +3,10 @@ package gui;
 
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import aiClass.Ai;
+import deck.Card;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -32,32 +34,30 @@ public class WinnerBox {
 	public Font font = new Font("Tw Cen MT", 18);
 	private ImageView back = new ImageView(Paths.get("resources/images/background.png").toUri().toString());
 	private ImageView btnOk = new ImageView(Paths.get("resources/images/okButton.png").toUri().toString());
-	
-	
+
+
 	/**
 	 * Creates a window containting messages of who won or lost. 
 	 * @param title String title of the window from the method that uses WinnerBox. 
 	 * @param message String message to display in the window from the method that uses ConfirmBox. 
 	 * @param nr Int to check which message should be displayed. 
-	 * @param handStrength String to print the handstrength the player or AI won with. 
+	 * @param handType String to print the handstrength the player or AI won with. 
 	 * @return answer Boolean that returns an answer.
 	 */
-	public boolean displayWinner(String title, String message, int nr, String handStrength, int cardOneNumber, String cardOneLetter, int cardTwoNumber, String cardTwoLetter) {
-		
-		
-		
-		String aiWin = new String("Rundan vanns av " + message + " som hade " + handStrength );
-		String playerWin = new String("Grattis " + message + ", du vann den här rundan! Du vann med " + handStrength );
-		String playerWinAIFold = new String("Grattis " + message + ". " + handStrength ); 
-		String aiWinOthersFold = new String("Rundan vanns av " + message + " " + handStrength );
+	public boolean displayWinner(String title, String message, int nr, String handType, ArrayList<Card> winningCombination, ArrayList<Card> winningHand, ArrayList<Card> allCards) {
+
+
+
+		String aiWin = new String("Rundan vanns av " + message + " som hade " + handType );
+		String playerWin = new String("Grattis " + message + ", du vann den här rundan! Du vann med " + handType );
+		String playerWinAIFold = new String("Grattis " + message + ". " + handType ); 
+		String aiWinOthersFold = new String("Rundan vanns av " + message + " " + handType );
 		String playerLose = new String (message);
 
-		
-		
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle(title);
 		window.setWidth(400);
-		window.setHeight(300);
+		window.setHeight(350);
 		window.setOnCloseRequest(e -> closeProgram());
 
 		Pane pane = new Pane();
@@ -66,32 +66,32 @@ public class WinnerBox {
 		messageText.setFont(font);
 		messageText.setTextFill(Color.WHITE);
 		messageText.setWrapText(true);
-		
+
 		if(nr == 1){
 			messageText.setText(playerWin);
-		
-		
-			
+
+
+
 		} else if(nr == 2){
 			messageText.setText(aiWin);
-			
-			
+
+
 		} else if(nr == 3){
 			messageText.setText(playerWinAIFold);
-		
-			
+
+
 		} else if(nr == 4){
-		messageText.setText(aiWinOthersFold);
-	
-		
+			messageText.setText(aiWinOthersFold);
+
+
 		}
 		else if (nr == 5){
 			messageText.setText(playerLose);
-		
-			
-	
+
+
+
 		}
-		
+
 		btnOk.setOnMouseReleased(e -> {
 			answer = true;
 			closeProgram();
@@ -106,32 +106,46 @@ public class WinnerBox {
 		btnOk.setFitWidth(35);
 		btnOk.setLayoutX(175);
 		btnOk.setLayoutY(110);
-		
-		ImageView card1 = new ImageView(Paths.get("resources/images/" + cardOneNumber + cardOneLetter + ".png").toUri().toString());
-		
-		card1.setFitHeight(100);
-		card1.setFitWidth(70);
-		card1.setLayoutX(240);
-		card1.setLayoutY(90);
-		
-		ImageView card2 = new ImageView(Paths.get("resources/images/" + cardTwoNumber + cardTwoLetter + ".png").toUri().toString());
-		
-		card2.setFitHeight(100);
-		card2.setFitWidth(70);
-		card2.setLayoutX(300);
-		card2.setLayoutY(90);
 
-		
+		pane.getChildren().addAll(back, messageText, btnOk);
 
-		pane.getChildren().addAll(back, messageText, btnOk, card1, card2);
+		if(allCards != null) {
+			int xPosition = 15, handxPosition = 120;
+			String highlight = "";
+			System.out.println("All cards: " + allCards);
+			System.out.print("Winning combo:" + winningCombination);
+			for(Card card : allCards) {
+				if(winningCombination.contains(card)) {
+					highlight = "O";
+				} else {
+					highlight = "";
+				}
+				
+				ImageView cardIcon = new ImageView(Paths.get("resources/images/" + card.getCardValue() + card.getCardSuit().charAt(0) + highlight + ".png").toUri().toString());
+				
+				if(winningHand.contains(card)) {
+					cardIcon.setLayoutY(200);
+					cardIcon.setLayoutX(handxPosition);
+					handxPosition += 70;
+				} else {
+					cardIcon.setLayoutY(90);
+					cardIcon.setLayoutX(xPosition);
+					xPosition += 70;
+				}				
+				cardIcon.setFitHeight(100);
+				cardIcon.setFitWidth(70);			
+				
+				pane.getChildren().add(cardIcon);
+			}
+		}
 
 		Scene scene = new Scene(pane);
 		window.setScene(scene);
 		window.showAndWait();
 		return answer;
-		
+
 	}
-	
+
 
 	/**
 	 * Closes the window. 
