@@ -45,5 +45,12 @@ public class Card {
 	public Icon getCardIcon(){
 		return cardIcon;
 	}
+	/**
+	 * Returns a card in String format.
+	 * @return String
+	 */
+	public String toString(){
+		return cardValue + "," + cardSuit.getSuitLetter();
+	}
 	
 }
