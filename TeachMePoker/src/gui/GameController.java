@@ -1570,16 +1570,17 @@ public class GameController {
     });
   }
   
-  public ArrayList<Card> getPlayerCards() {
-	  return cards;
-  }
-
-  public Card getCardOne() {
-	  return card1;
+  public ArrayList<Card> getTableCards() {
+	  ArrayList<Card> tableCards = new ArrayList<Card>(cards);
+	  tableCards.removeAll(getMainPlayerHand());
+	  return tableCards;
   }
   
-  public Card getCardTwo() {
-	  return card2;
+  public ArrayList<Card> getMainPlayerHand() {
+	  ArrayList<Card> mainHand = new ArrayList<Card>();
+	  mainHand.add(card1);
+	  mainHand.add(card2);
+	  return mainHand;
   }
 
 }

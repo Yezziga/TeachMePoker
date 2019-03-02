@@ -294,7 +294,7 @@ public class AiCalculation {
 		return handStrength;
 	}
 
-	//TODO Move calculations of the best combination to this function
+	//TODO Move calculations of the best combination to this function or to new class
 	public ArrayList<Card> getWinningCards() {
 		return bestCombination;
 	}
