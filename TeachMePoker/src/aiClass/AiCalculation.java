@@ -1,5 +1,6 @@
 package aiClass;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,6 +21,11 @@ import deck.Suit;
  * @author Henrik
  * @version 3.0
  * Added checks for finding and saving the best combination. Added checks for any existing flush.
+ * 
+ * @version 3.1
+ * Fixed a small bug that prevented a straight from being detected. Fixed a bug that would
+ * overwrite the high-card as the best combination. Added a function to prevent all five
+ * table-cards from being used when prior to the river-round.
  */
 public class AiCalculation {
 
@@ -38,12 +44,14 @@ public class AiCalculation {
 		this.aiHand = aiHand;
 		allCards.addAll(aiHand);
 		allCards.addAll(tableCards);
+		doChecks();
+	}
+
+	public void doChecks() {
 		checkHighCards();
 		checkSuit();
 		checkPairAndMore();
 		checkStraight();
-		System.out.println(aiHand);
-		System.out.println(calcHandstrenght());
 	}
 
 	/**
@@ -58,7 +66,7 @@ public class AiCalculation {
 		if ((card1 + card2) >= 17) {
 			high = true;
 		}
-		
+
 		if(bestCombination.isEmpty()) {
 			if(card1 > card2) {
 				bestCombination.add(aiHand.get(0));
@@ -150,58 +158,60 @@ public class AiCalculation {
 		}
 
 		//Gets the best combination
-		if(fullHouse && same < 4) { //Gets the fullhouse combination
-			int pairValue = 0, threeOfAKindValue = 0;
-			for(int i = (cardValuesOccurrences.length-1); i >= 0; i--) {
-				if(cardValuesOccurrences[i] >= 3 && threeOfAKindValue == 0) {
-					threeOfAKindValue = i;
-				} else if(cardValuesOccurrences[i] >= 2 && pairValue == 0) {
-					pairValue = i;
+		if(fullHouse || pairs > 1) {
+			if(fullHouse && same < 4) { //Gets the fullhouse combination
+				int pairValue = 0, threeOfAKindValue = 0;
+				for(int i = (cardValuesOccurrences.length-1); i >= 0; i--) {
+					if(cardValuesOccurrences[i] >= 3 && threeOfAKindValue == 0) {
+						threeOfAKindValue = i;
+					} else if(cardValuesOccurrences[i] >= 2 && pairValue == 0) {
+						pairValue = i;
+					}
 				}
-			}
-			bestCombination.clear();
-			for(Card card : allCards) {
-				if(card.getCardValue() == pairValue || card.getCardValue() == threeOfAKindValue) {
-					bestCombination.add(card);
+				bestCombination.clear();
+				for(Card card : allCards) {
+					if(card.getCardValue() == pairValue || card.getCardValue() == threeOfAKindValue) {
+						bestCombination.add(card);
+					}
 				}
-			}
-		} else if(same > 2) { //Adds three of a kind or four of a kind to best combination
-			int tempValue = 0;
-			for(int i = (cardValuesOccurrences.length-1); i >= 0; i--) {
-				if(same == 4 && cardValuesOccurrences[i] == 4) {
-					tempValue = i;
-				} else if(same == 3 && cardValuesOccurrences[i] == 3 && tempValue == 0) {
-					tempValue = i;
+			} else if(same > 2) { //Adds three of a kind or four of a kind to best combination
+				int tempValue = 0;
+				for(int i = (cardValuesOccurrences.length-1); i >= 0; i--) {
+					if(same == 4 && cardValuesOccurrences[i] == 4) {
+						tempValue = i;
+					} else if(same == 3 && cardValuesOccurrences[i] == 3 && tempValue == 0) {
+						tempValue = i;
+					}
 				}
-			}
-			bestCombination.clear();
-			for(Card card : allCards) {
-				if(card.getCardValue() == tempValue) {
-					bestCombination.add(card);
+				bestCombination.clear();
+				for(Card card : allCards) {
+					if(card.getCardValue() == tempValue) {
+						bestCombination.add(card);
+					}
 				}
-			}
-		} else { //Adds one pair or two pair to the best combination
-			int pairOneValue = 0, pairTwoValue = 0, pairOneCount = 0, pairTwoCount = 0;
-			for(int i = (cardValuesOccurrences.length-1); i >= 0; i--) {
-				if(cardValuesOccurrences[i] >= 2) {
-					if(pairOneValue == 0) {
-						pairOneValue = i;
-					} else if(pairTwoValue == 0) {
-						pairTwoValue = i;
+			} else { //Adds one pair or two pair to the best combination
+				int pairOneValue = 0, pairTwoValue = 0, pairOneCount = 0, pairTwoCount = 0;
+				for(int i = (cardValuesOccurrences.length-1); i >= 0; i--) {
+					if(cardValuesOccurrences[i] >= 2) {
+						if(pairOneValue == 0) {
+							pairOneValue = i;
+						} else if(pairTwoValue == 0) {
+							pairTwoValue = i;
+						}
+					}
+				}
+				bestCombination.clear();
+				for(Card card : allCards) {
+					if(card.getCardValue() == pairOneValue && pairOneCount < 2) {
+						bestCombination.add(card);
+						pairOneCount++;
+					} else if(card.getCardValue() == pairTwoValue && pairTwoCount < 2) {
+						bestCombination.add(card);
+						pairTwoCount++;
 					}
 				}
 			}
-			bestCombination.clear();
-			for(Card card : allCards) {
-				if(card.getCardValue() == pairOneValue && pairOneCount < 2) {
-					bestCombination.add(card);
-					pairOneCount++;
-				} else if(card.getCardValue() == pairTwoValue && pairTwoCount < 2) {
-					bestCombination.add(card);
-					pairTwoCount++;
-				}
-			}
-		}
+		}		
 
 		return same;
 	}
@@ -213,7 +223,7 @@ public class AiCalculation {
 	 */
 	public int checkStraight() {
 		int treshold = 0;
-		
+
 		ArrayList<Integer> cardValues = new ArrayList<Integer>();
 		for(Card card : allCards) { //Creates a sorted list with the values of all cards
 			cardValues.add(card.getCardValue());
@@ -222,12 +232,12 @@ public class AiCalculation {
 			}
 		}
 		Collections.sort(cardValues, Collections.reverseOrder());
-		
+
 		for(int startValue : cardValues) {
 			ArrayList<Integer> tempList = new ArrayList<Integer>();
 			tempList.add(startValue);
 			for(int value : cardValues) { //Compares the start value with all other values to check for a straight
-				if(value == tempList.get(tempList.size() - 1)) {
+				if(value == (tempList.get(tempList.size() - 1) - 1)) {
 					if(tempList.size() < 5) {
 						tempList.add(value);
 					}					
@@ -254,7 +264,7 @@ public class AiCalculation {
 				treshold = tempList.size();
 			}
 		}
-		
+
 		return treshold;
 	}
 
@@ -298,11 +308,36 @@ public class AiCalculation {
 	public ArrayList<Card> getWinningCards() {
 		return bestCombination;
 	}
-	
+
+	/**
+	 * If not last round, remove some of the cards from allCards
+	 */
+	public ArrayList<Card> getWinningCards(int round) {		
+		if(round < 3) {
+			if(round == 0) { //Pre-flop
+				while(allCards.size() > 2) {
+					allCards.remove(allCards.size() - 1);
+				}
+			} else if(round == 1) { //Flop
+				while(allCards.size() > 5) {
+					allCards.remove(allCards.size() - 1);
+				}
+			} else { //Turn
+				while(allCards.size() > 6) {
+					allCards.remove(allCards.size() - 1);
+				}
+			}
+		}
+
+		doChecks();
+
+		return bestCombination;
+	}
+
 	public ArrayList<Card> getAIHand() {
 		return aiHand;
 	}
-	
+
 	public ArrayList<Card> getAllCards() {
 		return allCards;
 	}
