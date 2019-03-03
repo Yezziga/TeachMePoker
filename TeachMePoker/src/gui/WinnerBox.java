@@ -25,6 +25,10 @@ import javafx.stage.Stage;
  *@author dalvig
  *version 2.2
  * Added images of the winners cards to the announcement window 
+ * 
+ * @author Henrik
+ * @version 3.0
+ * Updated the winner box layout to show the table cards, the winners hand and highlight the winning combination.
  */
 public class WinnerBox {
 
@@ -57,7 +61,7 @@ public class WinnerBox {
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle(title);
 		window.setWidth(400);
-		window.setHeight(350);
+		window.setHeight(400);
 		window.setOnCloseRequest(e -> closeProgram());
 
 		Pane pane = new Pane();
@@ -105,7 +109,6 @@ public class WinnerBox {
 		btnOk.setFitHeight(35);
 		btnOk.setFitWidth(35);
 		btnOk.setLayoutX(175);
-		btnOk.setLayoutY(110);
 
 		pane.getChildren().addAll(back, messageText, btnOk);
 
@@ -128,7 +131,7 @@ public class WinnerBox {
 					cardIcon.setLayoutX(handxPosition);
 					handxPosition += 70;
 				} else {
-					cardIcon.setLayoutY(90);
+					cardIcon.setLayoutY(100);
 					cardIcon.setLayoutX(xPosition);
 					xPosition += 70;
 				}				
@@ -136,7 +139,11 @@ public class WinnerBox {
 				cardIcon.setFitWidth(70);			
 				
 				pane.getChildren().add(cardIcon);
+				
+				btnOk.setLayoutY(310);
 			}
+		} else {
+			btnOk.setLayoutY(110);
 		}
 
 		Scene scene = new Scene(pane);
