@@ -49,146 +49,30 @@ import javafx.scene.layout.Pane;
 public class GameController {
 
 	@FXML
-	private ImageView btCheck;
-	@FXML
-	private ImageView btCall;
-	@FXML
-	private ImageView btFold;
-	@FXML
-	private ImageView btRaise;
+	private ImageView btCheck, btCall, btFold, btRaise, cardOne, imgRoundStatus, imgCard1, imgCard2, imgCard3, imgCard4,
+			imgCard5, imgCard6, imgCard7, ivBigBlind, ivSmallBlind, ivDealer, imgPlayerOneCards, imgPlayerTwoCards,
+			imgPlayerThreeCards, imgPlayerFourCards, imgPlayerFiveCards, ivSound;
 	@FXML
 	private Slider slider;
 	@FXML
-	private Label lbPlayerAction;
+	private Label lbPlayerAction, lbPotValue, lbAllIn, adviceLabel, helpLabel, userName, raiseLabel, subPotOne,
+			subPotTwo, subPotThree, subPotFour, subPotFive, subPotSix, mainPot, labelPlayerOneName, labelPlayerTwoName,
+			labelPlayerThreeName, labelPlayerFourName, labelPlayerFiveName, labelPlayerOnePot, labelPlayerTwoPot,
+			labelPlayerThreePot, labelPlayerFourPot, labelPlayerFivePot, labelPlayerOneAction, labelPlayerTwoAction,
+			labelPlayerThreeAction, labelPlayerFourAction, labelPlayerFiveAction;
 	@FXML
-	private Label lbPotValue;
-	@FXML
-	private Label lbAllIn;
-	@FXML
-	private Pane powerBarArea;
-	@FXML
-	private ImageView cardOne;
-	@FXML
-	private Pane playerCardsArea;
-	@FXML
-	private Label adviceLabel;
-	@FXML
-	private Label helpLabel;
-	@FXML
-	private Label userName;
-	@FXML
-	private Label raiseLabel;
-	@FXML
-	private Pane tabelCardArea;
+	private Pane powerBarArea, playerCardsArea, tabelCardArea, paneRounds;
 	@FXML
 	private AnchorPane AnchorPaneAll;
-
-	@FXML
-	private ImageView imgRoundStatus;
-	@FXML
-	private Pane paneRounds;
-
-	@FXML
-	private ImageView imgPlayerOneCards;
-	@FXML
-	private ImageView imgPlayerTwoCards;
-	@FXML
-	private ImageView imgPlayerThreeCards;
-	@FXML
-	private ImageView imgPlayerFourCards;
-	@FXML
-	private ImageView imgPlayerFiveCards;
-
-	@FXML
-	private Label labelPlayerOneName;
-	@FXML
-	private Label labelPlayerTwoName;
-	@FXML
-	private Label labelPlayerThreeName;
-	@FXML
-	private Label labelPlayerFourName;
-	@FXML
-	private Label labelPlayerFiveName;
-
-	@FXML
-	private Label labelPlayerOnePot;
-	@FXML
-	private Label labelPlayerTwoPot;
-	@FXML
-	private Label labelPlayerThreePot;
-	@FXML
-	private Label labelPlayerFourPot;
-	@FXML
-	private Label labelPlayerFivePot;
-
-	@FXML
-	private Label labelPlayerOneAction;
-	@FXML
-	private Label labelPlayerTwoAction;
-	@FXML
-	private Label labelPlayerThreeAction;
-	@FXML
-	private Label labelPlayerFourAction;
-	@FXML
-	private Label labelPlayerFiveAction;
-
-	@FXML
-	private ImageView imgCard1;
-	@FXML
-	private ImageView imgCard2;
-	@FXML
-	private ImageView imgCard3;
-	@FXML
-	private ImageView imgCard4;
-	@FXML
-	private ImageView imgCard5;
-	@FXML
-	private ImageView imgCard6;
-	@FXML
-	private ImageView imgCard7;
-
-	@FXML
-	private ImageView ivBigBlind;
-	@FXML
-	private ImageView ivSmallBlind;
-	@FXML
-	private ImageView ivDealer;
 	@FXML
 	private TitledPane tpHandRanking;
 	@FXML
-	public ImageView ivSound;
-	@FXML
-	public MenuItem miNewGame;
-	@FXML
-	public MenuItem miClose;
-	@FXML
-	public MenuItem miSettings;
-	@FXML
-	public MenuItem miAbout;
-	@FXML
-	public MenuItem miTutorial;
+	public MenuItem miNewGame, miClose, miSettings, miAbout, miTutorial;
 
 	@FXML
 	public Pane panePot;
-	@FXML
-	public Label subPotOne;
-	@FXML
-	public Label subPotTwo;
-	@FXML
-	public Label subPotThree;
-	@FXML
-	public Label subPotFour;
-	@FXML
-	public Label subPotFive;
-	@FXML
-	public Label subPotSix;
-	@FXML
-	public Label mainPot;
-
 	public Image soundOn = new Image("images/soundButton.png");
-
 	public Image soundOff = new Image("images/soundOffButton.png");
-
 	private WinnerBox winnerBox;
 	private ConfirmBox confirmBox;
 	private ChangeScene changeScene;
@@ -204,16 +88,13 @@ public class GameController {
 	private boolean playerMadeDecision = false;
 	private boolean isReady = false;
 	private String decision;
-	private Card card1;
-	private Card card2;
+	private Card card1, card2;
 	private int handStrength;
 	private LinkedList<Ai> aiPlayers;
 	private Label[][] collectionOfLabelsAi;
-	private ImageView[] collectionOfCardsAi;
-	private ImageView[] collectionOfCardsTable;
+	private ImageView[] collectionOfCardsAi, collectionOfCardsTable;
 	private int[][] aiPositions;
-	private int highCard;
-	private int prevPlayerActive;
+	private int highCard, prevPlayerActive;
 	private String handType = " ";
 	private Sound sound = new Sound();
 	private TutorialController tutorialWindow;
