@@ -27,6 +27,9 @@ import javafx.scene.layout.Pane;
  *@author Kold
  * @version 2.2 Changed from confirm box to alert box, on two separate places.
  * In the "about project" and when a player tries to play without entering a name. 
+ * 
+ * @author Quach
+ * @version 3.1 Removed the confirm box when player starts a game
  */
 public class SettingsController {
 	private SPController spController;

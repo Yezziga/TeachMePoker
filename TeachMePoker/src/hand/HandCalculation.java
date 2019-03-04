@@ -13,15 +13,13 @@ public class HandCalculation {
 	private ArrayList<String> finalHihglight = new ArrayList<String>();
 	private ArrayList<String> nbrForStraight = new ArrayList<String>();
 	private ArrayList<String> nbrForStraight1 = new ArrayList<String>();
-	private ArrayList<String> aiCards = new ArrayList<String>();
+	private ArrayList<String> playerCards = new ArrayList<String>();
 	private ArrayList<Integer> cardNbr = new ArrayList<Integer>();
 	private ArrayList<String> cardClr = new ArrayList<String>();
 	private boolean highCards = false;
 	private boolean lowCards = false;
 	private boolean rlyhighCards = false;
-	private int colorChance;
-	private int straightChance;
-	private int pairsNmore;
+	private int colorChance, straightChance, pairsNmore;
 	private String yourCard ="1,1";
 	private String yourCard2 ="1,1";
 	private String otherCard ="1,1";
@@ -29,14 +27,14 @@ public class HandCalculation {
 	private ArrayList<String> toHighlight = new ArrayList<String>();
 	private String advicee;
 	private String whatStraight;
-	private int handStrenght = 0;
+	private int handStrength = 0;
 	/**
 	 * 
 	 * @param aiCards Current cards needed for evaluate.
 	 */
 	public HandCalculation(ArrayList<String> aiCards) {
 		
-		this.aiCards = aiCards;
+		this.playerCards = aiCards;
 		getCardValues(aiCards);
 		toHighlight.clear();
 		highCards = checkHighCards();
@@ -79,7 +77,7 @@ public class HandCalculation {
 		int nbrOftemp = 0;
 		int nbrOftemp1 = 0;
 		int nbrOftemp2 = 0;
-		int size = aiCards.size();
+		int size = playerCards.size();
 		int[] cards = new int[size+1];
 		
 		
@@ -91,10 +89,10 @@ public class HandCalculation {
 			int temp = cards[0];
 			 nbrOftemp = 2;
 			 toHighlight.clear();
-			 toHighlight.add(aiCards.get(1));
-			 toHighlight.add(aiCards.get(0));
-			 yourCard = aiCards.get(0);
-			 otherCard = aiCards.get(1);
+			 toHighlight.add(playerCards.get(1));
+			 toHighlight.add(playerCards.get(0));
+			 yourCard = playerCards.get(0);
+			 otherCard = playerCards.get(1);
 			
 			for(int i = 2; i<cards.length; i++){
 				if(cards[i]==temp){
@@ -125,9 +123,9 @@ public class HandCalculation {
 
 				nbrOftemp1++;
 				
-				yourCard = aiCards.get(0);
-				otherCard = aiCards.get(i);
-				yourCard2 = aiCards.get(0);
+				yourCard = playerCards.get(0);
+				otherCard = playerCards.get(i);
+				yourCard2 = playerCards.get(0);
 			}
 			if(cards[i]==temp2){
 				
@@ -139,8 +137,8 @@ public class HandCalculation {
 					lowCards=true;
 				}
 				nbrOftemp2++;
-				yourCard = aiCards.get(1);
-				otherCard = aiCards.get(i);
+				yourCard = playerCards.get(1);
+				otherCard = playerCards.get(i);
 				
 			}
 		  }
@@ -221,7 +219,7 @@ public class HandCalculation {
 				String temp = cardClr.get(i);
 				if(S==5)
 				if(temp.equals("S")){
-					toHighlight.add(aiCards.get(i));
+					toHighlight.add(playerCards.get(i));
 				}
 			}
 		}
@@ -234,7 +232,7 @@ public class HandCalculation {
 				String temp = cardClr.get(i);
 				if(H==5)
 				if(temp.equals("H")){
-					toHighlight.add(aiCards.get(i));
+					toHighlight.add(playerCards.get(i));
 				}
 			}
 		}
@@ -246,7 +244,7 @@ public class HandCalculation {
 				String temp = cardClr.get(i);
 				if(D==5)
 				if(temp.equals("D")){
-					toHighlight.add(aiCards.get(i));
+					toHighlight.add(playerCards.get(i));
 				}
 			}
 		}
@@ -258,7 +256,7 @@ public class HandCalculation {
 				String temp = cardClr.get(i);
 				if(C==5)
 				if(temp.equals("C")){
-					toHighlight.add(aiCards.get(i));
+					toHighlight.add(playerCards.get(i));
 				}
 			}
 		}
@@ -348,13 +346,13 @@ public class HandCalculation {
 	public ArrayList<String> getToHighlight() {
 		for (int y = 0; y < nbrForStraight1.size(); y++) {
 			int same = 1;
-			for (int i = 0; i < aiCards.size(); i++) {
+			for (int i = 0; i < playerCards.size(); i++) {
 				
-				String temp = aiCards.get(i);
+				String temp = playerCards.get(i);
 				String[] tempSplit = temp.split(",");
 				if (nbrForStraight1.get(y).equals(tempSplit[0])) {
 					if(same==1){
-					finalHihglight.add(aiCards.get(i));
+					finalHihglight.add(playerCards.get(i));
 					same++;
 					}
 				}
@@ -368,19 +366,19 @@ public class HandCalculation {
 	public int calcPwrBarLvl(){
 		int pwrBar = 1;
 		//TURNONE PWRLEVEL
-		if (aiCards.size() == 2) {
+		if (playerCards.size() == 2) {
 			pwrBar = pwrBarLvlOnTurnOne();
 		}
 		//TURNTWO PWRLEVEL
-		if (aiCards.size() == 5) {	
+		if (playerCards.size() == 5) {	
 			pwrBar = pwrBarLvlOnTurnTwo();
 		}
 		//TURNTHREE PWRLEVEL
-		if (aiCards.size() == 6) {			
+		if (playerCards.size() == 6) {			
 		 pwrBar = pwrBarLvlOnTurnThree();
 		}
 		//TURNFOUR PWRLEVEL
-		if (aiCards.size() == 7) {
+		if (playerCards.size() == 7) {
 		pwrBar = pwrBarLvlOnTurnFour();
 		}
 		return pwrBar;
@@ -601,20 +599,18 @@ public class HandCalculation {
 		advice = "Du har bara 'HIGH CARD'. \nOm det är billigt så kan du prova och se.\n";
 		
 		if(highCards){
-			advice = "Du har ett högt 'HIGH CARD'. \nOm det är billigt så kan du prova och se.\n";
+			advice = "You have a 'HIGH CARD'. \nSuggestion: Do not fold or go all-in! Call\n";
 		}
-		
-		
 		// ONE PAIR
 			if(pairsNmore==2){
 				helper = "'ONE-PAIR' i " +  yourCardInt +"\n";
-				if(aiCards.size()==2){
-					advice = "'ONE-PAIR' på första-handen är en stark hand!\nSå kör på!\n";
+				if(playerCards.size()==2){
+					advice = "You have 'ONE-PAIR' of low cards.\nSuggestion: do not fold or go all-in! Call\n";
 					if(highCards){
-					 advice = "'ONE-PAIR' på första-handen är en stark hand!\nOch då detta är även är ett högt par, Så kör verkligen!!\n";
+						advice = "You have 'ONE-PAIR' of high cards.\nSuggestion: do not fold or go all-in! Raise amount equal to the Big Blind\n";
 					}
 				}
-				if(aiCards.size()==5){
+				if(playerCards.size()==5){
 				advice = "'ONE-PAIR' är en ok hand. Om det inte kostar för mycket. Så kör på!\n";
 				if(lowCards){
 					advice = "'ONE-PAIR' är en ok hand, även då detta är ett lågt par.\nOm det inte kostar för mycket. Så kör på!\n";
@@ -624,7 +620,7 @@ public class HandCalculation {
 				 }
 				}
 				
-				if(aiCards.size()>5){
+				if(playerCards.size()>5){
 					advice = "'ONE-PAIR' är en hyfsat ok hand. Om det inte kostar för mycket. Så kör på!\n";
 					if(lowCards){
 						advice = "'ONE-PAIR' är en hyfsat ok hand, även då detta är ett lågt par.\nOm det inte kostar för mycket. Så kör på!\n";
@@ -637,11 +633,11 @@ public class HandCalculation {
 				// writes the active cards to hihglight
 				if(straightChance<5 && colorChance<5){
 				toHighlight.clear();
-				for(int i = 0; i<aiCards.size(); i++){			
-					String[] seeIfSame = aiCards.get(i).split(",");
+				for(int i = 0; i<playerCards.size(); i++){			
+					String[] seeIfSame = playerCards.get(i).split(",");
 					int temp = Integer.parseInt(seeIfSame[0]);
 					if(intCardNbr==temp){
-						toHighlight.add(aiCards.get(i));
+						toHighlight.add(playerCards.get(i));
 					}
 				}
 			}
@@ -655,15 +651,15 @@ public class HandCalculation {
 				// writes the active cards to hihglight
 				if(straightChance<5 && colorChance<5){
 				toHighlight.clear();		
-				for(int i = 0; i<aiCards.size(); i++){
+				for(int i = 0; i<playerCards.size(); i++){
 					int cardIntOne = cardNbr.get(0);
 					int cardIntTwo = cardNbr.get(1);
 					
 					if(cardIntOne==cardNbr.get(i)){
-						toHighlight.add(aiCards.get(i));
+						toHighlight.add(playerCards.get(i));
 					}
 					if(cardIntTwo==cardNbr.get(i)){
-						toHighlight.add(aiCards.get(i));
+						toHighlight.add(playerCards.get(i));
 					}
 				}
 			}
@@ -676,11 +672,11 @@ public class HandCalculation {
 			// writes the active cards to hihglight
 			if(straightChance<5 && colorChance<5){
 			toHighlight.clear();
-			for(int i = 0; i<aiCards.size(); i++){			
-				String[] seeIfSame = aiCards.get(i).split(",");
+			for(int i = 0; i<playerCards.size(); i++){			
+				String[] seeIfSame = playerCards.get(i).split(",");
 				int temp = Integer.parseInt(seeIfSame[0]);
 				if(intCardNbr==temp){
-					toHighlight.add(aiCards.get(i));
+					toHighlight.add(playerCards.get(i));
 					}
 				}
 			}
@@ -714,15 +710,15 @@ public class HandCalculation {
 			advice = "Det är inte mycket som slår denna hand! Höja är rekomenderat!\n";
 			// writes the active cards to hihglight
 			toHighlight.clear();
-			for(int i = 0; i<aiCards.size(); i++){
+			for(int i = 0; i<playerCards.size(); i++){
 				int cardIntOne = cardNbr.get(0);
 				int cardIntTwo = cardNbr.get(1);
 				
 				if(cardIntOne==cardNbr.get(i)){
-					toHighlight.add(aiCards.get(i));
+					toHighlight.add(playerCards.get(i));
 				}
 				if(cardIntTwo==cardNbr.get(i)){
-					toHighlight.add(aiCards.get(i));
+					toHighlight.add(playerCards.get(i));
 				}
 			}
 
@@ -735,11 +731,11 @@ public class HandCalculation {
 					// writes the active cards to hihglight
 					if(straightChance<5 && colorChance<5){
 					toHighlight.clear();
-					for(int i = 0; i<aiCards.size(); i++){			
-						String[] seeIfSame = aiCards.get(i).split(",");
+					for(int i = 0; i<playerCards.size(); i++){			
+						String[] seeIfSame = playerCards.get(i).split(",");
 						int temp = Integer.parseInt(seeIfSame[0]);
 						if(intCardNbr==temp){
-							toHighlight.add(aiCards.get(i));
+							toHighlight.add(playerCards.get(i));
 							}
 						}
 					}
@@ -753,7 +749,7 @@ public class HandCalculation {
 		}
 		
 		//STRAIGHTCHANCE TEXT AND COLORCHANCE TEXT
-		if (aiCards.size() < 3) {
+		if (playerCards.size() < 3) {
 			if (straightChance == 2) {
 				advice += "Du har en chans på en 'STRAIGHT', du har 2/5. \n";				
 			}
@@ -761,7 +757,7 @@ public class HandCalculation {
 				advice += "Du har en chans för en 'FLUSH' i " + theColor + ", du har 2/5.\n";
 			}
 		}
-		if (aiCards.size() < 6) {
+		if (playerCards.size() < 6) {
 			if (straightChance == 3) {
 				advice += "Du har en chans på en 'STRAIGHT', du har 3/5.\n";
 			}
@@ -770,7 +766,7 @@ public class HandCalculation {
 			}
 		}
 
-		if (aiCards.size() < 7) {
+		if (playerCards.size() < 7) {
 			if (straightChance == 4) {
 				advice += "Du har en chans på en 'STRAIGHT', du har 4/5.\n";
 			}
@@ -806,30 +802,30 @@ public class HandCalculation {
 	public int calcHandstrenght(){
 		
 		if(pairsNmore==2){     //Pair
-			handStrenght=1;	
+			handStrength=1;	
 		}
 		if(pairsNmore==22){	 //Two pair
-			handStrenght=2;
+			handStrength=2;
 		}
 		if(pairsNmore==3){	 //Three of a kind
-			handStrenght=3;
+			handStrength=3;
 		}
 		if(straightChance==5){	//Straight
-			handStrenght=4;
+			handStrength=4;
 		}
 		if(colorChance==5){		//Flush
-			handStrenght=5;
+			handStrength=5;
 		}
 		if(pairsNmore==23 || pairsNmore==32){	//Full house
-			handStrenght=6;
+			handStrength=6;
 		}
 		if(pairsNmore == 4 || pairsNmore == 42 || pairsNmore ==24){	//Four of a kind
-			handStrenght = 7;
+			handStrength = 7;
 		}
 		if(colorChance==5&& straightChance==5){		//Straight flush
-			handStrenght = 8;
+			handStrength = 8;
 		}
 	
-		return handStrenght;
+		return handStrength;
 	}
 }
