@@ -30,12 +30,12 @@ public class HandCalculation {
 	private int handStrength = 0;
 	/**
 	 * 
-	 * @param aiCards Current cards needed for evaluate.
+	 * @param playerCards Current cards needed for evaluate.
 	 */
-	public HandCalculation(ArrayList<String> aiCards) {
+	public HandCalculation(ArrayList<String> playerCards) {
 		
-		this.playerCards = aiCards;
-		getCardValues(aiCards);
+		this.playerCards = playerCards;
+		getCardValues(playerCards);
 		toHighlight.clear();
 		highCards = checkHighCards();
 		colorChance = checkSuit();
