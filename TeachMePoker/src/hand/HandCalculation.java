@@ -16,16 +16,14 @@ public class HandCalculation {
 	private ArrayList<String> playerCards = new ArrayList<String>();
 	private ArrayList<Integer> cardNbr = new ArrayList<Integer>();
 	private ArrayList<String> cardClr = new ArrayList<String>();
-	private boolean highCards = false;
-	private boolean lowCards = false;
-	private boolean rlyhighCards = false;
+	private boolean highCards,lowCards, rlyhighCards, connectedCards = false;
 	private int colorChance, straightChance, pairsNmore;
 	private String yourCard ="1,1";
 	private String yourCard2 ="1,1";
 	private String otherCard ="1,1";
 	private String theColor;
 	private ArrayList<String> toHighlight = new ArrayList<String>();
-	private String advicee;
+	private String advice;
 	private String whatStraight;
 	private int handStrength = 0;
 	/**
@@ -533,7 +531,6 @@ public class HandCalculation {
 	public String Help(){
 		
 		String helper= "Ingenting, tyvärr...";
-		String advice = "Denna hand kanske inte är den bästa att spela på...";
 		
 		String[] splitter = yourCard.split(",");
 		int intCardNbr = Integer.parseInt(splitter[0]);
@@ -595,19 +592,19 @@ public class HandCalculation {
 		//Writing out what advice to give and help for player, starting to check the lowest possible and if the player has better than it,
 		//im overwriting it with a better card. starting from high card only and ending on straight flush.
 		
-		//HIGH CARD
-		advice = "Du har bara 'HIGH CARD'. \nOm det är billigt så kan du prova och se.\n";
+				advice = "CALL:a eller FOLD:a. Varken RAISE eller ALL-IN är rekommenderat.\n";
 		
 		if(highCards){
-			advice = "You have a 'HIGH CARD'. \nSuggestion: Do not fold or go all-in! Call\n";
+			helper = "'HIGH CARD'";
+			advice = "Att starta med ett högt kort är bra. \nCALL:a. Varken FOLD eller ALL-IN är rekommenderat.\n";
 		}
 		// ONE PAIR
 			if(pairsNmore==2){
 				helper = "'ONE-PAIR' i " +  yourCardInt +"\n";
 				if(playerCards.size()==2){
-					advice = "You have 'ONE-PAIR' of low cards.\nSuggestion: do not fold or go all-in! Call\n";
+					advice = "Paret består av låga kort.\nCALL:a. Varken FOLD eller ALL-IN är rekommenderat.\n";
 					if(highCards){
-						advice = "You have 'ONE-PAIR' of high cards.\nSuggestion: do not fold or go all-in! Raise amount equal to the Big Blind\n";
+						advice = "Paret består av höga kort!\nRAISE:a ungefär lika mycket som Big Blind! Varken FOLD eller ALL-IN är rekommenderat.\n";
 					}
 				}
 				if(playerCards.size()==5){
@@ -751,31 +748,35 @@ public class HandCalculation {
 		//STRAIGHTCHANCE TEXT AND COLORCHANCE TEXT
 		if (playerCards.size() < 3) {
 			if (straightChance == 2) {
-				advice += "Du har en chans på en 'STRAIGHT', du har 2/5. \n";				
+				advice += "Du har 2 av 5 kort för att få 'STRAIGHT'.\n";				
 			}
 			if(colorChance==2){
-				advice += "Du har en chans för en 'FLUSH' i " + theColor + ", du har 2/5.\n";
+				advice += "Du har 2 av 5 kort för att få 'FLUSH' i " + theColor + "\n";
 			}
 		}
 		if (playerCards.size() < 6) {
 			if (straightChance == 3) {
-				advice += "Du har en chans på en 'STRAIGHT', du har 3/5.\n";
+				advice += "Du har 3 av 5 kort för att få 'STRAIGHT'\n";
 			}
 			if(colorChance==3){
-				advice += "Du har en chans för en 'FLUSH' i " + theColor + ", du har 3/5.\n";
+				advice += "Du har 3 av 5 kort för att få 'FLUSH' i " + theColor + "\n";
 			}
 		}
 
 		if (playerCards.size() < 7) {
 			if (straightChance == 4) {
-				advice += "Du har en chans på en 'STRAIGHT', du har 4/5.\n";
+				advice += "Du har 4 av 5 kort för att få 'STRAIGHT'!\n";
 			}
 			if(colorChance==4){
-				advice += "Du har en chans för en 'FLUSH' i " + theColor + ", du har 4/5.\n";
+				advice += "Du har 4 av 5 kort för att få 'FLUSH' i " + theColor + "!\n";
 			}
 		}
+		
+		if (highCards && straightChance == 2 && colorChance == 2) {
+			helper += "'HIGH CARD', and a chance of 'STRAIGHT' and 'FLUSH'! \n";
+			advice = "RAISE with an amount equal to the Big Blind!";
+		}
 
-		advicee = advice;
 		return helper;
 		
 	}
@@ -785,7 +786,7 @@ public class HandCalculation {
 	 * @return what advice to give the user
 	 */
 	public String advice(){
-		return advicee;
+		return advice;
 	}
 	
 	/**
