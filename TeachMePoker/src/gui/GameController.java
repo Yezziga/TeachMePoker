@@ -977,7 +977,21 @@ public class GameController {
 			collectionOfLabelsAi[AI][0].setVisible(false);
 			collectionOfLabelsAi[AI][1].setVisible(false);
 			collectionOfLabelsAi[AI][2].setVisible(false);
+			collectionOfCardsAi[AI].setVisible(false);
 		});
+
+	}
+
+	public int getAIPosition(Ai ai) {
+		int pos = 0;
+		for (int i = 0; i < aiPlayers.size(); i++) {
+			if (ai == aiPlayers.get(i)) {
+				pos = i;
+				break;
+			}
+		}
+
+		return pos;
 	}
 
 	/**
