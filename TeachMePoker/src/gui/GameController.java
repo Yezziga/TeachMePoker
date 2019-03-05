@@ -44,6 +44,9 @@ import javafx.scene.layout.Pane;
  * @author Henrik
  * @version 3.0 Added functions for getting the main players hand, table cards
  *          and the current round.
+ *          
+ *  @author Quach
+ *  @version 3.4 AI-players who have lost all their money will now be removed from the table.
  */
 
 public class GameController {
@@ -977,7 +980,21 @@ public class GameController {
 			collectionOfLabelsAi[AI][0].setVisible(false);
 			collectionOfLabelsAi[AI][1].setVisible(false);
 			collectionOfLabelsAi[AI][2].setVisible(false);
+			collectionOfCardsAi[AI].setVisible(false);
 		});
+
+	}
+
+	public int getAIPosition(Ai ai) {
+		int pos = 0;
+		for (int i = 0; i < aiPlayers.size(); i++) {
+			if (ai == aiPlayers.get(i)) {
+				pos = i;
+				break;
+			}
+		}
+
+		return pos;
 	}
 
 	/**
