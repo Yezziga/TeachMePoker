@@ -23,6 +23,9 @@ import gui.GameController;
  * @author Henrik
  * @version 3.0
  * Updated checkWinner to fetch the winning combination.
+ * 
+ * @version 3.1
+ * Added checks for controlling if all AI-players have lost.
  */
 public class SPController extends Thread {
 
@@ -151,9 +154,20 @@ public class SPController extends Thread {
    * @throws InstantiationException
    */
   private void setupPhase() throws InstantiationException, IllegalAccessException {
-
-    // Check if the player lost last turn
-    if (gController.getPlayerPot() > bigBlind) {
+	
+	//Check if there are any remaining AI-players
+	boolean allAIPlayersLost = true;
+	for(Ai ai : aiPlayers) {
+		if (!ai.getDecision().contains("lost")) {
+			allAIPlayersLost = false;
+		}
+	}
+	
+	//Player won - end game
+	if(allAIPlayersLost) {
+		gController.playerWon();		
+	// Check if the player lost last turn
+	} else if (gController.getPlayerPot() > bigBlind) {
       /*
        * if not, reset the all-in check and potsplit counter Create a new deck, shuffle it and deal
        * cards
