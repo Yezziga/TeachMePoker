@@ -27,6 +27,9 @@ import javafx.scene.layout.Pane;
  *@author Kold
  * @version 2.2 Changed from confirm box to alert box, on two separate places.
  * In the "about project" and when a player tries to play without entering a name. 
+ * 
+ * @author Quach
+ * @version 3.1 Removed the confirm box when player starts a game
  */
 public class SettingsController {
 	private SPController spController;
@@ -238,16 +241,12 @@ public class SettingsController {
 
 			try {
 				changeScene.switchScenetoGame();
-				ConfirmBox cfBox = new ConfirmBox();
 
-				if (cfBox.display("Snart börjar spelet", "Är du redo att spela poker?")) {
 					spController.startGame(aiValue, potValue, name);
 					Sound.mp.stop();
 					sound.playSound("shuffle");
-				} else {
-					changeScene.switchToMainMenu();
-				}
-			} catch (IOException | InstantiationException | IllegalAccessException e) {
+				
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

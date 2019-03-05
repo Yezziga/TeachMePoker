@@ -7,12 +7,13 @@ import deck.Card;
  * The hand-class that will guide and help the noob player.
  * 
  * @author Max Frennessen 17-05-25
- * @version 2.0 
+ * @version 2.0
+ *  
  */
 public class Hand {
 	private HandCalculation calc;
 	private ArrayList<Card> cards = new ArrayList<Card>();
-	private ArrayList<String> aiCards = new ArrayList<String>();
+	private ArrayList<String> playerCards = new ArrayList<String>();
 	private ArrayList<String> toHighlight = new ArrayList<String>();
 	private String helper;
 	private String advice;
@@ -27,14 +28,14 @@ public class Hand {
 		this.cards = cards;
 		convertToReadable();
 
-		calc = new HandCalculation(aiCards);
+		calc = new HandCalculation(playerCards);
 		helper = calc.Help();
 		advice = calc.advice();
 		pwrBar = calc.calcPwrBarLvl();
 		toHighlight = calc.toHiglight(); 
 
 		System.out.println(" -NEW HAND- ");
-		System.out.println(aiCards);
+		System.out.println(playerCards);
 		System.out.println("Helper - " + helper);
 		System.out.println("");
 		System.out.println("Advice - " + advice);
@@ -55,7 +56,7 @@ public class Hand {
 			Card cardTemp = cards.get(i);
 			char A = cardTemp.getCardSuit().charAt(0);
 			String temp = cardTemp.getCardValue() + "," + String.valueOf(A);
-			aiCards.add(temp);
+			playerCards.add(temp);
 		}
 	}
 
@@ -64,7 +65,7 @@ public class Hand {
 	 * Recalculates advice and which cards to highlight. Required when adding and removing cards.
 	 */
 	public void reCalc() {
-		this.calc = new HandCalculation(aiCards);
+		this.calc = new HandCalculation(playerCards);
 
 		this.advice = calc.advice();
 		this.toHighlight = calc.toHiglight();
