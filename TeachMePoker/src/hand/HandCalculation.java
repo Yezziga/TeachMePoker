@@ -8,6 +8,9 @@ import java.util.Arrays;
  * 
  * @author Max Frennessen
  * @version 1.5 17-04-12
+ * 
+ * @author Quach
+ * @version 3.2 19-03-05 Updated the advises 
  */
 public class HandCalculation {
 	private ArrayList<String> finalHihglight = new ArrayList<String>();
@@ -743,7 +746,7 @@ public class HandCalculation {
 		}
 		if (playerCards.size() < 6) {
 			if (straightChance == 3) {
-				advice = "Du har 3 av 5 kort för att få 'STRAIGHT'\n";
+				advice += "Du har 3 av 5 kort för att få 'STRAIGHT'\n";
 			}
 			if (colorChance == 3) {
 				advice += "Du har 3 av 5 kort för att få 'FLUSH' i " + theColor + "\n";
@@ -752,7 +755,7 @@ public class HandCalculation {
 
 		if (playerCards.size() < 7) {
 			if (straightChance == 4) {
-				advice = "Du har 4 av 5 kort för att få 'STRAIGHT'!\n";
+				advice += "Du har 4 av 5 kort för att få 'STRAIGHT'!\n";
 			}
 			if (colorChance == 4) {
 				advice += "Du har 4 av 5 kort för att få 'FLUSH' i " + theColor + "!\n";
