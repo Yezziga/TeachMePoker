@@ -562,7 +562,7 @@ public class SPController extends Thread {
 							winner = gController.getUsername();
 
 							//System.out.println(bestPlayerCardTwo + "ghosts"); 
-							gController.setWinnerLabel(winner, mainPlayerHandStrength, mainPlayerCombination.getWinningCards(), mainPlayerCombination.getAIHand(), mainPlayerCombination.getAllCards(), true);
+							gController.setWinnerLabel(winner, mainPlayerHandStrength, mainPlayerCombination.getWinningCards(gController.getRound()), mainPlayerCombination.getAIHand(), mainPlayerCombination.getAllCards(), true);
 
 						} else if (gController.getGetHighCard() == bestHandPlayer.getHighCard()) { //Draw between player and ai
 							bestHandPlayer.updateWinner(allInPotSize / 2);
@@ -571,7 +571,7 @@ public class SPController extends Thread {
 
 							//System.out.println(bestPlayerCardTwo + "babe");
 
-							gController.setWinnerLabel(winner, mainPlayerHandStrength, mainPlayerCombination.getWinningCards(), mainPlayerCombination.getAIHand(), mainPlayerCombination.getAllCards(), true);
+							gController.setWinnerLabel(winner, mainPlayerHandStrength, mainPlayerCombination.getWinningCards(gController.getRound()), mainPlayerCombination.getAIHand(), mainPlayerCombination.getAllCards(), true);
 						} else { //Ai wins with better high card than player
 							if (!secWin.isEmpty()) {
 								int divBy = allInPotSize = secWin.size();

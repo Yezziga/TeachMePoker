@@ -49,7 +49,7 @@ public class AiCalculation {
 
 	public void doChecks() {
 		bestCombination = new ArrayList<Card>();
-		pairs = 0; same = 0;
+		handStrength = 0; pairs = 0; same = 0;
 		flush = false; straight = false; fullHouse = false;
 		checkHighCards();
 		checkSuit();
@@ -148,6 +148,7 @@ public class AiCalculation {
 
 		//Gets amount of pairs and the highest amount of cards with the same value
 		for(int i : cardValuesOccurrences) {
+			System.out.print(i);
 			if(i > same) {
 				same = i;
 			}
@@ -366,6 +367,9 @@ public class AiCalculation {
 		}
 
 		doChecks();
+		
+		System.out.println(allCards + " - " + handStrength);
+		System.out.println(allCards + " - " + calcHandStrength());
 
 		return handStrength;
 	}
