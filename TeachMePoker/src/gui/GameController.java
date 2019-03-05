@@ -50,16 +50,16 @@ public class GameController {
 
 	@FXML
 	private ImageView btCheck, btCall, btFold, btRaise, cardOne, imgRoundStatus, imgCard1, imgCard2, imgCard3, imgCard4,
-			imgCard5, imgCard6, imgCard7, ivBigBlind, ivSmallBlind, ivDealer, imgPlayerOneCards, imgPlayerTwoCards,
-			imgPlayerThreeCards, imgPlayerFourCards, imgPlayerFiveCards, ivSound;
+	imgCard5, imgCard6, imgCard7, ivBigBlind, ivSmallBlind, ivDealer, imgPlayerOneCards, imgPlayerTwoCards,
+	imgPlayerThreeCards, imgPlayerFourCards, imgPlayerFiveCards, ivSound;
 	@FXML
 	private Slider slider;
 	@FXML
 	private Label lbPlayerAction, lbPotValue, lbAllIn, adviceLabel, helpLabel, userName, raiseLabel, subPotOne,
-			subPotTwo, subPotThree, subPotFour, subPotFive, subPotSix, mainPot, labelPlayerOneName, labelPlayerTwoName,
-			labelPlayerThreeName, labelPlayerFourName, labelPlayerFiveName, labelPlayerOnePot, labelPlayerTwoPot,
-			labelPlayerThreePot, labelPlayerFourPot, labelPlayerFivePot, labelPlayerOneAction, labelPlayerTwoAction,
-			labelPlayerThreeAction, labelPlayerFourAction, labelPlayerFiveAction;
+	subPotTwo, subPotThree, subPotFour, subPotFive, subPotSix, mainPot, labelPlayerOneName, labelPlayerTwoName,
+	labelPlayerThreeName, labelPlayerFourName, labelPlayerFiveName, labelPlayerOnePot, labelPlayerTwoPot,
+	labelPlayerThreePot, labelPlayerFourPot, labelPlayerFivePot, labelPlayerOneAction, labelPlayerTwoAction,
+	labelPlayerThreeAction, labelPlayerFourAction, labelPlayerFiveAction;
 	@FXML
 	private Pane powerBarArea, playerCardsArea, tabelCardArea, paneRounds;
 	@FXML
@@ -111,28 +111,28 @@ public class GameController {
 
 		// Groups together labels for each AI-position.
 		this.collectionOfLabelsAi = new Label[][] { { labelPlayerOneName, labelPlayerOnePot, labelPlayerOneAction },
-				{ labelPlayerTwoName, labelPlayerTwoPot, labelPlayerTwoAction },
-				{ labelPlayerThreeName, labelPlayerThreePot, labelPlayerThreeAction },
-				{ labelPlayerFourName, labelPlayerFourPot, labelPlayerFourAction },
-				{ labelPlayerFiveName, labelPlayerFivePot, labelPlayerFiveAction } };
+			{ labelPlayerTwoName, labelPlayerTwoPot, labelPlayerTwoAction },
+			{ labelPlayerThreeName, labelPlayerThreePot, labelPlayerThreeAction },
+			{ labelPlayerFourName, labelPlayerFourPot, labelPlayerFourAction },
+			{ labelPlayerFiveName, labelPlayerFivePot, labelPlayerFiveAction } };
 
-		// Placeholders for the AI (based on their position). Shows their
-		// cardbacks/no cards or
-		// highlighted cards (AI-frame).
-		this.collectionOfPots = new Label[6];
+			// Placeholders for the AI (based on their position). Shows their
+			// cardbacks/no cards or
+			// highlighted cards (AI-frame).
+			this.collectionOfPots = new Label[6];
 
-		this.collectionOfCardsAi = new ImageView[] { imgPlayerOneCards, imgPlayerTwoCards, imgPlayerThreeCards,
-				imgPlayerFourCards, imgPlayerFiveCards };
+			this.collectionOfCardsAi = new ImageView[] { imgPlayerOneCards, imgPlayerTwoCards, imgPlayerThreeCards,
+					imgPlayerFourCards, imgPlayerFiveCards };
 
-		// Used to place AI-players into the right position depending on the
-		// chosen number of AI:s.
-		this.aiPositions = new int[][] { { 2 }, { 0, 2, 4 }, { 0, 1, 2, 3, 4, 5 } };
+			// Used to place AI-players into the right position depending on the
+			// chosen number of AI:s.
+			this.aiPositions = new int[][] { { 2 }, { 0, 2, 4 }, { 0, 1, 2, 3, 4, 5 } };
 
-		// Table cards placeholders.
-		this.collectionOfCardsTable = new ImageView[] { imgCard3, imgCard4, imgCard5, imgCard6, imgCard7 };
+			// Table cards placeholders.
+			this.collectionOfCardsTable = new ImageView[] { imgCard3, imgCard4, imgCard5, imgCard6, imgCard7 };
 
-		// Used by method: inactivateAllAiCardGlows and aiAction.
-		this.prevPlayerActive = -1;
+			// Used by method: inactivateAllAiCardGlows and aiAction.
+			this.prevPlayerActive = -1;
 	}
 
 	/**
@@ -1212,6 +1212,31 @@ public class GameController {
 			}
 		});
 	}
+	
+	/**
+	 * Method which creates a popup to inform the player that s/he lost.
+	 * 
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	public void playerWon() throws InstantiationException, IllegalAccessException {
+
+		Platform.runLater(() -> {
+
+			try {
+
+				winnerBox = new WinnerBox();
+				winnerBox.displayWinner("Vinst",
+						"Du vann då du slog ut all motståndarspelare!", 5, handType, null,
+						null, null);
+
+				changeScene.switchToMainMenu();
+
+			} catch (IOException | InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		});
+	}
 
 	/**
 	 * Method which returns the players highCard
@@ -1431,7 +1456,7 @@ public class GameController {
 					collectionOfPots[i].setLayoutY(30 * (i + 1) + 70);
 				} else {
 					collectionOfPots[i].setVisible(false);
-				}
+				}			
 			}
 			mainPot.setText("Table Pot: §" + tablePot);
 			mainPot.setLayoutX(295.0);
