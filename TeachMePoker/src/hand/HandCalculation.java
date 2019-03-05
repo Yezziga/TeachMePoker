@@ -10,7 +10,7 @@ import java.util.Arrays;
  * @version 1.5 17-04-12
  * 
  * @author Quach
- * @version 3.2 19-03-05 Updated the advises 
+ * @version 3.2 19-03-05 Updated the advises
  */
 public class HandCalculation {
 	private ArrayList<String> finalHihglight = new ArrayList<String>();
@@ -601,6 +601,7 @@ public class HandCalculation {
 		if (highCards) {
 			helper = "'HIGH CARD'\n";
 			advice = "Att starta med ett högt kort är bra. \nCALL:a. Varken FOLD eller ALL-IN är rekommenderat.\n";
+
 		}
 		// ONE PAIR
 		if (pairsNmore == 2) {
@@ -627,11 +628,7 @@ public class HandCalculation {
 		if (pairsNmore == 22) {
 			hasSomething = true;
 			helper = "'TWO PAIRS'  i " + cardOne + " och " + cardTwo + "\n";
-			if (highCards) {
-				advice = "CALL:a eller RAISE:a ungefär lika mycket som Big Blind. ALL-IN är inte rekommenderat.";
-			} else {
-				advice = "Det är bättre än ett par, fast det finns mycket bättre. CALL:a eller FOLD:a. ALL-IN är inte rekommenderat.";
-			}
+			advice = "Om ett av dina par ligger på bordet är chansen stor att en annan spelare också har two pair. \nFold:a bara om ditt andra par är lågt!";
 
 			// writes the active cards to hihglight
 			if (straightChance < 5 && colorChance < 5) {
@@ -654,7 +651,7 @@ public class HandCalculation {
 		if (pairsNmore == 3) {
 			hasSomething = true;
 			helper = "'THREE OF A KIND' i " + yourCardInt + "\n";
-			advice = "'THREE OF A KIND' är en stark hand. CALL:a. FOLD:a är inte rekommenderat. \n";
+			advice = "Detta är en bra hand. Du bör raise:a, men var medveten om att risken att en motståndare har Full House är stor.\n";
 			// writes the active cards to hihglight
 			if (straightChance < 5 && colorChance < 5) {
 				toHighlight.clear();
@@ -672,7 +669,7 @@ public class HandCalculation {
 		if (straightChance == 5) {
 			hasSomething = true;
 			helper = "En 'STRAIGHT'!!\n";
-			advice = "En 'STRAIGHT' är en riktigt bra hand. CALL:a eller RAISE:a trippelt så mycket som Big Blind!\nFOLD:a är inte rekommenderat.";
+			advice = "Du har låg anledning att fold:a om din hand gör stegen högre än på bordet. \nVar försiktig om en motståndare raise:ar ofta - den kanske har en bättre hand! ";
 			toHighlight.clear();
 			toHighlight = getToHighlight();
 
@@ -682,7 +679,7 @@ public class HandCalculation {
 		if (colorChance == 5) {
 			hasSomething = true;
 			helper = "En 'FLUSH' i " + theColor + "!!\n";
-			advice = "RAISE:a med 1/3 av det du har!\nFOLD:a är inte rekommenderat.";
+			advice = "Du bör raise:a, men se upp för att någon annan har en Straight. ";
 			// To HIHGLIGHT IS IN checkSuit Method.
 			toHighlight.clear();
 			checkSuit();
@@ -692,7 +689,7 @@ public class HandCalculation {
 		if (pairsNmore == 23 || pairsNmore == 32) {
 			hasSomething = true;
 			helper = "'FULL HOUSE' med " + cardOne + " och " + cardTwo + "!!";
-			advice = "'FULL HOUSE' är väldigt svår att slå! RAISE:a med ungefär hälften av det du har om du vågar!\nFOLD:a är inte rekommenderat.";
+			advice = "En bra hand. Du bör fortsätta spela och raise:a. \nStor chans att en motståndare har samma om Three of a kind ligger på bordet \n- se då till att ditt par är högt!";
 			// writes the active cards to hihglight
 			toHighlight.clear();
 			for (int i = 0; i < playerCards.size(); i++) {
@@ -713,7 +710,7 @@ public class HandCalculation {
 		if (pairsNmore == 4 || pairsNmore == 42 || pairsNmore == 24) {
 			hasSomething = true;
 			helper = "'FOUR OF A KIND' i " + yourCardInt;
-			advice = "'FOUR OF A KIND' är en av de bästa händerna. RAISE:a med hälften av det du har om du vågar!\nFOLD:a är inte rekommenderat.";
+			advice = "Detta är svårt att slå. \nRaise:a, men var försiktig om det finns chans för en Straight Flush på bordet!";
 			// writes the active cards to hihglight
 			if (straightChance < 5 && colorChance < 5) {
 				toHighlight.clear();
@@ -731,7 +728,7 @@ public class HandCalculation {
 		if (straightChance == 5 && colorChance == 5) { // "i stegen " + whatStraight;
 			hasSomething = true;
 			helper = "'STRAIGHT FLUSH' i färgen " + theColor + "! "; // ev add what straight it is ex 2-6.
-			advice = "'STRAIGHT FLUSH' är den näst bästa handen i spelet. RAISE:a med mer än hälften av det du har,\n eller ALL-IN om du vågar! FOLD:a är inte rekommenderat.";
+			advice = "Lite slår din hand! \nRaise:a stegvis så att motståndarna hinner satsa pengar. \nVar försiktig om det finns chans för Royal Flush på bordet.";
 			// Highlightning happens in checkStraight and checkSuit.
 		}
 
