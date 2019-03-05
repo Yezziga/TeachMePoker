@@ -48,10 +48,14 @@ public class AiCalculation {
 	}
 
 	public void doChecks() {
+		bestCombination = new ArrayList<Card>();
+		pairs = 0; same = 0;
+		flush = false; straight = false; fullHouse = false;
 		checkHighCards();
 		checkSuit();
 		checkPairAndMore();
 		checkStraight();
+		calcHandStrength();
 	}
 
 	/**
@@ -86,9 +90,10 @@ public class AiCalculation {
 		int C = 0, S = 0, H = 0, D = 0;
 		int color = 0;
 		String suit = "";
-
+		
 		for (Card card : allCards) {
-			String cardColor = card.getCardSuit();
+			String cardColor = card.getCardSuit().substring(0, 1);
+
 			if (cardColor.equals("S")) {
 				S++;
 			} else if (cardColor.equals("C")) {
@@ -120,7 +125,7 @@ public class AiCalculation {
 		if(color == 5) {
 			bestCombination.clear();
 			for(Card card : allCards) {
-				if(card.getCardSuit().equals(suit)) {
+				if(card.getCardSuit().substring(0, 1).equals(suit)) {
 					bestCombination.add(card);
 				}
 			}
@@ -136,7 +141,6 @@ public class AiCalculation {
 	 * @return returns how many pairs or more that the ai has.
 	 */
 	public int checkPairAndMore() {
-
 		int[] cardValuesOccurrences = new int[15];
 		for (int i = 0; i < allCards.size(); i++) {
 			cardValuesOccurrences[allCards.get(i).getCardValue()]++;
@@ -158,7 +162,7 @@ public class AiCalculation {
 		}
 
 		//Gets the best combination
-		if(fullHouse || pairs > 1) {
+		if(fullHouse || pairs >= 1) {
 			if(fullHouse && same < 4) { //Gets the fullhouse combination
 				int pairValue = 0, threeOfAKindValue = 0;
 				for(int i = (cardValuesOccurrences.length-1); i >= 0; i--) {
@@ -174,7 +178,7 @@ public class AiCalculation {
 						bestCombination.add(card);
 					}
 				}
-			} else if(same > 2) { //Adds three of a kind or four of a kind to best combination
+			} else if((same == 3 && !flush) || same == 4) { //Adds three of a kind or four of a kind to best combination
 				int tempValue = 0;
 				for(int i = (cardValuesOccurrences.length-1); i >= 0; i--) {
 					if(same == 4 && cardValuesOccurrences[i] == 4) {
@@ -183,13 +187,14 @@ public class AiCalculation {
 						tempValue = i;
 					}
 				}
+				
 				bestCombination.clear();
 				for(Card card : allCards) {
 					if(card.getCardValue() == tempValue) {
 						bestCombination.add(card);
 					}
 				}
-			} else { //Adds one pair or two pair to the best combination
+			} else if(!flush){ //Adds one pair or two pair to the best combination
 				int pairOneValue = 0, pairTwoValue = 0, pairOneCount = 0, pairTwoCount = 0;
 				for(int i = (cardValuesOccurrences.length-1); i >= 0; i--) {
 					if(cardValuesOccurrences[i] >= 2) {
@@ -272,7 +277,7 @@ public class AiCalculation {
 	 * Sets the handStrenght of the ai-player.
 	 * @return returns the ai-players current handStrenght.
 	 */
-	public int calcHandstrenght(){
+	public int calcHandStrength(){
 
 		if(same==2){ //One pair
 			handStrength=1;	
@@ -306,6 +311,7 @@ public class AiCalculation {
 
 	//TODO Move calculations of the best combination to this function or to new class
 	public ArrayList<Card> getWinningCards() {
+		doChecks();
 		return bestCombination;
 	}
 
@@ -341,5 +347,63 @@ public class AiCalculation {
 	public ArrayList<Card> getAllCards() {
 		return allCards;
 	}
+	
+	public int getHandStrength(int round) {
+		if(round < 3) {
+			if(round == 0) { //Pre-flop
+				while(allCards.size() > 2) {
+					allCards.remove(allCards.size() - 1);
+				}
+			} else if(round == 1) { //Flop
+				while(allCards.size() > 5) {
+					allCards.remove(allCards.size() - 1);
+				}
+			} else { //Turn
+				while(allCards.size() > 6) {
+					allCards.remove(allCards.size() - 1);
+				}
+			}
+		}
+
+		doChecks();
+
+		return handStrength;
+	}
+	
+	/*
+	 	//For testing different combinations
+	    public static void main(String[] args) {
+		ArrayList<CardValue> values = new ArrayList<CardValue>();
+		values.add(CardValue.SIX);
+		values.add(CardValue.SIX);
+		values.add(CardValue.FIVE);
+		values.add(CardValue.QUEEN);
+		values.add(CardValue.FIVE);
+		values.add(CardValue.TEN);
+		values.add(CardValue.KING);
+		ArrayList<Suit> suits = new ArrayList<Suit>();
+		suits.add(Suit.SPADES);
+		suits.add(Suit.DIAMONDS);
+		suits.add(Suit.DIAMONDS);
+		suits.add(Suit.DIAMONDS);
+		suits.add(Suit.CLUBS);
+		suits.add(Suit.DIAMONDS);
+		suits.add(Suit.DIAMONDS);
+		ArrayList<Card> hand = new ArrayList<Card>();
+		ArrayList<Card> tableCards = new ArrayList<Card>();
+		hand.add(new Card(suits.get(0), values.get(0), null));
+		hand.add(new Card(suits.get(1), values.get(1), null));
+		hand.add(new Card(suits.get(2), values.get(2), null));
+		hand.add(new Card(suits.get(3), values.get(3), null));
+		hand.add(new Card(suits.get(4), values.get(4), null));
+		hand.add(new Card(suits.get(5), values.get(5), null));
+		hand.add(new Card(suits.get(6), values.get(6), null));
+		
+		AiCalculation test = new AiCalculation(hand, tableCards);
+		System.out.println(test.flush);
+		System.out.println(test.getHandStrength(4));
+		System.out.println(test.getWinningCards());
+	}
+	*/
 
 }

@@ -1300,7 +1300,7 @@ public class GameController {
 	 *            winning hand.
 	 */
 	public void setWinnerLabel(String winner, int hand, ArrayList<Card> winningCombination, ArrayList<Card> winningHand,
-			ArrayList<Card> allCards) {
+			ArrayList<Card> allCards, boolean winByHighCard) {
 
 		String winnerOfRound = winner;
 
@@ -1339,6 +1339,10 @@ public class GameController {
 		}
 		if (hand == 97) {
 			handType = "Du förlorade!";
+		}
+		
+		if(hand != 0 && winByHighCard) {
+			handType += " och högsta kort";
 		}
 
 		if (!winnerOfRound.equals(getUsername()) && (hand < 10)) {
