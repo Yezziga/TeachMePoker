@@ -5,12 +5,12 @@ import java.util.Arrays;
 
 /**
  * Does the actuall calculation and decides what help the noob player gets.
- * 
+ *
  * @author Max Frennessen
  * @version 1.5 17-04-12
- * 
+ *
  * @author Quach
- * @version 3.2 19-03-05 Updated the advises 
+ * @version 3.2 19-03-05 Updated the advises
  */
 public class HandCalculation {
 	private ArrayList<String> finalHihglight = new ArrayList<String>();
@@ -31,7 +31,7 @@ public class HandCalculation {
 	private int handStrength = 0;
 
 	/**
-	 * 
+	 *
 	 * @param playerCards
 	 *            Current cards needed for evaluate.
 	 */
@@ -51,7 +51,7 @@ public class HandCalculation {
 	/**
 	 * converts the cards value into two diffirent arraylists. one for cardnumber
 	 * and one for cardcolor.
-	 * 
+	 *
 	 * @param aiCards
 	 *            current card being used
 	 */
@@ -73,7 +73,7 @@ public class HandCalculation {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return returns how many pairs or more the player has.
 	 */
 	public int checkPairAndMore() {
@@ -167,7 +167,7 @@ public class HandCalculation {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return returns true if cards value >= 17. 'rlyHigh not yet implemented.
 	 */
 	public boolean checkHighCards() {
@@ -189,7 +189,7 @@ public class HandCalculation {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return returns if the player has a suit or even has a chance for one.
 	 */
 	public int checkSuit() {
@@ -268,7 +268,7 @@ public class HandCalculation {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return returns if the player has a straight or even has a chance for one.
 	 */
 	public int checkStraight() {
@@ -527,7 +527,7 @@ public class HandCalculation {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return returns a advice for the player that is current for his or her hand.
 	 */
 	public String Help() {
@@ -771,7 +771,7 @@ public class HandCalculation {
 
 	/**
 	 * returns what advice to give the user
-	 * 
+	 *
 	 * @return what advice to give the user
 	 */
 	public String advice() {
@@ -779,7 +779,7 @@ public class HandCalculation {
 //		advice = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 //				+ "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 //				+ "HEJDÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅ"
-//				+ "plop";				
+//				+ "plop";
 		return advice;
 	}
 
@@ -793,7 +793,7 @@ public class HandCalculation {
 
 	/**
 	 * sets and returns the current handStrength of the users cards.
-	 * 
+	 *
 	 * @return sets and returns the current handStrength of the users cards.
 	 */
 	public int calcHandstrenght() {
