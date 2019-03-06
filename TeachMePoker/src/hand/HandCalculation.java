@@ -775,6 +775,11 @@ public class HandCalculation {
 	 * @return what advice to give the user
 	 */
 	public String advice() {
+		//Unmark "advice = aaa..." if you want to test that the entire piece of advice can be read in game.
+//		advice = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+//				+ "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+//				+ "HEJDÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅ"
+//				+ "plop";				
 		return advice;
 	}
 
