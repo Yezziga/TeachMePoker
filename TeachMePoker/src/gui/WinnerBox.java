@@ -113,7 +113,7 @@ public class WinnerBox {
 		pane.getChildren().addAll(back, messageText, btnOk);
 
 		if(allCards != null) {
-			int xPosition = 15, handxPosition = 120;
+			int xPosition = 15, handxPosition = 120, handCards = 0;
 			String highlight = "";
 			System.out.println("All cards: " + allCards);
 			System.out.print("Winning combo:" + winningCombination);
@@ -126,10 +126,11 @@ public class WinnerBox {
 				
 				ImageView cardIcon = new ImageView(Paths.get("resources/images/" + card.getCardValue() + card.getCardSuit().charAt(0) + highlight + ".png").toUri().toString());
 				
-				if(winningHand.contains(card)) {
+				if(handCards < 2) {
 					cardIcon.setLayoutY(200);
 					cardIcon.setLayoutX(handxPosition);
 					handxPosition += 70;
+					handCards++;
 				} else {
 					cardIcon.setLayoutY(100);
 					cardIcon.setLayoutX(xPosition);
