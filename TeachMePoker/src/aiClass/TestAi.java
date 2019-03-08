@@ -18,16 +18,12 @@ public class TestAi {
 	private Card[] flop = new Card[3];
 	private Card cardTurn;
 	private Card cardRiver;
-
-	
-	public TestAi() {  
-	
-	}
 	
 	/**
-	 * Creates a deck and then calls on specific cards that is then
-	 * send to a ai that calculates and makes a decision based on the cards strength.
-	 * All commented code is used for different parts of testing, and is needed for those parts.
+	 * Mainly used to test if the AI can make a decision each turn. 
+	 * Simulates an AI-player playing a round of Texas Hold'em (pre-flop, flop, turn, and river included).
+	 * The method prints which cards the AI has, which cards are on the table each turn, and what the 
+	 * AI decides to do. 
 	 */
 	public void testTurns() {
 		deck = new Deck();
@@ -71,10 +67,13 @@ public class TestAi {
 		System.out.println();
 	}
 
+	/**
+	 * Used to test what decision an AI-player makes based on a specified hand. 
+	 * TF5, TF6, ..., TF13 are test cases 5 to 13 included.
+	 */
 	public void specificAiDecisions() {
-		ai = new Ai(1000, "Pelle");
-		
 		//TF5
+		//Hand: high card - low
 		System.out.println("TF5");
 		ai = new Ai(1000, "Pelle");
 		ai.setStartingHand(new Card(Suit.HEARTS, CardValue.TWO, null), 
@@ -83,6 +82,7 @@ public class TestAi {
 		System.out.println();
 		
 		//TF6
+		//Hand: high card - high
 		System.out.println("TF6");
 		ai = new Ai(1000, "Pelle");
 		ai.setStartingHand(new Card(Suit.HEARTS, CardValue.ACE, null), 
@@ -91,6 +91,7 @@ public class TestAi {
 		System.out.println();
 		
 		//TF7
+		//Hand: pair
 		System.out.println("TF7");
 		ai = new Ai(1000, "Pelle");
 		ai.setStartingHand(new Card(Suit.HEARTS, CardValue.SIX, null), 
@@ -99,17 +100,19 @@ public class TestAi {
 		System.out.println();
 		
 		//TF8 (ska ge call - ger raise)
+		//Hand: two pair
 		System.out.println("TF8");
 		ai = new Ai(1000, "Pelle");
 		ai.setStartingHand(new Card(Suit.HEARTS, CardValue.TWO, null), 
 				new Card(Suit.SPADES, CardValue.FOUR, null));
 		flop[0] = new Card(Suit.SPADES, CardValue.TWO, null);
-		flop[1] = new Card(Suit.CLUBS, CardValue.TWO, null);
+		flop[1] = new Card(Suit.CLUBS, CardValue.FOUR, null);
 		flop[2] = new Card(Suit.DIAMONDS, CardValue.THREE, null);
 		ai.makeDecision(50, flop);
 		System.out.println();
 		
 		//TF9
+		//Hand: Three of a kind
 		System.out.println("TF9");
 		ai = new Ai(1000, "Pelle");
 		ai.setStartingHand(new Card(Suit.HEARTS, CardValue.TWO, null), 
@@ -121,6 +124,7 @@ public class TestAi {
 		System.out.println();
 		
 		//TF10
+		//Hand: Straight flush
 		System.out.println("TF10");
 		ai = new Ai(1000, "Pelle");
 		ai.setStartingHand(new Card(Suit.HEARTS, CardValue.TWO, null), 
@@ -131,7 +135,8 @@ public class TestAi {
 		ai.makeDecision(50, flop);
 		System.out.println();
 		
-		//TF11 (ska ge raise - ger fold)
+		//TF11
+		//Hand: Flush
 		System.out.println("TF11");
 		ai = new Ai(1000, "Pelle");
 		ai.setStartingHand(new Card(Suit.HEARTS, CardValue.TWO, null), 
@@ -143,6 +148,7 @@ public class TestAi {
 		System.out.println();
 		
 		//TF12
+		//Hand: Full house
 		System.out.println("TF12");
 		ai = new Ai(1000, "Pelle");
 		ai.setStartingHand(new Card(Suit.HEARTS, CardValue.TWO, null), 
@@ -154,6 +160,7 @@ public class TestAi {
 		System.out.println();
 		
 		//TF13
+		//Hand: Four of a kind
 		System.out.println("TF13");
 		ai = new Ai(1000, "Pelle");
 		ai.setStartingHand(new Card(Suit.HEARTS, CardValue.TWO, null), 
