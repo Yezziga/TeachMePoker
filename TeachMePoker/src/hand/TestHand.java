@@ -23,9 +23,9 @@ public class TestHand {
   private int[] turn = {2, 5, 6, 7};
 
   /**
-   * Creates a deck and then calls on specifik cards that is then
-   * send to a ai that calculates and makes a decicion based on the cards strenght.
-   * All commented code is used for diffirent parts of testing, and is needed for those parts.
+   * Creates a deck and then calls on specific cards that are then
+   * sent to an ai that calculates and makes a decision based on the cards strength.
+   * All commented code is used for different parts of testing, and is needed for those parts.
    */
   public TestHand() {
 
