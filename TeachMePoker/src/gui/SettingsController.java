@@ -32,10 +32,10 @@ import javafx.scene.layout.Pane;
  *          entering a name.
  * 
  * @author Quach
- * @version 3.1 Removed the confirm box when player starts a game
+ * @version 3.1 Removed the confirm box when player starts a game.
  * 
  * @author Loise Borg
- * @version 4.1 Fixed sound settings
+ * @version 4.1 Fixed sound settings.
  */
 public class SettingsController {
 	private SPController spController;
