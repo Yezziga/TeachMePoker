@@ -149,7 +149,7 @@
 				</Label>
 				<Label fx:id="userName" alignment="CENTER" contentDisplay="CENTER" font="$x3" layoutX="474.0" layoutY="572.0" prefHeight="18.0" prefWidth="184.0" text="Vedrana" textAlignment="CENTER" />
 				<Label id="potValueLabel" fx:id="lbPotValue" alignment="CENTER" contentDisplay="CENTER" font="$x3" graphicTextGap="4.0" layoutX="474.0" layoutY="618.0" prefHeight="18.0" prefWidth="184.0" text="Your pot" textAlignment="CENTER" />
-				<Label fx:id="raiseLabel" layoutX="918.0" layoutY="612.0" textFill="#e8dbdb" />
+				<Label fx:id="raiseLabel" layoutX="915.0" layoutY="608.0" textFill="WHITE" />
 				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerOneCards" fitHeight="148.0" fitWidth="114.0" layoutX="170.0" layoutY="330.0" visible="false">
 					<image>
 						<Image url="@images/aiBarWithCards.png" />
@@ -201,7 +201,7 @@
             	<Label fx:id="subPotFour" alignment="TOP_CENTER" layoutX="0" layoutY="0" text="pot4" textFill="#ffffff" visible="false" />
             	<Label fx:id="subPotFive" alignment="TOP_CENTER" layoutX="0" layoutY="0" text="pot5" textFill="#ffffff" visible="false" />
             	<Label fx:id="subPotSix" alignment="TOP_CENTER" layoutX="0" layoutY="0" text="pot1" textFill="#ffffff" visible="false" />
-            	<Label fx:id="mainPot" alignment="TOP_CENTER" layoutX="0" layoutY="0" text="potMain" textFill="#ffffff" visible="false">
+            	<Label fx:id="mainPot" alignment="TOP_CENTER" layoutX="250.0" layoutY="290.0" text="potMain" textFill="#ffffff" visible="false">
             	            	               <font>
                   <Font name="System Bold" size="18.0" />
                </font></Label>

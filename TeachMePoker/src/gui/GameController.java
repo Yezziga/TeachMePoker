@@ -51,7 +51,7 @@ import javafx.scene.layout.Pane;
  * 
  * @author Loise Borg
  * @version 4.1 Fixed sound settings
- * @version 4.2 Fixed so the blinds and dealer marker are at the correct player when playng against 3.
+ * @version 4.2 Fixed so the blinds and dealer marker are at the correct player when playing against 3 and 1.
  */
 
 public class GameController {
@@ -146,6 +146,8 @@ public class GameController {
 
 		// Used by method: inactivateAllAiCardGlows and aiAction.
 		this.prevPlayerActive = -1;
+		
+		sliderChange();
 		
 	}
 
@@ -726,7 +728,10 @@ public class GameController {
 	 * @param i not used.
 	 */
 	public void playerIsDealer(int i) {
-		ivPlayerDealer.setImage(imgDealer);
+		System.out.println("player is dealer");
+		Platform.runLater(() -> {
+			ivPlayerDealer.setImage(imgDealer);
+		});
 	}
 
 	/**
@@ -1195,7 +1200,6 @@ public class GameController {
 	}
 
 	public void setBlindsMarker(int nbrOfAIs, int dealer, int smallBlindPlayer, int bigBlindPlayer) {
-		System.out.println("set blinds marker" + dealer + " " + smallBlindPlayer + " " + bigBlindPlayer);
 		ivPlayerBlind.setImage(null);
 		ivPlayerOneBlind.setImage(null); 
 		ivPlayerTwoBlind.setImage(null); 
@@ -1209,14 +1213,30 @@ public class GameController {
 		ivPlayerFourDealer.setImage(null);
 		ivPlayerFiveDealer.setImage(null);
 		
-		
+		if(nbrOfAIs==1) {
+			if(dealer==0) {
+				dealer=2;
+			}else if(dealer==1) {
+				dealer=5;
+			}
+			if(smallBlindPlayer==0) {
+				smallBlindPlayer=2;
+			}else if(smallBlindPlayer==1) {
+				smallBlindPlayer=5;
+			}
+			if(bigBlindPlayer==0) {
+				bigBlindPlayer=2;
+			}else if(bigBlindPlayer==1) {
+				bigBlindPlayer=5;
+			}
+		}
 		if(nbrOfAIs==3) {
 			if(dealer==1) {
 				dealer=2;
 			}else if(dealer==2) {
 				dealer=4;
 			}else if(dealer==3) {
-				dealer=0;
+				dealer=5;
 			}
 			if(smallBlindPlayer==1) {
 				smallBlindPlayer=2;
@@ -1452,8 +1472,6 @@ public class GameController {
 				}
 			}
 			mainPot.setText("Table Pot: §" + tablePot);
-			mainPot.setLayoutX(295.0);
-			mainPot.setLayoutY(290.0);
 			mainPot.setVisible(true);
 		});
 	}
