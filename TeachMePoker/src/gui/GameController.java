@@ -51,6 +51,7 @@ import javafx.scene.layout.Pane;
  * 
  * @author Loise Borg
  * @version 4.1 Fixed sound settings
+ * @version 4.2 Fixed so the blinds and dealer marker are at the correct player when playng against 3.
  */
 
 public class GameController {
@@ -145,6 +146,7 @@ public class GameController {
 
 		// Used by method: inactivateAllAiCardGlows and aiAction.
 		this.prevPlayerActive = -1;
+		
 	}
 
 	/**
@@ -1192,75 +1194,84 @@ public class GameController {
 		return highCard;
 	}
 
-	public void setBlindsMarker(int dealer, int smallBlindPlayer, int bigBlindPlayer) {
+	public void setBlindsMarker(int nbrOfAIs, int dealer, int smallBlindPlayer, int bigBlindPlayer) {
 		System.out.println("set blinds marker" + dealer + " " + smallBlindPlayer + " " + bigBlindPlayer);
-//		int[][] markerPos = new int[5][2];
+		ivPlayerBlind.setImage(null);
+		ivPlayerOneBlind.setImage(null); 
+		ivPlayerTwoBlind.setImage(null); 
+		ivPlayerThreeBlind.setImage(null);
+		ivPlayerFourBlind.setImage(null); 
+		ivPlayerFiveBlind.setImage(null); 
+		ivPlayerDealer.setImage(null); 
+		ivPlayerOneDealer.setImage(null); 
+		ivPlayerTwoDealer.setImage(null);
+		ivPlayerThreeDealer.setImage(null);
+		ivPlayerFourDealer.setImage(null);
+		ivPlayerFiveDealer.setImage(null);
+		
+		
+		if(nbrOfAIs==3) {
+			if(dealer==1) {
+				dealer=2;
+			}else if(dealer==2) {
+				dealer=4;
+			}else if(dealer==3) {
+				dealer=0;
+			}
+			if(smallBlindPlayer==1) {
+				smallBlindPlayer=2;
+			}else if(smallBlindPlayer==2) {
+				smallBlindPlayer=4;
+			}else if(smallBlindPlayer==3) {
+				smallBlindPlayer=5;
+			}
+			if(bigBlindPlayer==1) {
+				bigBlindPlayer=2;
+			}else if(bigBlindPlayer==2) {
+				bigBlindPlayer=4;
+			}else if(bigBlindPlayer==3) {
+				bigBlindPlayer=5;
+			}
+		}
+		
+		final int deal=dealer, small=smallBlindPlayer, big=bigBlindPlayer;
 		
 		Platform.runLater(() -> {
-			if(dealer==0) {
+			if(deal==0) {
 				ivPlayerOneDealer.setImage(imgDealer);
-			}else if(dealer==1) {
+			}else if(deal==1) {
 				ivPlayerTwoDealer.setImage(imgDealer);
-			}else if(dealer==2) {
+			}else if(deal==2) {
 				ivPlayerThreeDealer.setImage(imgDealer);
-			}else if(dealer==3) {
+			}else if(deal==3) {
 				ivPlayerFourDealer.setImage(imgDealer);
-			}else if(dealer==4) {
+			}else if(deal==4) {
 				ivPlayerFiveDealer.setImage(imgDealer);
 			}
 			
-			if(smallBlindPlayer==0) {
+			if(small==0) {
 				ivPlayerOneBlind.setImage(imgSmallBlind);
-			}else if(smallBlindPlayer==1) {
+			}else if(small==1) {
 				ivPlayerTwoBlind.setImage(imgSmallBlind);
-			}else if(smallBlindPlayer==2) {
+			}else if(small==2) {
 				ivPlayerThreeBlind.setImage(imgSmallBlind);
-			}else if(smallBlindPlayer==3) {
+			}else if(small==3) {
 				ivPlayerFourBlind.setImage(imgSmallBlind);
-			}else if(smallBlindPlayer==4) {
+			}else if(small==4) {
 				ivPlayerFiveBlind.setImage(imgSmallBlind);
 			}
 			
-			if(bigBlindPlayer==0) {
+			if(big==0) {
 				ivPlayerOneBlind.setImage(imgBigBlind);
-			}else if(bigBlindPlayer==1) {
+			}else if(big==1) {
 				ivPlayerTwoBlind.setImage(imgBigBlind);
-			}else if(bigBlindPlayer==2) {
+			}else if(big==2) {
 				ivPlayerThreeBlind.setImage(imgBigBlind);
-			}else if(bigBlindPlayer==3) {
+			}else if(big==3) {
 				ivPlayerFourBlind.setImage(imgBigBlind);
-			}else if(bigBlindPlayer==4) {
+			}else if(big==4) {
 				ivPlayerFiveBlind.setImage(imgBigBlind);
 			}
-			
-//
-//			// set MarkerPos TEST
-//			markerPos[0][0] = 300;
-//			markerPos[0][1] = 360;
-//
-//			markerPos[1][0] = 375;
-//			markerPos[1][1] = 172;
-//
-//			markerPos[2][0] = 745;
-//			markerPos[2][1] = 172;
-//
-//			markerPos[3][0] = 1010;
-//			markerPos[3][1] = 220;
-//
-//			markerPos[4][0] = 1010;
-//			markerPos[4][1] = 360;
-//			
-//			
-//
-//			if (dealer <= 4) {
-//				ivDealer.relocate(markerPos[dealer][0], markerPos[dealer][1]);
-//			}
-//			if (smallBlindPlayer <= 4) {
-//				ivSmallBlind.relocate(markerPos[smallBlindPlayer][0], markerPos[smallBlindPlayer][1]);
-//			}
-//			if (bigBlindPlayer <= 4) {
-//				ivBigBlind.relocate(markerPos[bigBlindPlayer][0], markerPos[bigBlindPlayer][1]);
-//			}
 
 		});
 	}

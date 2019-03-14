@@ -920,7 +920,7 @@ public class SPController extends Thread {
 			gController.playerIsDealer(dealer);
 		}
 		// update GUI.
-		gController.setBlindsMarker(dealer, smallBlindPlayer, bigBlindPlayer);
+		gController.setBlindsMarker(fixedNrOfAIs, dealer, smallBlindPlayer, bigBlindPlayer);
 		this.currentPotSize = smallBlind + bigBlind;
 		gController.updatePots(potSplits, currentPotSize);
 	}

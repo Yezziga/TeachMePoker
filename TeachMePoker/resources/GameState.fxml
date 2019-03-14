@@ -150,27 +150,27 @@
 				<Label fx:id="userName" alignment="CENTER" contentDisplay="CENTER" font="$x3" layoutX="474.0" layoutY="572.0" prefHeight="18.0" prefWidth="184.0" text="Vedrana" textAlignment="CENTER" />
 				<Label id="potValueLabel" fx:id="lbPotValue" alignment="CENTER" contentDisplay="CENTER" font="$x3" graphicTextGap="4.0" layoutX="474.0" layoutY="618.0" prefHeight="18.0" prefWidth="184.0" text="Your pot" textAlignment="CENTER" />
 				<Label fx:id="raiseLabel" layoutX="918.0" layoutY="612.0" textFill="#e8dbdb" />
-				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerOneCards" fitHeight="148.0" fitWidth="114.0" layoutX="170.0" layoutY="330.0">
+				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerOneCards" fitHeight="148.0" fitWidth="114.0" layoutX="170.0" layoutY="330.0" visible="false">
 					<image>
 						<Image url="@images/aiBarWithCards.png" />
 					</image>
 				</ImageView>
-				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerFiveCards" fitHeight="148.0" fitWidth="114.0" layoutX="1010.0" layoutY="330.0">
+				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerFiveCards" fitHeight="148.0" fitWidth="114.0" layoutX="1010.0" layoutY="330.0" visible="false">
 					<image>
 						<Image url="@images/aiBarWithCards.png" />
 					</image>
 				</ImageView>
-				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerFourCards" fitHeight="148.0" fitWidth="114.0" layoutX="1010.0" layoutY="100.0">
+				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerFourCards" fitHeight="148.0" fitWidth="114.0" layoutX="1010.0" layoutY="100.0" visible="false">
 					<image>
 						<Image url="@images/aiBarWithCards.png" />
 					</image>
 				</ImageView>
-				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerThreeCards" fitHeight="148.0" fitWidth="114.0" layoutX="583.0" layoutY="34.0">
+				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerThreeCards" fitHeight="148.0" fitWidth="114.0" layoutX="583.0" layoutY="34.0" visible="false">
 					<image>
 						<Image url="@images/aiBarWithCards.png" />
 					</image>
 				</ImageView>
-				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerTwoCards" fitHeight="148.0" fitWidth="114.0" layoutX="170.0" layoutY="100.0">
+				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerTwoCards" fitHeight="148.0" fitWidth="114.0" layoutX="170.0" layoutY="100.0" visible="false">
 					<image>
 						<Image url="@images/aiBarWithCards.png" />
 					</image>
@@ -208,23 +208,23 @@
             	
             	
             	
-				<Label fx:id="labelPlayerThreeName" alignment="TOP_CENTER" font="$x3" layoutX="605.0" layoutY="108.0" text="player three" />
-				<Label fx:id="labelPlayerFourName" font="$x3" layoutX="1035.0" layoutY="175.0" text="fyran" />
-				<Label fx:id="labelPlayerFiveName" font="$x3" layoutX="1035.0" layoutY="405.0" text="femman" />
-				<Label fx:id="labelPlayerOneName" font="$x3" layoutX="193.0" layoutY="405.0" text="ettan" />
-				<Label fx:id="labelPlayerTwoName" font="$x3" layoutX="193.0" layoutY="175.0" text="tvåan" />
+				<Label fx:id="labelPlayerThreeName" alignment="TOP_CENTER" font="$x3" layoutX="605.0" layoutY="108.0" visible="false" />
+				<Label fx:id="labelPlayerFourName" font="$x3" layoutX="1035.0" layoutY="175.0" visible="false" />
+				<Label fx:id="labelPlayerFiveName" font="$x3" layoutX="1035.0" layoutY="405.0" visible="false" />
+				<Label fx:id="labelPlayerOneName" font="$x3" layoutX="193.0" layoutY="405.0" visible="false" />
+				<Label fx:id="labelPlayerTwoName" font="$x3" layoutX="193.0" layoutY="175.0" visible="false" />
 
-				<Label fx:id="labelPlayerThreePot" font="$x3" layoutX="605.0" layoutY="132.0" text="tre pott" />
-				<Label fx:id="labelPlayerFourPot" font="$x3" layoutX="1035.0" layoutY="197.0" text="fyra pott" />
-				<Label fx:id="labelPlayerFivePot" font="$x3" layoutX="1035.0" layoutY="427.0" text="fem pott" />
-				<Label fx:id="labelPlayerOnePot" font="$x3" layoutX="193.0" layoutY="427.0" text="ett pott" />
-				<Label fx:id="labelPlayerTwoPot" font="$x3" layoutX="193.0" layoutY="197.0" text="två pott" />
+				<Label fx:id="labelPlayerThreePot" font="$x3" layoutX="605.0" layoutY="132.0" />
+				<Label fx:id="labelPlayerFourPot" font="$x3" layoutX="1035.0" layoutY="197.0" visible="false" />
+				<Label fx:id="labelPlayerFivePot" font="$x3" layoutX="1035.0" layoutY="427.0" visible="false" />
+				<Label fx:id="labelPlayerOnePot" font="$x3" layoutX="193.0" layoutY="427.0" visible="false" />
+				<Label fx:id="labelPlayerTwoPot" font="$x3" layoutX="193.0" layoutY="197.0" visible="false" />
 
-				<Label fx:id="labelPlayerThreeAction" font="$decisionFont" layoutX="605.0" layoutY="160.0" text="PlayerThreeAction" />
-				<Label fx:id="labelPlayerFourAction" font="$decisionFont" layoutX="1035.0" layoutY="225.0" text="PlayerFourAction" />
-				<Label fx:id="labelPlayerFiveAction" font="$decisionFont" layoutX="1035.0" layoutY="455.0" text="PlayerFiveAction" />
-				<Label fx:id="labelPlayerOneAction" font="$decisionFont" layoutX="193.0" layoutY="455.0" text="PlayerOneAction" />
-				<Label fx:id="labelPlayerTwoAction" font="$decisionFont" layoutX="193.0" layoutY="225.0" text="PlayerTwoAction" />
+				<Label fx:id="labelPlayerThreeAction" font="$decisionFont" layoutX="605.0" layoutY="160.0" visible="false" />
+				<Label fx:id="labelPlayerFourAction" font="$decisionFont" layoutX="1035.0" layoutY="225.0" visible="false" />
+				<Label fx:id="labelPlayerFiveAction" font="$decisionFont" layoutX="1035.0" layoutY="455.0" visible="false" />
+				<Label fx:id="labelPlayerOneAction" font="$decisionFont" layoutX="193.0" layoutY="455.0" visible="false" />
+				<Label fx:id="labelPlayerTwoAction" font="$decisionFont" layoutX="193.0" layoutY="225.0" visible="false" />
 
 				<ImageView id="checkButton.png" fx:id="btCheck" fitHeight="44.0" fitWidth="101.0" layoutX="693.0" layoutY="550.0" onMouseReleased="#playerCheck">
 					<image>
