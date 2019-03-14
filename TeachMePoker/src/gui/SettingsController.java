@@ -3,6 +3,8 @@ package gui;
 import java.io.IOException;
 import controller.SPController;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -101,7 +103,18 @@ public class SettingsController {
 		potSlider.setSnapToTicks(true);
 		potSlider.setValue(5000);
 		aiSlider.setSnapToTicks(true);
-
+		
+		//Sets limit of character input in name textfield
+		tfNameInput.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(final ObservableValue<? extends String> ov, final String oldValue,
+					final String newValue) {
+				if (tfNameInput.getText().length() > 15) {
+					String s = tfNameInput.getText().substring(0, 15);
+					tfNameInput.setText(s);
+				}
+			}
+		});
 	}
 
 	/**

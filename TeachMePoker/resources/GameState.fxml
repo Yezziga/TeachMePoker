@@ -34,7 +34,7 @@
 						<Image url="@images/background.png" />
 					</image>
 				</ImageView>
-				<ImageView id="table.png" fitHeight="379.0" fitWidth="916.0" layoutX="211.0" layoutY="120.0">
+				<ImageView id="table.png" fitHeight="379.0" fitWidth="916.0" layoutX="182.0" layoutY="120.0">
 					<image>
 						<Image url="@images/table.png" />
 					</image>
@@ -54,21 +54,9 @@
 						<Image url="@images/saveButton.png" />
 					</image>
 				</ImageView>
-				<ImageView id="dealer.png" fx:id="ivDealer" fitHeight="37.0" fitWidth="37.0" layoutX="417.0" layoutY="172.0">
-					<image>
-						<Image url="@images/dealer.png" />
-					</image>
-				</ImageView>
-				<ImageView id="smallBlind.png" fx:id="ivSmallBlind" fitHeight="37.0" fitWidth="37.0" layoutX="524.0" layoutY="172.0">
-					<image>
-						<Image url="@images/smallBlind.png" />
-					</image>
-				</ImageView>
-				<ImageView id="bigBlind.png" fx:id="ivBigBlind" fitHeight="37.0" fitWidth="37.0" layoutX="474.0" layoutY="172.0">
-					<image>
-						<Image url="@images/bigBlind.png" />
-					</image>
-				</ImageView>
+				<ImageView id="dealer.png" fx:id="ivPlayerOneBlind" fitHeight="37.0" fitWidth="37.0" layoutX="300.0" layoutY="360.0" />
+				<ImageView id="smallBlind.png" fx:id="ivPlayerThreeBlind" fitHeight="37.0" fitWidth="37.0" layoutX="730.0" layoutY="155.0" />
+				<ImageView id="bigBlind.png" fx:id="ivPlayerTwoBlind" fitHeight="37.0" fitWidth="37.0" layoutX="303.0" layoutY="180.0" />
 				<Accordion layoutX="17.0" layoutY="432.0" />
 				<AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
 				<Slider fx:id="slider" blockIncrement="1.0" layoutX="693.0" layoutY="610.0" majorTickUnit="500.0" max="2000.0" min="50.0" minorTickCount="100" mouseTransparent="false" onDragDetected="#sliderChange" onDragDone="#sliderChange" onDragDropped="#sliderChange" onScrollFinished="#showAllIn" orientation="HORIZONTAL" pickOnBounds="false" prefWidth="214.0" showTickLabels="true" showTickMarks="true" snapToTicks="false" value="50.0">
@@ -83,7 +71,7 @@
 						</Lighting>
 					</effect>
 				</Slider>
-				<Pane id="pane" fx:id="playerCardsArea" layoutX="570.0" layoutY="395.0" prefHeight="131.0" prefWidth="203.0" />
+				<Pane id="pane" fx:id="playerCardsArea" layoutX="540.0" layoutY="395.0" prefHeight="131.0" prefWidth="203.0" />
 				<MenuBar layoutX="0.0" layoutY="0.0" mouseTransparent="false" prefWidth="1280.0">
 					<menus>
 						<Menu mnemonicParsing="false" text="Meny">
@@ -107,7 +95,7 @@
 				</MenuBar>
 				<TitledPane id="helpBox" alignment="TOP_CENTER" contentDisplay="LEFT" graphicTextGap="1.0" layoutX="114.0" layoutY="388.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="444.0" prefWidth="217.0" rotate="270.0" text="Hjälp">
 					<content>
-						<AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="180.0">
+						<AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="199.0">
 							<children>
 								<Label fx:id="helpLabel" layoutX="40.0" layoutY="139.0" prefHeight="37.0" prefWidth="302.0" rotate="90.0" text="">
 																		<font>
@@ -162,29 +150,29 @@
 				<Label fx:id="userName" alignment="CENTER" contentDisplay="CENTER" font="$x3" layoutX="474.0" layoutY="572.0" prefHeight="18.0" prefWidth="184.0" text="Vedrana" textAlignment="CENTER" />
 				<Label id="potValueLabel" fx:id="lbPotValue" alignment="CENTER" contentDisplay="CENTER" font="$x3" graphicTextGap="4.0" layoutX="474.0" layoutY="618.0" prefHeight="18.0" prefWidth="184.0" text="Your pot" textAlignment="CENTER" />
 				<Label fx:id="raiseLabel" layoutX="918.0" layoutY="612.0" textFill="#e8dbdb" />
-				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerOneCards" fitHeight="148.0" fitWidth="114.0" layoutX="170.0" layoutY="290.0" visible="false">
+				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerOneCards" fitHeight="148.0" fitWidth="114.0" layoutX="170.0" layoutY="330.0">
 					<image>
-						<Image preserveRatio="true" smooth="true" url="@/images/aiBarWithCards.png" />
+						<Image url="@images/aiBarWithCards.png" />
 					</image>
 				</ImageView>
-				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerFiveCards" fitHeight="148.0" fitWidth="114.0" layoutX="1095.0" layoutY="290.0" visible="false">
+				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerFiveCards" fitHeight="148.0" fitWidth="114.0" layoutX="1010.0" layoutY="330.0">
 					<image>
-						<Image preserveRatio="true" smooth="true" url="@/images/aiBarWithCards.png" />
+						<Image url="@images/aiBarWithCards.png" />
 					</image>
 				</ImageView>
-				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerFourCards" fitHeight="148.0" fitWidth="114.0" layoutX="980.0" layoutY="43.0" visible="false">
+				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerFourCards" fitHeight="148.0" fitWidth="114.0" layoutX="1010.0" layoutY="100.0">
 					<image>
-						<Image preserveRatio="true" smooth="true" url="@/images/aiBarWithCards.png" />
+						<Image url="@images/aiBarWithCards.png" />
 					</image>
 				</ImageView>
-				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerThreeCards" fitHeight="148.0" fitWidth="114.0" layoutX="628.0" layoutY="34.0" visible="false">
+				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerThreeCards" fitHeight="148.0" fitWidth="114.0" layoutX="583.0" layoutY="34.0">
 					<image>
-						<Image preserveRatio="true" smooth="true" url="@/images/aiBarWithCards.png" />
+						<Image url="@images/aiBarWithCards.png" />
 					</image>
 				</ImageView>
-				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerTwoCards" fitHeight="148.0" fitWidth="114.0" layoutX="258.0" layoutY="43.0" visible="false">
+				<ImageView id="aiBarWithCards.png" fx:id="imgPlayerTwoCards" fitHeight="148.0" fitWidth="114.0" layoutX="170.0" layoutY="100.0">
 					<image>
-						<Image preserveRatio="true" smooth="true" url="@/images/aiBarWithCards.png" />
+						<Image url="@images/aiBarWithCards.png" />
 					</image>
 				</ImageView>
 				<Pane id="paneRounds.png" fx:id="paneRounds" layoutX="10.0" layoutY="33.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="108.0">
@@ -220,23 +208,23 @@
             	
             	
             	
-				<Label fx:id="labelPlayerThreeName" alignment="TOP_CENTER" font="$x3" layoutX="653.0" layoutY="109.0" text="" visible="false" />
-				<Label fx:id="labelPlayerFourName" font="$x3" layoutX="1005.0" layoutY="119.0" text="" visible="false" />
-				<Label fx:id="labelPlayerFiveName" font="$x3" layoutX="1118.0" layoutY="364.0" text="" visible="false" />
-				<Label fx:id="labelPlayerOneName" font="$x3" layoutX="193.0" layoutY="364.0" text="" visible="false" />
-				<Label fx:id="labelPlayerTwoName" font="$x3" layoutX="280.0" layoutY="119.0" text="" visible="false" />
+				<Label fx:id="labelPlayerThreeName" alignment="TOP_CENTER" font="$x3" layoutX="605.0" layoutY="108.0" text="player three" />
+				<Label fx:id="labelPlayerFourName" font="$x3" layoutX="1035.0" layoutY="175.0" text="fyran" />
+				<Label fx:id="labelPlayerFiveName" font="$x3" layoutX="1035.0" layoutY="405.0" text="femman" />
+				<Label fx:id="labelPlayerOneName" font="$x3" layoutX="193.0" layoutY="405.0" text="ettan" />
+				<Label fx:id="labelPlayerTwoName" font="$x3" layoutX="193.0" layoutY="175.0" text="tvåan" />
 
-				<Label fx:id="labelPlayerThreePot" font="$x3" layoutX="653.0" layoutY="135.0" text="" visible="false" />
-				<Label fx:id="labelPlayerFourPot" font="$x3" layoutX="1005.0" layoutY="143.0" text="" visible="false" />
-				<Label fx:id="labelPlayerFivePot" font="$x3" layoutX="1118.0" layoutY="392.0" text="" visible="false" />
-				<Label fx:id="labelPlayerOnePot" font="$x3" layoutX="193.0" layoutY="392.0" text="" visible="false" />
-				<Label fx:id="labelPlayerTwoPot" font="$x3" layoutX="280.0" layoutY="143.0" text="" visible="false" />
+				<Label fx:id="labelPlayerThreePot" font="$x3" layoutX="605.0" layoutY="132.0" text="tre pott" />
+				<Label fx:id="labelPlayerFourPot" font="$x3" layoutX="1035.0" layoutY="197.0" text="fyra pott" />
+				<Label fx:id="labelPlayerFivePot" font="$x3" layoutX="1035.0" layoutY="427.0" text="fem pott" />
+				<Label fx:id="labelPlayerOnePot" font="$x3" layoutX="193.0" layoutY="427.0" text="ett pott" />
+				<Label fx:id="labelPlayerTwoPot" font="$x3" layoutX="193.0" layoutY="197.0" text="två pott" />
 
-				<Label fx:id="labelPlayerThreeAction" font="$decisionFont" layoutX="653.0" layoutY="160.0" text="PlayerThreeAction" visible="false" />
-				<Label fx:id="labelPlayerFourAction" font="$decisionFont" layoutX="1005.0" layoutY="169.0" text="PlayerFourAction" visible="false" />
-				<Label fx:id="labelPlayerFiveAction" font="$decisionFont" layoutX="1118.0" layoutY="413.0" text="PlayerFiveAction" visible="false" />
-				<Label fx:id="labelPlayerOneAction" font="$decisionFont" layoutX="193.0" layoutY="413.0" text="PlayerOneAction" visible="false" />
-				<Label fx:id="labelPlayerTwoAction" font="$decisionFont" layoutX="280.0" layoutY="169.0" text="PlayerTwoAction" visible="false" />
+				<Label fx:id="labelPlayerThreeAction" font="$decisionFont" layoutX="605.0" layoutY="160.0" text="PlayerThreeAction" />
+				<Label fx:id="labelPlayerFourAction" font="$decisionFont" layoutX="1035.0" layoutY="225.0" text="PlayerFourAction" />
+				<Label fx:id="labelPlayerFiveAction" font="$decisionFont" layoutX="1035.0" layoutY="455.0" text="PlayerFiveAction" />
+				<Label fx:id="labelPlayerOneAction" font="$decisionFont" layoutX="193.0" layoutY="455.0" text="PlayerOneAction" />
+				<Label fx:id="labelPlayerTwoAction" font="$decisionFont" layoutX="193.0" layoutY="225.0" text="PlayerTwoAction" />
 
 				<ImageView id="checkButton.png" fx:id="btCheck" fitHeight="44.0" fitWidth="101.0" layoutX="693.0" layoutY="550.0" onMouseReleased="#playerCheck">
 					<image>
@@ -260,7 +248,7 @@
 				</ImageView>
 
 				<Label fx:id="lbAllIn" disable="false" focusTraversable="false" font="$x3" labelFor="$slider" layoutX="870.0" layoutY="650.0" prefHeight="28.0" prefWidth="49.0" text="ALL IN" textFill="WHITE" visible="false" />
-				<Pane fx:id="tabelCardArea" layoutX="435.0" layoutY="231.0" prefHeight="164.0" prefWidth="471.0" />
+				<Pane fx:id="tabelCardArea" layoutX="405.0" layoutY="231.0" prefHeight="164.0" prefWidth="471.0" />
 				<!-- <ImageView id="img1Table.png" fx:id="imgCard1" fitHeight="166.0" 
 					fitWidth="120.0" layoutX="0.0" layoutY="0.0" visible="false"> </ImageView> 
       					<ImageView id="img2Table.png" fx:id="imgCard2" fitHeight="166.0" fitWidth="120.0" 
@@ -303,6 +291,16 @@
 						
 					</font>
 				</TitledPane>
+            <ImageView id="bigBlind.png" fx:id="ivPlayerFiveBlind" fitHeight="37.0" fitWidth="37.0" layoutX="960.0" layoutY="395.0" />
+            <ImageView id="bigBlind.png" fx:id="ivPlayerFourBlind" fitHeight="37.0" fitWidth="37.0" layoutX="940.0" layoutY="180.0" />
+            <ImageView id="dealer.png" fx:id="ivPlayerBlind" fitHeight="37.0" fitWidth="37.0" layoutX="500.0" layoutY="430.0" />
+            <ImageView id="dealer.png" fx:id="ivPlayerDealer" fitHeight="37.0" fitWidth="37.0" layoutX="480.0" layoutY="430.0" />
+            <ImageView id="dealer.png" fx:id="ivPlayerOneDealer" fitHeight="37.0" fitWidth="37.0" layoutX="283.0" layoutY="395.0" />
+            <ImageView id="bigBlind.png" fx:id="ivPlayerTwoDealer" fitHeight="37.0" fitWidth="37.0" layoutX="283.0" layoutY="190.0" />
+            <ImageView id="smallBlind.png" fx:id="ivPlayerThreeDealer" fitHeight="37.0" fitWidth="37.0" layoutX="710.0" layoutY="155.0" />
+            <ImageView id="bigBlind.png" fx:id="ivPlayerFourDealer" fitHeight="37.0" fitWidth="37.0" layoutX="960.0" layoutY="190.0" />
+            <ImageView id="bigBlind.png" fx:id="ivPlayerFiveDealer" fitHeight="37.0" fitWidth="37.0" layoutX="940.0" layoutY="405.0" />
+            <ImageView id="dealer.png" fx:id="ivPlayerOneBlind" fitHeight="37.0" fitWidth="37.0" layoutX="303.0" layoutY="405.0" />
           
 
 			</children>
