@@ -7,9 +7,6 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.effect.Light.Distant?>
-<?import javafx.scene.effect.Lighting?>
-<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -21,76 +18,57 @@
    <children>
       <ImageView id="background" fx:id="background" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/startGameBackground.png" />
+            <Image url="@images/background.png" />
          </image>
       </ImageView>
-      <VBox alignment="TOP_RIGHT" layoutX="740.0" layoutY="70.0" prefHeight="452.0" prefWidth="472.0">
+      <TextField fx:id="tfNameInput" layoutX="625.0" layoutY="70.0" onAction="#tfNameInputChange" prefHeight="70.0" prefWidth="450.0">
+         <font>
+            <Font name="Tw Cen MT" size="45.0" />
+         </font>
+         <padding>
+            <Insets left="5.0" right="5.0" />
+         </padding>
+      </TextField>
+      <Slider fx:id="aiSlider" blendMode="ADD" blockIncrement="0.0" layoutX="625.0" layoutY="195.0" majorTickUnit="2.0" max="5.0" min="1.0" minorTickCount="0" onDragDone="#aiSliderChange" onDragDropped="#aiSliderChange" onDragOver="#aiSliderChange" onMouseReleased="#aiSliderChange" prefHeight="100.0" prefWidth="450.0" showTickLabels="true" snapToTicks="true" value="5.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Slider>
+      <Slider fx:id="potSlider" blendMode="ADD" blockIncrement="0.0" layoutX="625.0" layoutY="350.0" majorTickUnit="800.0" max="10000.0" min="200.0" minorTickCount="0" onDragDetected="#potSliderChange" prefWidth="450.0" showTickLabels="true" value="1000.0">
+         <tooltip>
+            <Tooltip text="Kolla" />
+         </tooltip>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Slider>
+      <HBox layoutX="625.0" layoutY="470.0" prefHeight="0.0" prefWidth="450.0">
          <children>
-            <TextField fx:id="tfNameInput" onAction="#tfNameInputChange" prefHeight="98.0" prefWidth="472.0" promptText="Skriv ditt namn här...">
-               <VBox.margin>
-                  <Insets bottom="40.0" />
-               </VBox.margin>
+            <CheckBox fx:id="cbOn" mnemonicParsing="false" onAction="#cbOnClicked" pickOnBounds="false" selected="true" text="På" textFill="WHITE">
                <font>
-                  <Font name="Tw Cen MT" size="45.0" />
+                  <Font name="Tw Cen MT" size="24.0" />
                </font>
-            </TextField>
-            <Slider fx:id="aiSlider" blockIncrement="0.0" majorTickUnit="2.0" max="5.0" min="1.0" minorTickCount="0" onDragDone="#aiSliderChange" onDragDropped="#aiSliderChange" onDragOver="#aiSliderChange" onMouseReleased="#aiSliderChange" prefHeight="16.0" prefWidth="415.0" showTickLabels="true" snapToTicks="true" value="5.0">
-               <VBox.margin>
-                  <Insets bottom="100.0" />
-               </VBox.margin>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-            </Slider>
-            <Slider fx:id="potSlider" blockIncrement="0.0" majorTickUnit="800.0" max="10000.0" min="200.0" minorTickCount="0" onDragDetected="#potSliderChange" showTickLabels="true" value="1000.0">
-               <tooltip>
-                  <Tooltip text="Kolla" />
-               </tooltip>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </CheckBox>
+            <CheckBox fx:id="cbOff" alignment="CENTER_RIGHT" contentDisplay="TOP" mnemonicParsing="false" onAction="#cbOffClicked" text="Av" textFill="WHITE">
+               <HBox.margin>
+                  <Insets left="150.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Tw Cen MT" size="24.0" />
+               </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></Slider>
-            <HBox prefHeight="0.0" prefWidth="440.0">
-               <children>
-                  <CheckBox fx:id="cbOn" disable="true" mnemonicParsing="false" onAction="#cbOnClicked" selected="true" text="På" textFill="WHITE">
-                     <font>
-                        <Font name="Tw Cen MT" size="24.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </CheckBox>
-                  <CheckBox fx:id="cbOff" alignment="TOP_LEFT" contentDisplay="TOP" mnemonicParsing="false" onAction="#cbOffClicked" text="Av" textFill="WHITE">
-                     <HBox.margin>
-                        <Insets left="150.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="Tw Cen MT" size="24.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </CheckBox>
-               </children>
-               <VBox.margin>
-                  <Insets top="70.0" />
-               </VBox.margin>
-            </HBox>
+               </cursor>
+            </CheckBox>
          </children>
-         <cursor>
-            <Cursor fx:constant="TEXT" />
-         </cursor>
-         <effect>
-            <Lighting diffuseConstant="1.71" specularConstant="0.52" specularExponent="0.0" surfaceScale="0.0">
-               <bumpInput>
-                  <Shadow />
-               </bumpInput>
-               <light>
-                  <Light.Distant />
-               </light>
-            </Lighting>
-         </effect>
-      </VBox>
-      <VBox layoutX="1230.0" layoutY="210.0" prefHeight="300.0" prefWidth="40.0">
+      </HBox>
+      <VBox layoutX="1100.0" layoutY="210.0" prefHeight="300.0" prefWidth="40.0">
          <children>
             <ImageView fx:id="ivQuestionAi" fitHeight="32.0" fitWidth="30.0" onMouseClicked="#ivQuestionAiHovered" onMouseEntered="#ivQuestionAiHovered" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -105,7 +83,7 @@
                   <Image url="@images/questionmark.png" />
                </image>
                <VBox.margin>
-                  <Insets top="90.0" />
+                  <Insets top="92.0" />
                </VBox.margin>
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
@@ -116,13 +94,16 @@
                   <Image url="@images/questionmark.png" />
                </image>
                <VBox.margin>
-                  <Insets top="82.0" />
+                  <Insets top="92.0" />
                </VBox.margin>
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </ImageView>
          </children>
+         <padding>
+            <Insets top="12.0" />
+         </padding>
       </VBox>
       <ImageView fx:id="ivStartGame" fitHeight="250.0" fitWidth="290.0" layoutX="538.0" layoutY="603.0" onMouseClicked="#startGame" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -142,15 +123,35 @@
             <Font name="Tw Cen MT" size="14.0" />
          </font>
       </Label>
-      <ImageView fx:id="ivBack" fitHeight="90.0" fitWidth="150.0" layoutX="50.0" layoutY="603.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="ivBack" fitHeight="60.0" fitWidth="150.0" layoutX="50.0" layoutY="610.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/backButton.png" />
          </image>
       </ImageView>
-      	<ImageView id="soundButton.png" fx:id="ivSound" fitHeight="45.0" fitWidth="45.0" layoutX="1221.0" layoutY="14.0" onMouseReleased="#soundSetting">
+      	<ImageView id="soundButton.png" fx:id="ivSound" fitHeight="60.0" fitWidth="60.0" layoutX="1200.0" layoutY="14.0" onMouseReleased="#soundSetting">
 					<image>
 						<Image url="@images/soundButton.png" />
 					</image>
 				</ImageView>
+      <Label layoutX="100.0" layoutY="50.0" prefHeight="100.0" prefWidth="450.0" text="Namn:" textFill="#fefefe">
+         <font>
+            <Font name="Tw Cen MT" size="64.0" />
+         </font>
+      </Label>
+      <Label layoutX="100.0" layoutY="175.0" prefHeight="100.0" prefWidth="450.0" text="Antal motspelare:" textFill="#fefefe">
+         <font>
+            <Font name="Tw Cen MT" size="64.0" />
+         </font>
+      </Label>
+      <Label layoutX="100.0" layoutY="300.0" prefHeight="100.0" prefWidth="450.0" text="Pottstorlek:" textFill="#fefefe">
+         <font>
+            <Font name="Tw Cen MT" size="64.0" />
+         </font>
+      </Label>
+      <Label layoutX="100.0" layoutY="425.0" prefHeight="100.0" prefWidth="450.0" text="Visa tutorial:" textFill="#fefefe">
+         <font>
+            <Font name="Tw Cen MT" size="64.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

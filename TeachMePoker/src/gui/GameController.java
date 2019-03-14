@@ -207,7 +207,7 @@ public class GameController {
 				true);
 		Image showCards = new Image(Paths.get(resource + "aiBarWithCards.png").toUri().toString(), 122, 158, true,
 				true);
-		Image showActiveCards = new Image(Paths.get(resource + "aiBarWithCardsCurrentPlayer4.png").toUri().toString(),
+		Image showActiveCards = new Image(Paths.get(resource + "aiBarWithCardsCurrentPlayer2.png").toUri().toString(),
 				122, 158, true, true);
 
 		if (state == "inactive") {
