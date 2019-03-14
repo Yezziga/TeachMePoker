@@ -24,12 +24,16 @@ import javafx.scene.layout.Pane;
  * @author dalvig
  * @version 2.1 Added possibility to turn music on and off
  *
- *@author Kold
+ * @author Kold
  * @version 2.2 Changed from confirm box to alert box, on two separate places.
- * In the "about project" and when a player tries to play without entering a name. 
+ *          In the "about project" and when a player tries to play without
+ *          entering a name.
  * 
  * @author Quach
  * @version 3.1 Removed the confirm box when player starts a game
+ * 
+ * @author Loise Borg
+ * @version 4.1 Fixed sound settings
  */
 public class SettingsController {
 	private SPController spController;
@@ -78,7 +82,7 @@ public class SettingsController {
 	@FXML
 	private ImageView btnBack;
 
-	private Sound sound = new Sound();
+	private Sound sound;
 	private TutorialController tutorialWindow;
 
 	@FXML
@@ -115,6 +119,15 @@ public class SettingsController {
 	public void setChangeScene(ChangeScene sceneChanger) {
 
 		this.changeScene = sceneChanger;
+	}
+
+	/**
+	 * Sets the Sound variable
+	 * 
+	 * @param sound
+	 */
+	public void setSoundClass(Sound sound) {
+		this.sound = sound;
 	}
 
 	/**
@@ -238,10 +251,10 @@ public class SettingsController {
 			try {
 				changeScene.switchScenetoGame();
 
-					spController.startGame(aiValue, potValue, name);
-					Sound.mp.stop();
-					sound.playSound("shuffle");
-				
+				spController.startGame(aiValue, potValue, name);
+				sound.mp.stop();
+				sound.playSound("shuffle");
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -292,7 +305,6 @@ public class SettingsController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// Main.window.setScene(changeScene.sceneMenu);
 	}
 
 	/**
@@ -304,14 +316,30 @@ public class SettingsController {
 		return name;
 	}
 
-	public void soundSetting() {
-		if (sound.mp.getVolume() > 0) {
-			sound.mp.setVolume(0);
-			ivSound.setImage(soundOff);
+	/**
+	 * Turns background music on and off
+	 */
 
-		} else if (sound.mp.getVolume() == 0) {
-			sound.mp.setVolume(1);
+	public void soundButtonClicked() {
+		if (sound.isSoundTurnedOn()) {
+			sound.turnSoundOff();
+			ivSound.setImage(soundOff);
+		} else if (!sound.isSoundTurnedOn()) {
+			sound.turnSoundOn();
 			ivSound.setImage(soundOn);
+		}
+	}
+
+	/**
+	 * Checks if the sound should be on or off.
+	 */
+	public void initializeSound() {
+		if (sound.isSoundTurnedOn()) {
+			sound.turnSoundOn();
+			ivSound.setImage(soundOn);
+		} else if (!sound.isSoundTurnedOn()) {
+			sound.turnSoundOff();
+			ivSound.setImage(soundOff);
 		}
 	}
 }

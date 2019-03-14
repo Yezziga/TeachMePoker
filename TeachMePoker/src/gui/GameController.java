@@ -47,6 +47,9 @@ import javafx.scene.layout.Pane;
  *          
  *  @author Quach
  *  @version 3.4 AI-players who have lost all their money will now be removed from the table.
+ *  
+ *  @author Loise Borg
+ *  @version 4.1 Fixed sound settings
  */
 
 public class GameController {
@@ -99,7 +102,7 @@ public class GameController {
 	private int[][] aiPositions;
 	private int highCard, prevPlayerActive;
 	private String handType = " ";
-	private Sound sound = new Sound();
+	private Sound sound;
 	private TutorialController tutorialWindow;
 	private int AllInViability = 0;
 	private Label[] collectionOfPots;
@@ -1488,5 +1491,39 @@ public class GameController {
 	public int getRound() {
 		return round;
 	}
+  
+	/**
+	 * Sets the Sound variable
+	 * @param sound
+	 */
+	public void setSoundClass(Sound sound) {
+		this.sound = sound;
+	}
 
+	/**
+	 * Turns background music on and off
+	 */
+
+	public void soundButtonClicked() {
+		if (sound.isSoundTurnedOn()) {
+			sound.turnSoundOff();
+			ivSound.setImage(soundOff);
+		} else if (!sound.isSoundTurnedOn()) {
+			sound.turnSoundOn();
+			ivSound.setImage(soundOn);
+		}
+	}
+	
+	/**
+	 * Checks if the sound should be on or off. 
+	 */
+	public void initializeSound() {
+		if (sound.isSoundTurnedOn()) {
+			sound.turnSoundOn();
+			ivSound.setImage(soundOn);
+		} else if (!sound.isSoundTurnedOn()) {
+			sound.turnSoundOff();
+			ivSound.setImage(soundOff);
+		}
+	}
 }

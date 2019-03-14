@@ -110,15 +110,15 @@
             <Image url="@images/startGame.png" />
          </image>
       </ImageView>
-      <Label fx:id="lblAiInfo" layoutX="964.0" layoutY="252.0" prefHeight="36.0" prefWidth="293.0" text="Välj hur många motståndare du vill spela mot" textFill="WHITE" visible="false">
+      <Label fx:id="lblAiInfo" layoutX="980.0" layoutY="252.0" prefHeight="36.0" prefWidth="293.0" text="Välj hur många motståndare du vill spela mot" textFill="WHITE" visible="false">
          <font>
             <Font name="Tw Cen MT" size="14.0" />
          </font></Label>
-      <Label fx:id="lblPotInfo" layoutX="964.0" layoutY="384.0" prefHeight="36.0" prefWidth="293.0" text="Välj hur mycket pengar du och dina motspelare ska dela på som startsumma" textFill="WHITE" visible="false" wrapText="true">
+      <Label fx:id="lblPotInfo" layoutX="980.0" layoutY="384.0" prefHeight="36.0" prefWidth="293.0" text="Välj hur mycket pengar du och dina motspelare ska dela på som startsumma" textFill="WHITE" visible="false" wrapText="true">
          <font>
             <Font name="Tw Cen MT" size="14.0" />
          </font></Label>
-      <Label fx:id="lblTutorialInfo" layoutX="964.0" layoutY="490.0" prefHeight="36.0" prefWidth="293.0" text="Välj Av om du inte vill visa tips och hur spelet går till  innan du börjar spela" textFill="WHITE" visible="false" wrapText="true">
+      <Label fx:id="lblTutorialInfo" layoutX="980.0" layoutY="505.0" prefHeight="36.0" prefWidth="293.0" text="Välj Av om du inte vill visa tips och hur spelet går till  innan du börjar spela" textFill="WHITE" visible="false" wrapText="true">
          <font>
             <Font name="Tw Cen MT" size="14.0" />
          </font>
@@ -128,7 +128,7 @@
             <Image url="@images/backButton.png" />
          </image>
       </ImageView>
-      	<ImageView id="soundButton.png" fx:id="ivSound" fitHeight="60.0" fitWidth="60.0" layoutX="1200.0" layoutY="14.0" onMouseReleased="#soundSetting">
+      	<ImageView id="soundButton.png" fx:id="ivSound" fitHeight="60.0" fitWidth="60.0" layoutX="1200.0" layoutY="14.0" onMouseReleased="#soundButtonClicked">
 					<image>
 						<Image url="@images/soundButton.png" />
 					</image>

@@ -44,7 +44,7 @@
 						<Image url="@images/rulesButton.png" />
 					</image>
 				</ImageView>
-				<ImageView id="soundButton.png" fx:id="ivSound" fitHeight="45.0" fitWidth="45.0" layoutX="1220.0" layoutY="40.0" onMouseReleased="#soundSetting">
+				<ImageView id="soundButton.png" fx:id="ivSound" fitHeight="45.0" fitWidth="45.0" layoutX="1220.0" layoutY="40.0" onMouseReleased="#soundButtonClicked">
 					<image>
 						<Image url="@images/soundButton.png" />
 					</image>
