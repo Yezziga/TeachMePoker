@@ -139,13 +139,14 @@ public class SPController extends Thread {
 	 */
 	public void setNames() {
 
-		name.add("Max");
-		name.add("Vedrana");
-		name.add("Lykke");
-		name.add("Amin");
-		name.add("Rikard");
-		name.add("Kristina");
-		name.add("Rolf");
+		name.add("Loise");
+		name.add("Malin");
+		name.add("Sara");
+		name.add("Jessica");
+		name.add("Elina");
+		name.add("Henrik");
+		name.add("Kasper");
+		name.add("Marcel");
 		Collections.shuffle(name);
 	}
 

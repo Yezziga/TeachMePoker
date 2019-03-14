@@ -52,10 +52,10 @@ public class WinnerBox {
 
 
 
-		String aiWin = new String("Rundan vanns av " + message + " som hade " + handType );
-		String playerWin = new String("Grattis " + message + ", du vann den här rundan! Du vann med " + handType );
-		String playerWinAIFold = new String("Grattis " + message + ". " + handType ); 
-		String aiWinOthersFold = new String("Rundan vanns av " + message + " " + handType );
+		String aiWin = new String("Rundan vanns av " + message + " som hade " + handType + ".");
+		String playerWin = new String("Grattis " + message + ", du vann den här rundan! Du vann med " + handType + ".");
+		String playerWinAIFold = new String("Grattis " + message + ". " + handType + "."); 
+		String aiWinOthersFold = new String("Rundan vanns av " + message + " " + handType + ".");
 		String playerLose = new String (message);
 
 		window.initModality(Modality.APPLICATION_MODAL);

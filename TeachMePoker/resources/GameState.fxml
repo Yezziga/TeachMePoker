@@ -220,17 +220,17 @@
             	
             	
             	
-				<Label fx:id="labelPlayerThreeName" alignment="TOP_CENTER" font="$x3" layoutX="653.0" layoutY="109.0" text="PlayerThreeName" visible="false" />
-				<Label fx:id="labelPlayerFourName" font="$x3" layoutX="1005.0" layoutY="119.0" text="PlayerFourName" visible="false" />
-				<Label fx:id="labelPlayerFiveName" font="$x3" layoutX="1118.0" layoutY="364.0" text="PlayerFiveName" visible="false" />
-				<Label fx:id="labelPlayerOneName" font="$x3" layoutX="193.0" layoutY="364.0" text="PlayerOneName" visible="false" />
-				<Label fx:id="labelPlayerTwoName" font="$x3" layoutX="280.0" layoutY="119.0" text="PlayerTwoName" visible="false" />
+				<Label fx:id="labelPlayerThreeName" alignment="TOP_CENTER" font="$x3" layoutX="653.0" layoutY="109.0" text="" visible="false" />
+				<Label fx:id="labelPlayerFourName" font="$x3" layoutX="1005.0" layoutY="119.0" text="" visible="false" />
+				<Label fx:id="labelPlayerFiveName" font="$x3" layoutX="1118.0" layoutY="364.0" text="" visible="false" />
+				<Label fx:id="labelPlayerOneName" font="$x3" layoutX="193.0" layoutY="364.0" text="" visible="false" />
+				<Label fx:id="labelPlayerTwoName" font="$x3" layoutX="280.0" layoutY="119.0" text="" visible="false" />
 
-				<Label fx:id="labelPlayerThreePot" font="$x3" layoutX="653.0" layoutY="135.0" text="PlayerThreePot" visible="false" />
-				<Label fx:id="labelPlayerFourPot" font="$x3" layoutX="1005.0" layoutY="143.0" text="PlayerFourPot" visible="false" />
-				<Label fx:id="labelPlayerFivePot" font="$x3" layoutX="1118.0" layoutY="392.0" text="PlayerFivePot" visible="false" />
-				<Label fx:id="labelPlayerOnePot" font="$x3" layoutX="193.0" layoutY="392.0" text="PlayerOnePot" visible="false" />
-				<Label fx:id="labelPlayerTwoPot" font="$x3" layoutX="280.0" layoutY="143.0" text="PlayerTwoPot" visible="false" />
+				<Label fx:id="labelPlayerThreePot" font="$x3" layoutX="653.0" layoutY="135.0" text="" visible="false" />
+				<Label fx:id="labelPlayerFourPot" font="$x3" layoutX="1005.0" layoutY="143.0" text="" visible="false" />
+				<Label fx:id="labelPlayerFivePot" font="$x3" layoutX="1118.0" layoutY="392.0" text="" visible="false" />
+				<Label fx:id="labelPlayerOnePot" font="$x3" layoutX="193.0" layoutY="392.0" text="" visible="false" />
+				<Label fx:id="labelPlayerTwoPot" font="$x3" layoutX="280.0" layoutY="143.0" text="" visible="false" />
 
 				<Label fx:id="labelPlayerThreeAction" font="$decisionFont" layoutX="653.0" layoutY="160.0" text="PlayerThreeAction" visible="false" />
 				<Label fx:id="labelPlayerFourAction" font="$decisionFont" layoutX="1005.0" layoutY="169.0" text="PlayerFourAction" visible="false" />
