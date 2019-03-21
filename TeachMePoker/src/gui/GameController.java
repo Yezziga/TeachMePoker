@@ -52,6 +52,7 @@ import javafx.scene.layout.Pane;
  * @author Loise Borg
  * @version 4.1 Fixed sound settings
  * @version 4.2 Fixed so the blinds and dealer marker are at the correct player when playing against 3 and 1.
+ * @version 4.3 Changed the info in the About dialog box.
  */
 
 public class GameController {
@@ -1123,9 +1124,14 @@ public class GameController {
 		Alert aboutBox = new Alert(AlertType.INFORMATION);
 		aboutBox.setTitle("Om Projektet");
 		aboutBox.setHeaderText(null);
-		aboutBox.setContentText("Detta projekt är format och skapat av"
+		aboutBox.setContentText("Denna applikation är skapad av"
 				+ "\nVedrana Zeba, Rikard Almgren, Amin Harirchian, "
-				+ "\nMax Frennessen och Lykke Levin under vårterminen 2017 \nsom en del av kursen Systemutveckling och projekt 1. ");
+				+ "\nMax Frennessen och Lykke Levin under vårterminen 2017 \n"
+				+ "som en del av kursen Systemutveckling och Projekt I. \n"
+				+ "\nUnder våreterminen 2019 har Loise Borg, Elina Kock, \n"
+				+ "Henrik Sandström, Jessica Quach, Kasper Kold Pedersen, \n"
+				+ "Malin Zederfeldt, Marcel Laska och Sara Dahlvig vidarutvecklat \n"
+				+ "applikationen som en del av kursen Systemutveckling II.");
 
 		aboutBox.showAndWait();
 	}
