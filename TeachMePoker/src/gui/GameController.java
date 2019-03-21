@@ -1128,7 +1128,7 @@ public class GameController {
 				+ "\nVedrana Zeba, Rikard Almgren, Amin Harirchian, "
 				+ "\nMax Frennessen och Lykke Levin under vårterminen 2017 \n"
 				+ "som en del av kursen Systemutveckling och Projekt I. \n"
-				+ "\nUnder våreterminen 2019 har Loise Borg, Elina Kock, \n"
+				+ "\nUnder vårterminen 2019 har Loise Borg, Elina Kock, \n"
 				+ "Henrik Sandström, Jessica Quach, Kasper Kold Pedersen, \n"
 				+ "Malin Zederfeldt, Marcel Laska och Sara Dahlvig vidarutvecklat \n"
 				+ "applikationen som en del av kursen Systemutveckling II.");
