@@ -652,7 +652,7 @@ public class GameController {
 							+ setOfCards[i].getCardSuit().charAt(0) + ".png";
 				}
 				if (i == 1) {
-					xCord = 110; // First card
+					xCord = 105; // First card
 				} else if (i > 1) {
 					xCord += 105;
 				}
