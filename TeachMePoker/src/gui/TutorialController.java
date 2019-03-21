@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  * 
  * @author dalvig
  * @version 2.1 
- * Added functionality so player can move backwards, and forwards, in the tutorial. 
+ * Added functionality so player can move backwards, and forwards, in the tutorial.
  */
 public class TutorialController {
 
