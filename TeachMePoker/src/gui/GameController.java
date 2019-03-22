@@ -1,10 +1,15 @@
 
 package gui;
 
+import java.awt.Component;
 import java.io.IOException;
+import java.io.NotSerializableException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
+import javax.swing.JOptionPane;
+
 import aiClass.Ai;
 import controller.SPController;
 import deck.Card;
@@ -44,25 +49,35 @@ import javafx.scene.layout.Pane;
  * @author Henrik
  * @version 3.0 Added functions for getting the main players hand, table cards
  *          and the current round.
- *          
- *  @author Quach
- *  @version 3.4 AI-players who have lost all their money will now be removed from the table.
+ * 
+ * @author Quach
+ * @version 3.4 AI-players who have lost all their money will now be removed
+ *          from the table.
+ * 
+ * @author Loise Borg
+ * @version 4.1 Fixed sound settings
+ * @version 4.2 Fixed so the blinds and dealer marker are at the correct player when playing against 3 and 1.
+ * @version 4.3 Changed the info in the About dialog box.
  */
 
 public class GameController {
+	
+	private SettingsController settings;
 
 	@FXML
 	private ImageView btCheck, btCall, btFold, btRaise, cardOne, imgRoundStatus, imgCard1, imgCard2, imgCard3, imgCard4,
-	imgCard5, imgCard6, imgCard7, ivBigBlind, ivSmallBlind, ivDealer, imgPlayerOneCards, imgPlayerTwoCards,
-	imgPlayerThreeCards, imgPlayerFourCards, imgPlayerFiveCards, ivSound;
+			imgCard5, imgCard6, imgCard7, ivPlayerBlind, ivPlayerOneBlind, ivPlayerTwoBlind, ivPlayerThreeBlind,
+			ivPlayerFourBlind, ivPlayerFiveBlind, ivPlayerDealer, ivPlayerOneDealer, ivPlayerTwoDealer, ivPlayerThreeDealer,
+			ivPlayerFourDealer, ivPlayerFiveDealer, imgPlayerOneCards, imgPlayerTwoCards, imgPlayerThreeCards,
+			imgPlayerFourCards, imgPlayerFiveCards, ivSound;
 	@FXML
 	private Slider slider;
 	@FXML
 	private Label lbPlayerAction, lbPotValue, lbAllIn, adviceLabel, helpLabel, userName, raiseLabel, subPotOne,
-	subPotTwo, subPotThree, subPotFour, subPotFive, subPotSix, mainPot, labelPlayerOneName, labelPlayerTwoName,
-	labelPlayerThreeName, labelPlayerFourName, labelPlayerFiveName, labelPlayerOnePot, labelPlayerTwoPot,
-	labelPlayerThreePot, labelPlayerFourPot, labelPlayerFivePot, labelPlayerOneAction, labelPlayerTwoAction,
-	labelPlayerThreeAction, labelPlayerFourAction, labelPlayerFiveAction;
+			subPotTwo, subPotThree, subPotFour, subPotFive, subPotSix, mainPot, labelPlayerOneName, labelPlayerTwoName,
+			labelPlayerThreeName, labelPlayerFourName, labelPlayerFiveName, labelPlayerOnePot, labelPlayerTwoPot,
+			labelPlayerThreePot, labelPlayerFourPot, labelPlayerFivePot, labelPlayerOneAction, labelPlayerTwoAction,
+			labelPlayerThreeAction, labelPlayerFourAction, labelPlayerFiveAction;
 	@FXML
 	private Pane powerBarArea, playerCardsArea, tabelCardArea, paneRounds;
 	@FXML
@@ -99,11 +114,14 @@ public class GameController {
 	private int[][] aiPositions;
 	private int highCard, prevPlayerActive;
 	private String handType = " ";
-	private Sound sound = new Sound();
+	private Sound sound;
 	private TutorialController tutorialWindow;
 	private int AllInViability = 0;
 	private Label[] collectionOfPots;
 	private int round = 0;
+	private Image imgDealer=new Image("images/dealer.png");
+	private Image imgBigBlind=new Image("images/bigBlind.png");
+	private Image imgSmallBlind=new Image("images/smallBlind.png");
 
 	/**
 	 * Method for initializing FXML
@@ -114,35 +132,37 @@ public class GameController {
 
 		// Groups together labels for each AI-position.
 		this.collectionOfLabelsAi = new Label[][] { { labelPlayerOneName, labelPlayerOnePot, labelPlayerOneAction },
-			{ labelPlayerTwoName, labelPlayerTwoPot, labelPlayerTwoAction },
-			{ labelPlayerThreeName, labelPlayerThreePot, labelPlayerThreeAction },
-			{ labelPlayerFourName, labelPlayerFourPot, labelPlayerFourAction },
-			{ labelPlayerFiveName, labelPlayerFivePot, labelPlayerFiveAction } };
+				{ labelPlayerTwoName, labelPlayerTwoPot, labelPlayerTwoAction },
+				{ labelPlayerThreeName, labelPlayerThreePot, labelPlayerThreeAction },
+				{ labelPlayerFourName, labelPlayerFourPot, labelPlayerFourAction },
+				{ labelPlayerFiveName, labelPlayerFivePot, labelPlayerFiveAction } };
 
-			// Placeholders for the AI (based on their position). Shows their
-			// cardbacks/no cards or
-			// highlighted cards (AI-frame).
-			this.collectionOfPots = new Label[6];
+		// Placeholders for the AI (based on their position). Shows their
+		// cardbacks/no cards or
+		// highlighted cards (AI-frame).
+		this.collectionOfPots = new Label[6];
 
-			this.collectionOfCardsAi = new ImageView[] { imgPlayerOneCards, imgPlayerTwoCards, imgPlayerThreeCards,
-					imgPlayerFourCards, imgPlayerFiveCards };
+		this.collectionOfCardsAi = new ImageView[] { imgPlayerOneCards, imgPlayerTwoCards, imgPlayerThreeCards,
+				imgPlayerFourCards, imgPlayerFiveCards };
 
-			// Used to place AI-players into the right position depending on the
-			// chosen number of AI:s.
-			this.aiPositions = new int[][] { { 2 }, { 0, 2, 4 }, { 0, 1, 2, 3, 4, 5 } };
+		// Used to place AI-players into the right position depending on the
+		// chosen number of AI:s.
+		this.aiPositions = new int[][] { { 2 }, { 0, 2, 4 }, { 0, 1, 2, 3, 4, 5 } };
 
-			// Table cards placeholders.
-			this.collectionOfCardsTable = new ImageView[] { imgCard3, imgCard4, imgCard5, imgCard6, imgCard7 };
+		// Table cards placeholders.
+		this.collectionOfCardsTable = new ImageView[] { imgCard3, imgCard4, imgCard5, imgCard6, imgCard7 };
 
-			// Used by method: inactivateAllAiCardGlows and aiAction.
-			this.prevPlayerActive = -1;
+		// Used by method: inactivateAllAiCardGlows and aiAction.
+		this.prevPlayerActive = -1;
+		
+		sliderChange();
+		
 	}
 
 	/**
 	 * Used to show labels and AI-frame.
 	 * 
-	 * @param position
-	 *            Position on the screen (0-4).
+	 * @param position Position on the screen (0-4).
 	 */
 	public void setShowUIAiBar(int position) {
 
@@ -155,10 +175,8 @@ public class GameController {
 	/**
 	 * Used to change AI-label "name" based on position.
 	 * 
-	 * @param position
-	 *            Position on the screen (0-4).
-	 * @param name
-	 *            The label for the AI's name.
+	 * @param position Position on the screen (0-4).
+	 * @param name     The label for the AI's name.
 	 */
 	public void setLabelUIAiBarName(int position, String name) {
 
@@ -168,10 +186,8 @@ public class GameController {
 	/**
 	 * Used to change AI-label "pot" based on position.
 	 * 
-	 * @param position
-	 *            Position on the screen (0-4).
-	 * @param pot
-	 *            The label for the AI's pot.
+	 * @param position Position on the screen (0-4).
+	 * @param pot      The label for the AI's pot.
 	 */
 	public void setLabelUIAiBarPot(int position, String pot) {
 
@@ -181,10 +197,8 @@ public class GameController {
 	/**
 	 * Used to change AI-label "action" based on position.
 	 * 
-	 * @param position
-	 *            Position on the screen (0-4).
-	 * @param action
-	 *            The label for the AI's action.
+	 * @param position Position on the screen (0-4).
+	 * @param action   The label for the AI's action.
 	 */
 	public void setLabelUIAiBarAction(int position, String action) {
 
@@ -194,11 +208,9 @@ public class GameController {
 	/**
 	 * Changes the AI-frame based on position and state.
 	 * 
-	 * @param position
-	 *            Position on the screen (0-4).
-	 * @param state
-	 *            The state can either be inactive (folded/lost), idle (waiting for
-	 *            it's turn), active (currently it's turn).
+	 * @param position Position on the screen (0-4).
+	 * @param state    The state can either be inactive (folded/lost), idle (waiting
+	 *                 for it's turn), active (currently it's turn).
 	 */
 	public void setUIAiStatus(int position, String state) {
 
@@ -207,7 +219,7 @@ public class GameController {
 				true);
 		Image showCards = new Image(Paths.get(resource + "aiBarWithCards.png").toUri().toString(), 122, 158, true,
 				true);
-		Image showActiveCards = new Image(Paths.get(resource + "aiBarWithCardsCurrentPlayer4.png").toUri().toString(),
+		Image showActiveCards = new Image(Paths.get(resource + "aiBarWithCardsCurrentPlayer2.png").toUri().toString(),
 				122, 158, true, true);
 
 		if (state == "inactive") {
@@ -222,8 +234,7 @@ public class GameController {
 	/**
 	 * Sets the SPController for this gameController
 	 * 
-	 * @param spController
-	 *            an instance of the class SPController
+	 * @param spController an instance of the class SPController
 	 */
 	public void setSPController(SPController spController) {
 
@@ -234,8 +245,7 @@ public class GameController {
 	/**
 	 * Sets the changeScene for this gameController
 	 * 
-	 * @param sceneChanger
-	 *            an instance of the class ChangeScene
+	 * @param sceneChanger an instance of the class ChangeScene
 	 */
 	public void setChangeScene(ChangeScene sceneChanger) {
 
@@ -369,20 +379,13 @@ public class GameController {
 	/**
 	 * Updates player-frame's labels (action and player pot) based on action.
 	 * 
-	 * @param action
-	 *            Call, Check, Raise or Fold
+	 * @param action Call, Check, Raise or Fold
 	 */
 	public void updatePlayerValues(String action) {
 
 		lbPotValue.setText("§" + Integer.toString(playerPot));
 		lbPlayerAction.setText(action);
 		setSliderValues();
-	}
-
-	/**
-	 * DEPRECATED. Never successfully implemented.
-	 */
-	public void saveGame() {
 	}
 
 	/**
@@ -432,35 +435,6 @@ public class GameController {
 		});
 	}
 
-	/**
-	 * Mutes the sound on and off.
-	 */
-	public void soundSetting() {
-
-		if (sound.cardFold.getVolume() > 0) {
-			sound.cardFold.setVolume(0);
-			sound.checkSound.setVolume(0);
-			sound.chipMulti.setVolume(0);
-			sound.shuffleSound.setVolume(0);
-			sound.singleCard.setVolume(0);
-			sound.chipSingle.setVolume(0);
-			sound.chipMulti.setVolume(0);
-			sound.coinSound.setVolume(0);
-			sound.wrongSound.setVolume(0);
-			ivSound.setImage(soundOff);
-		} else if (sound.cardFold.getVolume() == 0) {
-			sound.cardFold.setVolume(1);
-			sound.checkSound.setVolume(1);
-			sound.chipMulti.setVolume(1);
-			sound.shuffleSound.setVolume(1);
-			sound.singleCard.setVolume(1);
-			sound.chipSingle.setVolume(1);
-			sound.chipMulti.setVolume(1);
-			sound.coinSound.setVolume(1);
-			sound.wrongSound.setVolume(1);
-			ivSound.setImage(soundOn);
-		}
-	}
 
 	/**
 	 * Creates a new ruleController.
@@ -486,8 +460,7 @@ public class GameController {
 	/**
 	 * Sets the player's name.
 	 * 
-	 * @param name
-	 *            Used to sets the players name on the UI.
+	 * @param name Used to sets the players name on the UI.
 	 */
 	public void setUsername(String name) {
 
@@ -532,8 +505,7 @@ public class GameController {
 	 * Clears AI action and updates the new and current AI-pot at the end of the
 	 * round.
 	 * 
-	 * @param ai
-	 *            Which AI to update values for.
+	 * @param ai Which AI to update values for.
 	 */
 	public void endOfRound(int ai) {
 
@@ -557,10 +529,8 @@ public class GameController {
 	/**
 	 * Sets the starting hand pre-flop for the player.
 	 * 
-	 * @param card1
-	 *            First playercard in the hand.
-	 * @param card2
-	 *            Second playercard in the hand.
+	 * @param card1 First playercard in the hand.
+	 * @param card2 Second playercard in the hand.
 	 */
 	public void setStartingHand(Card card1, Card card2) {
 
@@ -648,8 +618,7 @@ public class GameController {
 	/**
 	 * Uses the getHighlightedCards to highlight and show cards on the table.
 	 * 
-	 * @param setOfCards
-	 *            Set of cards shown on the table.
+	 * @param setOfCards Set of cards shown on the table.
 	 */
 	public void setFlopTurnRiver(Card[] setOfCards) {
 
@@ -672,13 +641,9 @@ public class GameController {
 			tabelCardArea.requestLayout();
 
 			int xCord = 0;
-			for (int i = 0; i < setOfCards.length; i++) { // Loops through all
-				// cards and
-				// highlights the
-				// correct ones and
-				// places them on
-				// the table
-				// (UI)
+			// Loops through all cards and highlights the correct ones and places them on
+			// the table (UI)
+			for (int i = 0; i < setOfCards.length; i++) {
 				String baseCard = "";
 				if (hand.getHighlightedCards().contains(
 						Integer.toString(setOfCards[i].getCardValue()) + "," + setOfCards[i].getCardSuit().charAt(0))) {
@@ -689,7 +654,7 @@ public class GameController {
 							+ setOfCards[i].getCardSuit().charAt(0) + ".png";
 				}
 				if (i == 1) {
-					xCord = 110; // First card
+					xCord = 105; // First card
 				} else if (i > 1) {
 					xCord += 105;
 				}
@@ -718,8 +683,7 @@ public class GameController {
 	/**
 	 * Method which makes the player the smallblind.
 	 * 
-	 * @param i
-	 *            the amount to pay
+	 * @param i the amount to pay
 	 */
 	public void playerSmallBlind(int i) {
 
@@ -727,7 +691,7 @@ public class GameController {
 		this.playerPot -= i;
 		Platform.runLater(() -> {
 
-			ivSmallBlind.relocate(520, 425);
+			ivPlayerBlind.setImage(imgSmallBlind);
 
 		});
 		updatePots(new int[1][0], spController.getPotSize());
@@ -737,15 +701,14 @@ public class GameController {
 	/**
 	 * Method which makes the player the bigBlind
 	 * 
-	 * @param i
-	 *            the amount to pay
+	 * @param i the amount to pay
 	 */
 	public void playerBigBlind(int i) {
 
 		this.alreadyPaid += i;
 		this.playerPot -= i;
 		Platform.runLater(() -> {
-			ivBigBlind.relocate(520, 425);
+			ivPlayerBlind.setImage(imgBigBlind);
 
 		});
 		updatePots(new int[1][0], spController.getPotSize());
@@ -764,18 +727,13 @@ public class GameController {
 	/**
 	 * Method which sets the player as dealer
 	 * 
-	 * @param i
-	 *            not used.
+	 * @param i not used.
 	 */
 	public void playerIsDealer(int i) {
-
-		if ((int) ivBigBlind.getLayoutX() == 520 || (int) ivSmallBlind.getLayoutX() == 520) {
-			ivDealer.setLayoutX(500);
-			ivDealer.setLayoutY(425);
-		} else {
-			ivDealer.setLayoutX(520);
-			ivDealer.setLayoutY(425);
-		}
+		System.out.println("player is dealer");
+		Platform.runLater(() -> {
+			ivPlayerDealer.setImage(imgDealer);
+		});
 	}
 
 	/**
@@ -869,8 +827,7 @@ public class GameController {
 	/**
 	 * Method which resets the players cards, amount paid and decision.
 	 * 
-	 * @param resetDecision
-	 *            the new decision
+	 * @param resetDecision the new decision
 	 */
 	public void playerReset(String resetDecision) {
 
@@ -882,8 +839,7 @@ public class GameController {
 	/**
 	 * Sets the new player-pot.
 	 * 
-	 * @param newValue
-	 *            The value to add/remove from the player-pot.
+	 * @param newValue The value to add/remove from the player-pot.
 	 */
 	public void setPlayerPot(int newValue) {
 
@@ -971,8 +927,7 @@ public class GameController {
 	/**
 	 * Method which dims an AI player
 	 * 
-	 * @param AI
-	 *            an AI player
+	 * @param AI an AI player
 	 */
 	public void removeAiPlayer(int AI) {
 
@@ -1001,8 +956,7 @@ public class GameController {
 	 * Places the AI-players in the correct position depending on chosen number of
 	 * players.
 	 * 
-	 * @param aiPlayers
-	 *            All the AI-players that are active.
+	 * @param aiPlayers     All the AI-players that are active.
 	 * @param notFirstRound
 	 * @param deadAIIndex
 	 */
@@ -1033,10 +987,8 @@ public class GameController {
 	 * Updates AI-frame based on currentAI-position and decision with the method
 	 * setUIAiStatus.
 	 * 
-	 * @param currentAI
-	 *            Chosen AI to update AI-frame
-	 * @param decision
-	 *            Check, call, fold, raise or lost
+	 * @param currentAI Chosen AI to update AI-frame
+	 * @param decision  Check, call, fold, raise or lost
 	 */
 	public void aiAction(int currentAI, String decision) {
 
@@ -1098,8 +1050,7 @@ public class GameController {
 	/**
 	 * Formats action label for AI.
 	 * 
-	 * @param decision
-	 *            fold/lost/check/call/raise/all-in/Dealer/SmallBlind/BigBlind
+	 * @param decision fold/lost/check/call/raise/all-in/Dealer/SmallBlind/BigBlind
 	 * @return Formatted decision
 	 */
 	public String getFormattedDecision(String decision) {
@@ -1174,9 +1125,14 @@ public class GameController {
 		Alert aboutBox = new Alert(AlertType.INFORMATION);
 		aboutBox.setTitle("Om Projektet");
 		aboutBox.setHeaderText(null);
-		aboutBox.setContentText("Detta projekt är format och skapat av"
+		aboutBox.setContentText("Denna applikation är skapad av"
 				+ "\nVedrana Zeba, Rikard Almgren, Amin Harirchian, "
-				+ "\nMax Frennessen och Lykke Levin under vårterminen 2017 \nsom en del av kursen Systemutveckling och projekt 1. ");
+				+ "\nMax Frennessen och Lykke Levin under vårterminen 2017 \n"
+				+ "som en del av kursen Systemutveckling och Projekt I. \n"
+				+ "\nUnder vårterminen 2019 har Loise Borg, Elina Kock, \n"
+				+ "Henrik Sandström, Jessica Quach, Kasper Kold Pedersen, \n"
+				+ "Malin Zederfeldt, Marcel Laska och Sara Dahlvig vidarutvecklat \n"
+				+ "applikationen som en del av kursen Systemutveckling II.");
 
 		aboutBox.showAndWait();
 	}
@@ -1215,7 +1171,7 @@ public class GameController {
 			}
 		});
 	}
-	
+
 	/**
 	 * Method which creates a popup to inform the player that s/he lost.
 	 * 
@@ -1229,8 +1185,7 @@ public class GameController {
 			try {
 
 				winnerBox = new WinnerBox();
-				winnerBox.displayWinner("Vinst",
-						"Du vann då du slog ut all motståndarspelare!", 5, handType, null,
+				winnerBox.displayWinner("Vinst", "Du vann då du slog ut all motståndarspelare!", 5, handType, null,
 						null, null);
 
 				changeScene.switchToMainMenu();
@@ -1251,35 +1206,98 @@ public class GameController {
 		return highCard;
 	}
 
-	public void setBlindsMarker(int dealer, int smallBlindPlayer, int bigBlindPlayer) {
-
-		int[][] markerPos = new int[5][2];
+	public void setBlindsMarker(int nbrOfAIs, int dealer, int smallBlindPlayer, int bigBlindPlayer) {
+		ivPlayerBlind.setImage(null);
+		ivPlayerOneBlind.setImage(null); 
+		ivPlayerTwoBlind.setImage(null); 
+		ivPlayerThreeBlind.setImage(null);
+		ivPlayerFourBlind.setImage(null); 
+		ivPlayerFiveBlind.setImage(null); 
+		ivPlayerDealer.setImage(null); 
+		ivPlayerOneDealer.setImage(null); 
+		ivPlayerTwoDealer.setImage(null);
+		ivPlayerThreeDealer.setImage(null);
+		ivPlayerFourDealer.setImage(null);
+		ivPlayerFiveDealer.setImage(null);
+		
+		if(nbrOfAIs==1) {
+			if(dealer==0) {
+				dealer=2;
+			}else if(dealer==1) {
+				dealer=5;
+			}
+			if(smallBlindPlayer==0) {
+				smallBlindPlayer=2;
+			}else if(smallBlindPlayer==1) {
+				smallBlindPlayer=5;
+			}
+			if(bigBlindPlayer==0) {
+				bigBlindPlayer=2;
+			}else if(bigBlindPlayer==1) {
+				bigBlindPlayer=5;
+			}
+		}
+		if(nbrOfAIs==3) {
+			if(dealer==1) {
+				dealer=2;
+			}else if(dealer==2) {
+				dealer=4;
+			}else if(dealer==3) {
+				dealer=5;
+			}
+			if(smallBlindPlayer==1) {
+				smallBlindPlayer=2;
+			}else if(smallBlindPlayer==2) {
+				smallBlindPlayer=4;
+			}else if(smallBlindPlayer==3) {
+				smallBlindPlayer=5;
+			}
+			if(bigBlindPlayer==1) {
+				bigBlindPlayer=2;
+			}else if(bigBlindPlayer==2) {
+				bigBlindPlayer=4;
+			}else if(bigBlindPlayer==3) {
+				bigBlindPlayer=5;
+			}
+		}
+		
+		final int deal=dealer, small=smallBlindPlayer, big=bigBlindPlayer;
+		
 		Platform.runLater(() -> {
-
-			// set MarkerPos TEST
-			markerPos[0][0] = 300;
-			markerPos[0][1] = 360;
-
-			markerPos[1][0] = 375;
-			markerPos[1][1] = 172;
-
-			markerPos[2][0] = 745;
-			markerPos[2][1] = 172;
-
-			markerPos[3][0] = 1010;
-			markerPos[3][1] = 220;
-
-			markerPos[4][0] = 1010;
-			markerPos[4][1] = 360;
-
-			if (dealer <= 4) {
-				ivDealer.relocate(markerPos[dealer][0], markerPos[dealer][1]);
+			if(deal==0) {
+				ivPlayerOneDealer.setImage(imgDealer);
+			}else if(deal==1) {
+				ivPlayerTwoDealer.setImage(imgDealer);
+			}else if(deal==2) {
+				ivPlayerThreeDealer.setImage(imgDealer);
+			}else if(deal==3) {
+				ivPlayerFourDealer.setImage(imgDealer);
+			}else if(deal==4) {
+				ivPlayerFiveDealer.setImage(imgDealer);
 			}
-			if (smallBlindPlayer <= 4) {
-				ivSmallBlind.relocate(markerPos[smallBlindPlayer][0], markerPos[smallBlindPlayer][1]);
+			
+			if(small==0) {
+				ivPlayerOneBlind.setImage(imgSmallBlind);
+			}else if(small==1) {
+				ivPlayerTwoBlind.setImage(imgSmallBlind);
+			}else if(small==2) {
+				ivPlayerThreeBlind.setImage(imgSmallBlind);
+			}else if(small==3) {
+				ivPlayerFourBlind.setImage(imgSmallBlind);
+			}else if(small==4) {
+				ivPlayerFiveBlind.setImage(imgSmallBlind);
 			}
-			if (bigBlindPlayer <= 4) {
-				ivBigBlind.relocate(markerPos[bigBlindPlayer][0], markerPos[bigBlindPlayer][1]);
+			
+			if(big==0) {
+				ivPlayerOneBlind.setImage(imgBigBlind);
+			}else if(big==1) {
+				ivPlayerTwoBlind.setImage(imgBigBlind);
+			}else if(big==2) {
+				ivPlayerThreeBlind.setImage(imgBigBlind);
+			}else if(big==3) {
+				ivPlayerFourBlind.setImage(imgBigBlind);
+			}else if(big==4) {
+				ivPlayerFiveBlind.setImage(imgBigBlind);
 			}
 
 		});
@@ -1288,9 +1306,8 @@ public class GameController {
 	/**
 	 * Shows current round.
 	 * 
-	 * @param round
-	 *            int between 0-3 ("roundPreFlop", "roundFlop", "roundTurn",
-	 *            "roundRiver").
+	 * @param round int between 0-3 ("roundPreFlop", "roundFlop", "roundTurn",
+	 *              "roundRiver").
 	 */
 	public void roundStatus(int round) {
 
@@ -1310,11 +1327,9 @@ public class GameController {
 	/**
 	 * Creates a winnerWindow that displays the winner of the round.
 	 * 
-	 * @param winner
-	 *            Name of the winner from spController.
-	 * @param hand
-	 *            Int number from spController that represent the value of the
-	 *            winning hand.
+	 * @param winner Name of the winner from spController.
+	 * @param hand   Int number from spController that represent the value of the
+	 *               winning hand.
 	 */
 	public void setWinnerLabel(String winner, int hand, ArrayList<Card> winningCombination, ArrayList<Card> winningHand,
 			ArrayList<Card> allCards, boolean winByHighCard) {
@@ -1357,8 +1372,8 @@ public class GameController {
 		if (hand == 97) {
 			handType = "Du förlorade!";
 		}
-		
-		if(hand != 0 && winByHighCard) {
+
+		if (hand != 0 && winByHighCard) {
 			handType += " och högsta kort";
 		}
 
@@ -1437,10 +1452,8 @@ public class GameController {
 	/**
 	 * Method which updates the various pots in the UI
 	 * 
-	 * @param potSplits
-	 *            an Array of subPots during All-ins
-	 * @param tablePot
-	 *            the main tablePot
+	 * @param potSplits an Array of subPots during All-ins
+	 * @param tablePot  the main tablePot
 	 */
 	public void updatePots(int[][] potSplits, int tablePot) {
 
@@ -1463,11 +1476,9 @@ public class GameController {
 					collectionOfPots[i].setLayoutY(30 * (i + 1) + 70);
 				} else {
 					collectionOfPots[i].setVisible(false);
-				}			
+				}
 			}
 			mainPot.setText("Table Pot: §" + tablePot);
-			mainPot.setLayoutX(295.0);
-			mainPot.setLayoutY(290.0);
 			mainPot.setVisible(true);
 		});
 	}
@@ -1487,6 +1498,93 @@ public class GameController {
 
 	public int getRound() {
 		return round;
+	}
+
+	/**
+	 * Sets the Sound variable
+	 * 
+	 * @param sound
+	 */
+	public void setSoundClass(Sound sound) {
+		this.sound = sound;
+	}
+
+	/**
+	 * Turns background music on and off
+	 */
+
+	public void soundButtonClicked() {
+		if (sound.isSoundTurnedOn()) {
+			sound.turnSoundOff();
+			ivSound.setImage(soundOff);
+		} else if (!sound.isSoundTurnedOn()) {
+			sound.turnSoundOn();
+			ivSound.setImage(soundOn);
+		}
+	}
+
+	/**
+	 * Checks if the sound should be on or off.
+	 */
+	public void initializeSound() {
+		if (sound.isSoundTurnedOn()) {
+			sound.turnSoundOn();
+			ivSound.setImage(soundOn);
+		} else if (!sound.isSoundTurnedOn()) {
+			sound.turnSoundOff();
+			ivSound.setImage(soundOff);
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public void saveGame() {
+		System.out.println("SAVED BUTTON PRESSED");
+		LinkedList saveList = new LinkedList();
+		saveList.add(getUsername());
+		saveList.add(getPlayerPot());
+		saveList.add(aiPlayers.size());
+
+		try {
+			new SaveGame(saveList);
+			System.out.println("GAME SAVED");
+		} catch (NotSerializableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void loadGame(LoadGame load) {
+		settings  = new SettingsController();
+		System.out.println("TRYING TO LOAD GAME");
+		LinkedList loadedList = new LinkedList();
+
+		loadedList = load.load();
+		String loadname = (String)loadedList.pop();
+		this.playerPot = (int) loadedList.pop();
+		int nbrofPlayers = (int) loadedList.pop();
+		setUsername(loadname);
+		System.out.println(
+				"LOADED: name: " + loadname + ", pot: " + playerPot + ", number of players: " + nbrofPlayers);
+
+	/*	  int result = JOptionPane.showConfirmDialog(null, "vill du ladda spel för användare " + loadname + "?",
+			        "alert", JOptionPane.OK_CANCEL_OPTION);
+		  
+			if(result == JOptionPane.OK_OPTION) {
+				System.out.println("Load selected"); */
+				if (loadedList != null) {
+					settings.startLoadedGameWindow(nbrofPlayers, (playerPot * nbrofPlayers), loadname);
+				} else if (loadedList == null) {
+					JOptionPane.showMessageDialog(null, "No game to load", "ERROR", JOptionPane.ERROR_MESSAGE);
+				}
+		/*	}else if (result == JOptionPane.CANCEL_OPTION){
+				try {
+					changeScene.switchToMainMenu();
+				} catch (InstantiationException | IllegalAccessException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				System.out.println("Cancelled load");
+			} */
 	}
 
 }

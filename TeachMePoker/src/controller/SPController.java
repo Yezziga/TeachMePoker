@@ -97,6 +97,37 @@ public class SPController extends Thread {
 			e.printStackTrace();
 		}
 	}
+	
+	public void startLoadedGame(int noOfAi, int potSize, String playerName) {
+
+		this.fixedNrOfAIs = noOfAi;
+		gController.disableButtons();
+		this.potSize = potSize;
+		this.noOfAi = noOfAi;
+		setNames();
+		noOfPlayers = noOfAi + 1;
+		bigBlind = (int) (potSize / noOfPlayers * 0.02); // Calculates bigBlind
+		if (bigBlind < 2) {
+			bigBlind = 2;
+		}
+		currentMaxBet = bigBlind;
+		this.smallBlind = bigBlind / 2;
+		gController.setPlayerPot(potSize);
+		// create aiPlayers
+		for (int i = 0; i < noOfAi; i++) {
+			aiPlayers.add(new Ai(potSize / (noOfPlayers), name.remove(0)));
+		}
+		gController.setAiPlayers(aiPlayers, false, 69);
+		potSplits = new int[noOfPlayers][1];
+
+		try {
+			setupPhase();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+
+
 
 
 	/**
@@ -920,7 +951,7 @@ public class SPController extends Thread {
 			gController.playerIsDealer(dealer);
 		}
 		// update GUI.
-		gController.setBlindsMarker(dealer, smallBlindPlayer, bigBlindPlayer);
+		gController.setBlindsMarker(fixedNrOfAIs, dealer, smallBlindPlayer, bigBlindPlayer);
 		this.currentPotSize = smallBlind + bigBlind;
 		gController.updatePots(potSplits, currentPotSize);
 	}

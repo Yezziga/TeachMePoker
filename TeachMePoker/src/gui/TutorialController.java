@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  * 
  * @author dalvig
  * @version 2.1 
- * Added functionality so player can move backwards, and forwards, in the tutorial. 
+ * Added functionality so player can move backwards, and forwards, in the tutorial.
  */
 public class TutorialController {
 
@@ -134,8 +134,10 @@ public class TutorialController {
 	if (tutorialProgress > 1) {
 		image = new Image(Paths.get("resources/images/backButton.png").toUri().toString(), 170, 95, true, true);
 			btnBack = new ImageView(image);
-			btnBack.setX(1120);
-			btnBack.setY(480);
+			btnBack.setFitHeight(60);
+			btnBack.setFitWidth(60);
+			btnBack.setX(1140);
+			btnBack.setY(510);
 			tutorialPane.getChildren().add(btnBack);
 		}
 		
@@ -197,8 +199,10 @@ public class TutorialController {
 		if (tutorialProgress > 1) {
 			image = new Image(Paths.get("resources/images/backButton.png").toUri().toString(), 170, 95, true, true);
 				btnBack = new ImageView(image);
-				btnBack.setX(1120);
-				btnBack.setY(460);
+				btnBack.setFitHeight(60);
+				btnBack.setFitWidth(60);
+				btnBack.setX(1140);
+				btnBack.setY(510);
 				tutorialPane.getChildren().add(btnBack);
 		}	
 		addButtonListenerNext();
