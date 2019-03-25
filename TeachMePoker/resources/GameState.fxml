@@ -97,15 +97,7 @@
 					<content>
 						<AnchorPane id="Content" minHeight="0.0" minWidth="0.0" pickOnBounds="false" prefHeight="399.0" prefWidth="199.0">
 							<children>
-								<Label fx:id="helpLabel" layoutX="40.0" layoutY="110.0" prefHeight="50.0" prefWidth="250.0" rotate="90.0" text="" wrapText="true">
-																		<font>
-										<Font name="Tw Cen MT" size="22.0" fx:id="x9" />
-									</font>
-																		<font>
-										<Font name="Tw Cen MT" size="28.0" fx:id="x10" />
-									</font>
-								
-								</Label>
+								<Label fx:id="helpLabel" layoutX="40.0" layoutY="110.0" prefHeight="50.0" prefWidth="250.0" rotate="90.0" text="" wrapText="true" />
 								<Label id="adviseLabel" fx:id="adviceLabel" layoutX="-40.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="250.0" rotate="90.0" text="" wrapText="true" />
 								<Pane id="powerBar" fx:id="powerBarArea" layoutX="45.0" layoutY="215.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="108.0" rotate="90.0">
 									<opaqueInsets>

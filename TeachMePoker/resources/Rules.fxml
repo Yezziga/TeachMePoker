@@ -27,7 +27,7 @@
                         </ImageView>
                         <Label layoutX="75.0" layoutY="55.0" prefHeight="30.0" prefWidth="300.0" text="Mörkar/Blinds" textFill="WHITE">
                            <font>
-                              <Font size="20.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
                         <Label layoutX="75.0" layoutY="80.0" prefHeight="100.0" prefWidth="550.0" text="I Texas Hold’em använder man sig av en dealerknapp för att markera vart korten ska delas ifrån. Efter varje spel flyttas dealerknappen vidare ett steg. Lilla och stora mörken (blind) satsas av de två spelare direkt till dealerns vänster." textFill="WHITE" wrapText="true">
@@ -37,7 +37,7 @@
                         </Label>
                         <Label layoutX="75.0" layoutY="215.0" prefHeight="30.0" prefWidth="300.0" text="Första Satsningsrundan (Pre-Flop)" textFill="WHITE">
                            <font>
-                              <Font size="20.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
                         <Label layoutX="75.0" layoutY="237.0" prefHeight="180.0" prefWidth="550.0" text="När mörkarna är satsade delar dealern ut två nedåtvända kort (hålkort) till samtliga spelare med start från lilla mörken. Dessa kort är spelarnas privata kort. Spelaren till vänster om stora mörken (big blind) startar första satsningsrundan genom att syna (satsa lika mycket som stora mörken), höja (lägsta höjning är den samma som stora mörken) eller lägga sig. Första satsningsrundan är klar när alla spelare satsat lika mycket i potten eller lagt sig (efter en spelares bet)." textFill="WHITE" wrapText="true">
@@ -47,7 +47,7 @@
                         </Label>
                         <Label layoutX="75.0" layoutY="435.0" prefHeight="30.0" prefWidth="300.0" text="Andra Satsningsrundan (The Flop)" textFill="WHITE">
                            <font>
-                              <Font size="20.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
                         <Label layoutX="75.0" layoutY="460.0" prefHeight="150.0" prefWidth="550.0" text="Dealern lägger upp tre öppna kort på bordet. Dessa kort kallas The Flop eller floppen, och är tillgängliga för alla spelare. Spelaren till vänster om dealern startar andra satsningsrundan genom att checka (passa) eller ”öppna potten” genom att satsa. Andra satsningsrundan är klar när alla spelare satsat lika mycket i potten, checkat (passat) varvet runt eller lagt sig (efter en spelares bet)." textFill="WHITE" wrapText="true">
@@ -57,7 +57,7 @@
                         </Label>
                         <Label layoutX="655.0" layoutY="55.0" prefHeight="30.0" prefWidth="320.0" text="Tredje Satsningsrundan (The Turn)" textFill="WHITE">
                            <font>
-                              <Font size="20.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
                         <Label layoutX="655.0" layoutY="79.0" prefHeight="150.0" prefWidth="550.0" text="När den andra satsningsrundan är avklarad bränner dealern åter igen det översta kortet i leken och lägger därefter ytterligare ett öppet kort på bordet. Detta kort kallas för The Turn. Även detta kort är tillgängligt för alla spelare. Tredje satsningsrundan går till på exakt samma sätt som andra rundan och är klar när alla spelare satsat lika mycket i potten, checkat (passat) varvet runt eller lagt sig (efter en spelares bet)." textFill="WHITE" wrapText="true">
@@ -67,7 +67,7 @@
                         </Label>
                         <Label layoutX="655.0" layoutY="255.0" prefHeight="10.0" prefWidth="320.0" text="Fjärde Satsningsrundan (The River)" textFill="WHITE">
                            <font>
-                              <Font name="Symbol" size="20.0" />
+                              <Font name="Symbol" size="18.0" />
                            </font>
                         </Label>
                         <Label layoutX="655.0" layoutY="280.0" prefHeight="100.0" prefWidth="550.0" text="Dealern lägger ut ytterligare ett öppet kort på bordet. Detta kort kallas för The River eller 5th Street och är det femte och sista öppna kortet spelarna får använda sig av för att skapa sin hand. En fjärde och sista satsningsrunda startar och går till på exakt samma sätt som de två tidigare." textFill="WHITE" wrapText="true">
@@ -77,7 +77,7 @@
                         </Label>
                         <Label layoutX="655.0" layoutY="410.0" prefHeight="10.0" prefWidth="300.0" text="Hur man vinner" textFill="WHITE">
                            <font>
-                              <Font size="20.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
                         <Label layoutX="655.0" layoutY="430.0" prefHeight="160.0" prefWidth="550.0" text="Spelarna får använda sig av vilken femkortskombination bland de fem gemensamma korten och de två privata kort för att skapa sin hand.Man kan alltså använda alla fem korten som ligger på bordet eller använda en eller två av de korten som man har på hand. Spelaren med den bästa femkortskombinationen vinner potten. Är två eller flera händer lika bra delas potten mellan vinnarna." textFill="WHITE" wrapText="true">
@@ -98,7 +98,7 @@
                               <Image url="@images/background.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="170.0" layoutY="65.0" prefHeight="50.0" prefWidth="800.0" text="De pengar/medel som är placerat i mitten på bordet och som spelarna försöker vinna." textFill="WHITE" wrapText="true">
+                        <Label layoutX="170.0" layoutY="65.0" prefHeight="50.0" prefWidth="900.0" text="De pengar/medel som är placerat i mitten på bordet och som spelarna försöker vinna." textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="Tw Cen MT" size="18.0" />
                            </font>
@@ -146,27 +146,27 @@
                               <Font name="Tw Cen MT" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="170.0" layoutY="140.0" prefHeight="50.0" prefWidth="800.0" text="Vid start av varje spelomgång behöver två av spelarna lägga in en förbestämd summa till potten. " textFill="WHITE" wrapText="true">
+                        <Label layoutX="170.0" layoutY="140.0" prefHeight="50.0" prefWidth="900.0" text="Vid start av varje spelomgång behöver två av spelarna lägga in en förbestämd summa till potten. " textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="Tw Cen MT" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="170.0" layoutY="310.0" prefHeight="50.0" prefWidth="800.0" text="Användaren/AI synar den högsta satsningen och är därmed delaktig i rundan." textFill="WHITE" wrapText="true">
+                        <Label layoutX="170.0" layoutY="310.0" prefHeight="50.0" prefWidth="900.0" text="Användaren/AI synar den högsta satsningen och är därmed delaktig i rundan." textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="Tw Cen MT" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="170.0" layoutY="225.0" prefHeight="50.0" prefWidth="800.0" text="Användaren/AI säger hen är med men lägger inte in en summa." textFill="WHITE" wrapText="true">
+                        <Label layoutX="170.0" layoutY="225.0" prefHeight="50.0" prefWidth="900.0" text="Användaren/AI säger hen är med men lägger inte in en summa." textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="Tw Cen MT" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="170.0" layoutY="395.0" prefHeight="50.0" prefWidth="800.0" text="Användaren/AI lägger sig för den spelomgången." textFill="WHITE" wrapText="true">
+                        <Label layoutX="170.0" layoutY="395.0" prefHeight="50.0" prefWidth="900.0" text="Användaren/AI lägger sig för den spelomgången." textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="Tw Cen MT" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="170.0" layoutY="480.0" prefHeight="50.0" prefWidth="800.0" text="Användaren/AI höjer vad de andra måste lägga in för att vara med på denna rundan." textFill="WHITE" wrapText="true">
+                        <Label layoutX="170.0" layoutY="485.0" prefHeight="50.0" prefWidth="900.0" text="Användaren/AI höjer vad de andra måste lägga in för att vara med på denna rundan." textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="Tw Cen MT" size="18.0" />
                            </font>

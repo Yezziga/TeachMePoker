@@ -135,22 +135,22 @@
 				</ImageView>
       <Label layoutX="100.0" layoutY="50.0" prefHeight="100.0" prefWidth="450.0" text="Namn:" textFill="#fefefe">
          <font>
-            <Font size="64.0" />
+            <Font size="50.0" />
          </font>
       </Label>
       <Label layoutX="100.0" layoutY="175.0" prefHeight="100.0" prefWidth="510.0" text="Antal motspelare:" textFill="#fefefe">
          <font>
-            <Font size="64.0" />
+            <Font size="50.0" />
          </font>
       </Label>
       <Label layoutX="100.0" layoutY="300.0" prefHeight="100.0" prefWidth="450.0" text="Pottstorlek:" textFill="#fefefe">
          <font>
-            <Font size="64.0" />
+            <Font size="50.0" />
          </font>
       </Label>
       <Label layoutX="100.0" layoutY="425.0" prefHeight="100.0" prefWidth="450.0" text="Visa tutorial:" textFill="#fefefe">
          <font>
-            <Font size="64.0" />
+            <Font size="50.0" />
          </font>
       </Label>
    </children>
