@@ -19,6 +19,9 @@ import javafx.scene.layout.Pane;
  *
  * @author Loise Borg
  * @version 4.1 Fixed sound settings
+ * 
+ * @author Malin Zederfeldt
+ * @version 4.2 Attempt at implementing save/load game
  */
 
 public class ChangeScene {
@@ -84,6 +87,11 @@ public class ChangeScene {
 		gameController.initializeSound();
 	}
 	
+	/**
+	 * Method which switches the scene to the GameState from a loaded game. 
+	 * 
+	 * @throws IOException
+	 */
 	  public void switchScenetoLoad() throws IOException {
 		  
 		  main.window.getScene().setRoot(root2);

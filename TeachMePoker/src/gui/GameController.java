@@ -58,6 +58,9 @@ import javafx.scene.layout.Pane;
  * @version 4.1 Fixed sound settings
  * @version 4.2 Fixed so the blinds and dealer marker are at the correct player when playing against 3 and 1.
  * @version 4.3 Changed the info in the About dialog box.
+ * 
+ * @author Malin Zederfeldt
+ * @version 4.2 Attempt at implementing save/load game
  */
 
 public class GameController {
@@ -1536,6 +1539,10 @@ public class GameController {
 		}
 	}
 	
+	/**
+	 * method for saving a game
+	 */
+	
 	@SuppressWarnings("rawtypes")
 	public void saveGame() {
 		System.out.println("SAVED BUTTON PRESSED");
@@ -1553,6 +1560,10 @@ public class GameController {
 		}
 	}
 
+	/**
+	 * method for loading the latest saved game
+	 * @param load
+	 */
 	public void loadGame(LoadGame load) {
 		settings  = new SettingsController();
 		System.out.println("TRYING TO LOAD GAME");
@@ -1566,6 +1577,9 @@ public class GameController {
 		System.out.println(
 				"LOADED: name: " + loadname + ", pot: " + playerPot + ", number of players: " + nbrofPlayers);
 
+		
+	// attempts att showing saving and loading itself works but for some reason JOptionPane freezes the game
+		
 	/*	  int result = JOptionPane.showConfirmDialog(null, "vill du ladda spel för användare " + loadname + "?",
 			        "alert", JOptionPane.OK_CANCEL_OPTION);
 		  

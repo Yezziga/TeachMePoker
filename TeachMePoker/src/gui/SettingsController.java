@@ -39,6 +39,9 @@ import javafx.scene.layout.Pane;
  * 
  * @author Loise Borg
  * @version 4.1 Fixed sound settings.
+ * 
+ * @author Malin Zederfeldt
+ * @version 4.2 Attempt at implementing save/load game
  */
 public class SettingsController {
 	private SPController spController;
@@ -278,6 +281,11 @@ public class SettingsController {
 		});
 		System.out.println("Spel startas!");
 	}
+	
+	/**
+	 * Creates the progressForm and the loadingbar for a loaded game.
+	 * Currently does not work as should. Gives null pointer for SPController class. 
+	 */
 	
 	public void startLoadedGameWindow(int nbrOfAi, int pot, String username) {
 

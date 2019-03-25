@@ -22,6 +22,8 @@ import javafx.scene.image.ImageView;
  * @author Loise Borg
  * @version 4.1 Fixed sound settings
  *
+ * @author Malin Zederfeldt
+ * @version 4.2 Attempt at implementing save/load game
  */
 
 public class FMController {
@@ -74,8 +76,7 @@ public class FMController {
 	}
 
 	/**
-	 * Should load a saved game file. This method is currently a non-functional
-	 * method that is not implemented for the final version.
+	 * Should load a saved game file. 
 	 * 
 	 * @throws IOException
 	 */
