@@ -29,6 +29,9 @@ import gui.GameController;
  * 
  * @version 3.2
  * Fixed the winner winning text not being synced/relative to the visual winner combination. 
+ * 
+ * @author Malin Zederfeldt
+ * @version 4.2 Attempt at implementing save/load game
  */
 public class SPController extends Thread {
 
@@ -96,7 +99,16 @@ public class SPController extends Thread {
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
+		
+		
 	}
+	
+	/**
+	 * Starts the latest saved game from loaded file. 
+	 * @param noOfAi
+	 * @param potSize
+	 * @param playerName
+	 */
 	
 	public void startLoadedGame(int noOfAi, int potSize, String playerName) {
 
