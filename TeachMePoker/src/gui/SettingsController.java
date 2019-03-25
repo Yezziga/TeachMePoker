@@ -45,7 +45,7 @@ import javafx.scene.layout.Pane;
  */
 public class SettingsController {
 	private SPController spController;
-
+	private MessageBox messageBox;
 	private ChangeScene changeScene;
 	private ConfirmBox confirmBox;
 	private String name;
@@ -330,6 +330,14 @@ public class SettingsController {
 				System.out.println("null pointer for loaded game");
 		//		JOptionPane.showMessageDialog(null, "Failed to load game for user" + username, "ERROR", JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
+				try {
+
+					messageBox = new MessageBox();
+					messageBox.showMessage("nostart", username);
+					
+				}catch(NullPointerException e2) {
+					e.printStackTrace();
+				}
 			}
 		});
 		System.out.println("Sparat spel startas!");

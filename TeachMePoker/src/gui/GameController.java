@@ -95,6 +95,7 @@ public class GameController {
 	public Image soundOn = new Image("images/soundButton.png");
 	public Image soundOff = new Image("images/soundOffButton.png");
 	private WinnerBox winnerBox;
+	private MessageBox messageBox;
 	private ConfirmBox confirmBox;
 	private ChangeScene changeScene;
 	private int powerBarValue = 0;
@@ -1554,10 +1555,20 @@ public class GameController {
 		try {
 			new SaveGame(saveList);
 			System.out.println("GAME SAVED");
+			try {
+
+				messageBox = new MessageBox();
+				messageBox.showMessage("saved", getUsername());
+				
+			}catch(NullPointerException e) {
+				e.printStackTrace();
+			}
+			
 		} catch (NotSerializableException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 
 	/**
@@ -1580,25 +1591,27 @@ public class GameController {
 		
 	// attempts att showing saving and loading itself works but for some reason JOptionPane freezes the game
 		
-	/*	  int result = JOptionPane.showConfirmDialog(null, "vill du ladda spel för användare " + loadname + "?",
-			        "alert", JOptionPane.OK_CANCEL_OPTION);
-		  
-			if(result == JOptionPane.OK_OPTION) {
-				System.out.println("Load selected"); */
 				if (loadedList != null) {
 					settings.startLoadedGameWindow(nbrofPlayers, (playerPot * nbrofPlayers), loadname);
+					try {
+
+						messageBox = new MessageBox();
+						messageBox.showMessage("load", loadname);
+						
+					}catch(NullPointerException e) {
+						e.printStackTrace();
+					}
 				} else if (loadedList == null) {
-					JOptionPane.showMessageDialog(null, "No game to load", "ERROR", JOptionPane.ERROR_MESSAGE);
+					try {
+
+						messageBox = new MessageBox();
+						messageBox.showMessage("noload", getUsername());
+						
+					}catch(NullPointerException e) {
+						e.printStackTrace();
+					}
 				}
-		/*	}else if (result == JOptionPane.CANCEL_OPTION){
-				try {
-					changeScene.switchToMainMenu();
-				} catch (InstantiationException | IllegalAccessException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
-				System.out.println("Cancelled load");
-			} */
+		
 	}
 
 }
