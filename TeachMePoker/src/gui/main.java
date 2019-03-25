@@ -28,7 +28,7 @@ public class main extends Application {
 
 		window = primaryStage;
 		window.setTitle("TeachMePoker");
-		Font.loadFont(main.class.getResource("TCBI____.TTF").toExternalForm(), 10);
+		Font.loadFont(main.class.getResource("TW.TTF").toExternalForm(), 10);
 		window.setResizable(true);
 		window.setOnCloseRequest(e -> closeProgram());
 
