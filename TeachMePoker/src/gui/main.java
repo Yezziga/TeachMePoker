@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.application.Application;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -10,8 +11,8 @@ import javafx.stage.Stage;
  * @version 1.0
  *
  *
- *@author Loise Borg
- *@version 4.1
+ * @author Loise Borg
+ * @version 4.1
  */
 
 public class main extends Application {
@@ -27,6 +28,7 @@ public class main extends Application {
 
 		window = primaryStage;
 		window.setTitle("TeachMePoker");
+		Font.loadFont(main.class.getResource("TCBI____.TTF").toExternalForm(), 10);
 		window.setResizable(true);
 		window.setOnCloseRequest(e -> closeProgram());
 
