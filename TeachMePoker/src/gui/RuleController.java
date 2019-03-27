@@ -22,8 +22,8 @@ public class RuleController{
 	public void rules() throws IOException{
 		window.initModality(Modality.APPLICATION_MODAL);
 		window.setTitle("Regler");
-		window.setWidth(1100);
-		window.setHeight(633);
+		window.setWidth(1280);
+		window.setHeight(720);
 		window.setOnCloseRequest(e -> closeProgram());
 		Pane mainPane = (Pane) FXMLLoader.load(RuleController.class.getResource("/Rules.fxml"));
 		Scene scene = new Scene(mainPane);

@@ -9,6 +9,9 @@ import javafx.stage.Stage;
  * @author Lykke Levin
  * @version 1.0
  *
+ *
+ *@author Loise Borg
+ *@version 4.1
  */
 
 public class main extends Application {
@@ -45,6 +48,6 @@ public class main extends Application {
 	 * Closes the window and exits the program.
 	 */
 	public void closeProgram() {
-		window.close();
+		System.exit(0);
 	}
 }

@@ -10,6 +10,9 @@ import javafx.scene.media.MediaPlayer;
  * @author Lykke Levin
  * @version 1.1
  *
+ *
+ * @author Loise Borg
+ * @version 4.1
  */
 public class Sound {
 
@@ -23,33 +26,36 @@ public class Sound {
 	public AudioClip chipMulti = new AudioClip(Sound.class.getResource("/sounds/chipMe.m4a").toString());
 	public AudioClip coinSound = new AudioClip(Sound.class.getResource("/sounds/chingChingChip.m4a").toString());
 	public AudioClip wrongSound = new AudioClip(Sound.class.getResource("/sounds/buttonSoundWrong.mp3").toString());
-	
+	private boolean soundOn = true;
 
 	/**
 	 * Plays the AudioClip.
-	 * @param type Name of sound that is being sent from the different classes that uses the audio objects.
+	 * 
+	 * @param type Name of sound that is being sent from the different classes that
+	 *             uses the audio objects.
 	 */
 	public void playSound(String type) {
 		String whatSound = type;
+		if (isSoundTurnedOn()) {
+			if (whatSound.equals("check")) {
+				checkSound.play();
+			} else if (whatSound.equals("fold")) {
+				cardFold.play();
+			} else if (whatSound.equals("shuffle")) {
+				shuffleSound.play();
+			} else if (whatSound.equals("singleCard")) {
+				singleCard.play();
+			} else if (whatSound.equals("chipSingle")) {
+				chipSingle.play();
+			} else if (whatSound.equals("chipMulti")) {
+				chipMulti.play();
+			} else if (whatSound.equals("coinSound")) {
+				coinSound.play();
+			} else if (whatSound.equals("wrong")) {
+				wrongSound.play();
+			}
 
-		if (whatSound.equals("check")) {
-			checkSound.play();
-		} else if (whatSound.equals("fold")) {
-			cardFold.play();
-		} else if (whatSound.equals("shuffle")) {
-			shuffleSound.play();
-		} else if (whatSound.equals("singleCard")) {
-			singleCard.play();
-		} else if (whatSound.equals("chipSingle")) {
-			chipSingle.play();
-		} else if (whatSound.equals("chipMulti")) {
-			chipMulti.play();
-		} else if (whatSound.equals("coinSound")) {
-			coinSound.play();
-		} else if (whatSound.equals("wrong")) {
-			wrongSound.play();
 		}
-
 	}
 
 	/**
@@ -57,7 +63,32 @@ public class Sound {
 	 */
 	public void playBackgroundMusic() {
 		mp.play();
+	}
 
+	/**
+	 * Returns true or false depending on if the user has chosen the sound to be on
+	 * or off.
+	 * 
+	 * @return
+	 */
+	public boolean isSoundTurnedOn() {
+		return soundOn;
+	}
+
+	/**
+	 * Turns on the sound.
+	 */
+	public void turnSoundOn() {
+		mp.setVolume(1);
+		soundOn = true;
+	}
+
+	/**
+	 * Turns off the sound.
+	 */
+	public void turnSoundOff() {
+		mp.setVolume(0);
+		soundOn = false;
 	}
 
 }

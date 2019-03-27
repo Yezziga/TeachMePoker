@@ -1,6 +1,9 @@
 package gui;
 
+import java.awt.Component;
 import java.io.IOException;
+
+import javax.swing.JOptionPane;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -14,13 +17,18 @@ import javafx.scene.image.ImageView;
  * @version 1.0
  *
  ** @author dalvig
- *  @version 2.1
- * Added possibility to turn music on and off
+ * @version 2.1 Added possibility to turn music on and off
+ * 
+ * @author Loise Borg
+ * @version 4.1 Fixed sound settings
  *
+ * @author Malin Zederfeldt
+ * @version 4.2 Attempt at implementing save/load game
  */
 
 public class FMController {
 
+	private GameController gController;
 	private ChangeScene changeScene;
 	private Sound sound;
 	private SettingsController sc;
@@ -32,9 +40,9 @@ public class FMController {
 	private ImageView ivLoadGame;
 	@FXML
 	private ImageView ivSound;
-	
+
 	private Image soundOn = new Image("images/soundButton.png");
-	
+
 	private Image soundOff = new Image("images/soundOffButton.png");
 
 	/**
@@ -57,45 +65,63 @@ public class FMController {
 	}
 
 	/**
-	 * Tells class changeScene to perform the swithScene-action. 
+	 * Tells class changeScene to perform the swithScene-action.
+	 * 
 	 * @throws Exception
 	 */
 	public void NewGameClicked() throws Exception {
 
 		changeScene.switchScenetoSetting();
-		
+
 	}
 
 	/**
-	 * Should load a saved game file. This method is currently a non-functional
-	 * method that is not implemented for the final version.
+	 * Should load a saved game file. 
 	 * 
 	 * @throws IOException
 	 */
 	public void LoadGameClicked() throws IOException {
-		// fileHandler = new FileHandler();
-		// String pot = fileHandler.loadPot();
-		// System.out.println(fileHandler.loadPot());
+		System.out.println("Load button clicked");
+		changeScene.switchScenetoLoad();
 
-		System.out.println("LoadGame");
 		sound = new Sound();
 		sound.playSound("wrong");
 
 	}
-	
+
+	/**
+	 * Sets the Sound variable
+	 * @param sound
+	 */
+	public void setSoundClass(Sound sound) {
+		this.sound = sound;
+	}
+
 	/**
 	 * Turns background music on and off
 	 */
+
+	public void soundButtonClicked() {
+		if (sound.isSoundTurnedOn()) {
+			sound.turnSoundOff();
+			ivSound.setImage(soundOff);
+		} else if (!sound.isSoundTurnedOn()) {
+			sound.turnSoundOn();
+			ivSound.setImage(soundOn);
+		}
+	}
 	
-	public void soundSetting() {
-		 if (sound.mp.getVolume() > 0) {
-		      sound.mp.setVolume(0);
-		      ivSound.setImage(soundOff);
-		       
-		    } else if (sound.mp.getVolume() == 0) {
-		      sound.mp.setVolume(1);
-		      ivSound.setImage(soundOn);
-		  }
+	/**
+	 * Checks if the sound should be on or off. 
+	 */
+	public void initializeSound() {
+		if (sound.isSoundTurnedOn()) {
+			sound.turnSoundOn();
+			ivSound.setImage(soundOn);
+		} else if (!sound.isSoundTurnedOn()) {
+			sound.turnSoundOff();
+			ivSound.setImage(soundOff);
+		}
 	}
 
 }

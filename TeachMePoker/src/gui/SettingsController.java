@@ -1,8 +1,13 @@
 package gui;
 
 import java.io.IOException;
+
+import javax.swing.JOptionPane;
+
 import controller.SPController;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -24,16 +29,23 @@ import javafx.scene.layout.Pane;
  * @author dalvig
  * @version 2.1 Added possibility to turn music on and off
  *
- *@author Kold
+ * @author Kold
  * @version 2.2 Changed from confirm box to alert box, on two separate places.
- * In the "about project" and when a player tries to play without entering a name. 
+ *          In the "about project" and when a player tries to play without
+ *          entering a name.
  * 
  * @author Quach
- * @version 3.1 Removed the confirm box when player starts a game
+ * @version 3.1 Removed the confirm box when player starts a game.
+ * 
+ * @author Loise Borg
+ * @version 4.1 Fixed sound settings.
+ * 
+ * @author Malin Zederfeldt
+ * @version 4.2 Attempt at implementing save/load game
  */
 public class SettingsController {
 	private SPController spController;
-
+	private MessageBox messageBox;
 	private ChangeScene changeScene;
 	private ConfirmBox confirmBox;
 	private String name;
@@ -78,7 +90,7 @@ public class SettingsController {
 	@FXML
 	private ImageView btnBack;
 
-	private Sound sound = new Sound();
+	private Sound sound;
 	private TutorialController tutorialWindow;
 
 	@FXML
@@ -97,7 +109,18 @@ public class SettingsController {
 		potSlider.setSnapToTicks(true);
 		potSlider.setValue(5000);
 		aiSlider.setSnapToTicks(true);
-
+		
+		//Sets limit of character input in name textfield
+		tfNameInput.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(final ObservableValue<? extends String> ov, final String oldValue,
+					final String newValue) {
+				if (tfNameInput.getText().length() > 15) {
+					String s = tfNameInput.getText().substring(0, 15);
+					tfNameInput.setText(s);
+				}
+			}
+		});
 	}
 
 	/**
@@ -115,6 +138,15 @@ public class SettingsController {
 	public void setChangeScene(ChangeScene sceneChanger) {
 
 		this.changeScene = sceneChanger;
+	}
+
+	/**
+	 * Sets the Sound variable
+	 * 
+	 * @param sound
+	 */
+	public void setSoundClass(Sound sound) {
+		this.sound = sound;
 	}
 
 	/**
@@ -143,9 +175,7 @@ public class SettingsController {
 
 		if (cbOff.isSelected()) {
 			cbOff.setSelected(false);
-			cbOff.setDisable(false);
 			cbOn.setSelected(true);
-			cbOn.setDisable(true);
 
 		}
 	}
@@ -157,9 +187,7 @@ public class SettingsController {
 
 		if (cbOn.isSelected()) {
 			cbOn.setSelected(false);
-			cbOn.setDisable(false);
 			cbOff.setSelected(true);
-			cbOff.setDisable(true);
 
 		}
 	}
@@ -242,16 +270,77 @@ public class SettingsController {
 			try {
 				changeScene.switchScenetoGame();
 
-					spController.startGame(aiValue, potValue, name);
-					Sound.mp.stop();
-					sound.playSound("shuffle");
-				
+				spController.startGame(aiValue, potValue, name);
+				sound.mp.stop();
+				sound.playSound("shuffle");
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
 		System.out.println("Spel startas!");
+	}
+	
+	/**
+	 * Creates the progressForm and the loadingbar for a loaded game.
+	 * Currently does not work as should. Gives null pointer for SPController class. 
+	 */
+	
+	public void startLoadedGameWindow(int nbrOfAi, int pot, String username) {
+
+		spController = new SPController();
+
+		System.out
+				.println("Trying to start loaded game: " + username + ", $" + pot + ", Number of players: " + nbrOfAi);
+		ProgressForm pForm = new ProgressForm();
+		// In real life this task would do something useful and return
+		// some meaningful result:
+		Task<Void> task = new Task<Void>() {
+			@Override
+			public Void call() throws InterruptedException {
+				for (int i = 0; i < 10; i++) {
+					updateProgress(i += 1, 10);
+					Thread.sleep(200);
+
+				}
+				updateProgress(10, 10);
+				return null;
+			}
+		};
+		Thread thread = new Thread(task);
+		thread.start();
+		// binds progress of progress bars to progress of task:
+		pForm.activateProgressBar(task);
+
+		// in real life this method would get the result of the task
+		// and update the UI based on its value:
+		task.setOnSucceeded(event -> {
+			pForm.getDialogStage().close();
+
+			try {
+				
+		//		changeScene.switchScenetoLoad();
+				spController.startLoadedGame(nbrOfAi, pot, username);
+				Sound.mp.stop();
+				sound.playSound("shuffle");
+
+				
+			} catch (NullPointerException e) {
+				System.out.println("null pointer for loaded game");
+		//		JOptionPane.showMessageDialog(null, "Failed to load game for user" + username, "ERROR", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+				try {
+
+					messageBox = new MessageBox();
+					messageBox.showMessage("nostart", username);
+					
+				}catch(NullPointerException e2) {
+					e.printStackTrace();
+				}
+			}
+		});
+		System.out.println("Sparat spel startas!");
 	}
 
 	/**
@@ -296,7 +385,6 @@ public class SettingsController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// Main.window.setScene(changeScene.sceneMenu);
 	}
 
 	/**
@@ -308,14 +396,30 @@ public class SettingsController {
 		return name;
 	}
 
-	public void soundSetting() {
-		if (sound.mp.getVolume() > 0) {
-			sound.mp.setVolume(0);
-			ivSound.setImage(soundOff);
+	/**
+	 * Turns background music on and off
+	 */
 
-		} else if (sound.mp.getVolume() == 0) {
-			sound.mp.setVolume(1);
+	public void soundButtonClicked() {
+		if (sound.isSoundTurnedOn()) {
+			sound.turnSoundOff();
+			ivSound.setImage(soundOff);
+		} else if (!sound.isSoundTurnedOn()) {
+			sound.turnSoundOn();
 			ivSound.setImage(soundOn);
+		}
+	}
+
+	/**
+	 * Checks if the sound should be on or off.
+	 */
+	public void initializeSound() {
+		if (sound.isSoundTurnedOn()) {
+			sound.turnSoundOn();
+			ivSound.setImage(soundOn);
+		} else if (!sound.isSoundTurnedOn()) {
+			sound.turnSoundOff();
+			ivSound.setImage(soundOff);
 		}
 	}
 }
