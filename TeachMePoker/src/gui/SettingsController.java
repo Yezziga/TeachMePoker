@@ -39,6 +39,7 @@ import javafx.scene.layout.Pane;
  * 
  * @author Loise Borg
  * @version 4.1 Fixed sound settings.
+
  * 
  * @author Malin Zederfeldt
  * @version 4.2 Attempt at implementing save/load game

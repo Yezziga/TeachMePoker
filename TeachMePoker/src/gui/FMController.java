@@ -84,9 +84,6 @@ public class FMController {
 		System.out.println("Load button clicked");
 		changeScene.switchScenetoLoad();
 
-		sound = new Sound();
-		sound.playSound("wrong");
-
 	}
 
 	/**

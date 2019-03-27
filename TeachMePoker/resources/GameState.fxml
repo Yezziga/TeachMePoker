@@ -49,7 +49,9 @@
 						<Image url="@images/soundButton.png" />
 					</image>
 				</ImageView>
+
 				<ImageView id="saveButton.png" disable="false" fitHeight="45.0" fitWidth="45.0" layoutX="1230.0" layoutY="100.0" onMouseReleased="#saveGame" visible="true">
+
 					<image>
 						<Image url="@images/saveButton.png" />
 					</image>

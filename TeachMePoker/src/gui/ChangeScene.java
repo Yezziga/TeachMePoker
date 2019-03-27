@@ -1,10 +1,10 @@
 package gui;
 
+
 import java.awt.Component;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
-
 import controller.SPController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,6 +19,7 @@ import javafx.scene.layout.Pane;
  *
  * @author Loise Borg
  * @version 4.1 Fixed sound settings
+
  * 
  * @author Malin Zederfeldt
  * @version 4.2 Attempt at implementing save/load game
@@ -42,6 +43,7 @@ public class ChangeScene {
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
+  
 	public void prepGame() throws IOException, InstantiationException, IllegalAccessException {
 		sound.playBackgroundMusic();
 		FXMLLoader loaderFM = new FXMLLoader(FMController.class.getResource("/FirstMenu.fxml"));
@@ -101,6 +103,7 @@ public class ChangeScene {
 		  Sound.mp.setVolume(0.3);
 		  
 	  }
+
 
 	/**
 	 * Method which returns the Scene(and First/main menu).

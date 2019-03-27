@@ -56,8 +56,9 @@ import javafx.scene.layout.Pane;
  * 
  * @author Loise Borg
  * @version 4.1 Fixed sound settings
- * @version 4.2 Fixed so the blinds and dealer marker are at the correct player when playing against 3 and 1.
- * @version 4.3 Changed the info in the About dialog box.
+ * @version 4.3 Fixed so the blinds and dealer marker are at the correct player when playing against 3 and 1.
+ * @version 4.4 Changed the info in the About dialog box.
+
  * 
  * @author Malin Zederfeldt
  * @version 4.2 Attempt at implementing save/load game
@@ -729,7 +730,7 @@ public class GameController {
 	}
 
 	/**
-	 * Method which sets the player as dealer
+	 * Method which sets the player aaler
 	 * 
 	 * @param i not used.
 	 */
@@ -1613,5 +1614,5 @@ public class GameController {
 				}
 		
 	}
-
+  
 }
