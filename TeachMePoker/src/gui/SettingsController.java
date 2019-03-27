@@ -1,6 +1,9 @@
 package gui;
 
 import java.io.IOException;
+
+import javax.swing.JOptionPane;
+
 import controller.SPController;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -36,10 +39,14 @@ import javafx.scene.layout.Pane;
  * 
  * @author Loise Borg
  * @version 4.1 Fixed sound settings.
+
+ * 
+ * @author Malin Zederfeldt
+ * @version 4.2 Attempt at implementing save/load game
  */
 public class SettingsController {
 	private SPController spController;
-
+	private MessageBox messageBox;
 	private ChangeScene changeScene;
 	private ConfirmBox confirmBox;
 	private String name;
@@ -274,6 +281,67 @@ public class SettingsController {
 			}
 		});
 		System.out.println("Spel startas!");
+	}
+	
+	/**
+	 * Creates the progressForm and the loadingbar for a loaded game.
+	 * Currently does not work as should. Gives null pointer for SPController class. 
+	 */
+	
+	public void startLoadedGameWindow(int nbrOfAi, int pot, String username) {
+
+		spController = new SPController();
+
+		System.out
+				.println("Trying to start loaded game: " + username + ", $" + pot + ", Number of players: " + nbrOfAi);
+		ProgressForm pForm = new ProgressForm();
+		// In real life this task would do something useful and return
+		// some meaningful result:
+		Task<Void> task = new Task<Void>() {
+			@Override
+			public Void call() throws InterruptedException {
+				for (int i = 0; i < 10; i++) {
+					updateProgress(i += 1, 10);
+					Thread.sleep(200);
+
+				}
+				updateProgress(10, 10);
+				return null;
+			}
+		};
+		Thread thread = new Thread(task);
+		thread.start();
+		// binds progress of progress bars to progress of task:
+		pForm.activateProgressBar(task);
+
+		// in real life this method would get the result of the task
+		// and update the UI based on its value:
+		task.setOnSucceeded(event -> {
+			pForm.getDialogStage().close();
+
+			try {
+				
+		//		changeScene.switchScenetoLoad();
+				spController.startLoadedGame(nbrOfAi, pot, username);
+				Sound.mp.stop();
+				sound.playSound("shuffle");
+
+				
+			} catch (NullPointerException e) {
+				System.out.println("null pointer for loaded game");
+		//		JOptionPane.showMessageDialog(null, "Failed to load game for user" + username, "ERROR", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+				try {
+
+					messageBox = new MessageBox();
+					messageBox.showMessage("nostart", username);
+					
+				}catch(NullPointerException e2) {
+					e.printStackTrace();
+				}
+			}
+		});
+		System.out.println("Sparat spel startas!");
 	}
 
 	/**

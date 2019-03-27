@@ -29,6 +29,9 @@ import gui.GameController;
  * 
  * @version 3.2
  * Fixed the winner winning text not being synced/relative to the visual winner combination. 
+ * 
+ * @author Malin Zederfeldt
+ * @version 4.2 Attempt at implementing save/load game
  */
 public class SPController extends Thread {
 
@@ -96,7 +99,47 @@ public class SPController extends Thread {
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
+		
+		
 	}
+	
+	/**
+	 * Starts the latest saved game from loaded file. 
+	 * @param noOfAi
+	 * @param potSize
+	 * @param playerName
+	 */
+	
+	public void startLoadedGame(int noOfAi, int potSize, String playerName) {
+
+		this.fixedNrOfAIs = noOfAi;
+		gController.disableButtons();
+		this.potSize = potSize;
+		this.noOfAi = noOfAi;
+		setNames();
+		noOfPlayers = noOfAi + 1;
+		bigBlind = (int) (potSize / noOfPlayers * 0.02); // Calculates bigBlind
+		if (bigBlind < 2) {
+			bigBlind = 2;
+		}
+		currentMaxBet = bigBlind;
+		this.smallBlind = bigBlind / 2;
+		gController.setPlayerPot(potSize);
+		// create aiPlayers
+		for (int i = 0; i < noOfAi; i++) {
+			aiPlayers.add(new Ai(potSize / (noOfPlayers), name.remove(0)));
+		}
+		gController.setAiPlayers(aiPlayers, false, 69);
+		potSplits = new int[noOfPlayers][1];
+
+		try {
+			setupPhase();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+
+
 
 
 	/**

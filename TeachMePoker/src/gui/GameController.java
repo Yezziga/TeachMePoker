@@ -1,10 +1,15 @@
 
 package gui;
 
+import java.awt.Component;
 import java.io.IOException;
+import java.io.NotSerializableException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
+import javax.swing.JOptionPane;
+
 import aiClass.Ai;
 import controller.SPController;
 import deck.Card;
@@ -51,11 +56,17 @@ import javafx.scene.layout.Pane;
  * 
  * @author Loise Borg
  * @version 4.1 Fixed sound settings
- * @version 4.2 Fixed so the blinds and dealer marker are at the correct player when playing against 3 and 1.
- * @version 4.3 Changed the info in the About dialog box.
+ * @version 4.3 Fixed so the blinds and dealer marker are at the correct player when playing against 3 and 1.
+ * @version 4.4 Changed the info in the About dialog box.
+
+ * 
+ * @author Malin Zederfeldt
+ * @version 4.2 Attempt at implementing save/load game
  */
 
 public class GameController {
+	
+	private SettingsController settings;
 
 	@FXML
 	private ImageView btCheck, btCall, btFold, btRaise, cardOne, imgRoundStatus, imgCard1, imgCard2, imgCard3, imgCard4,
@@ -85,6 +96,7 @@ public class GameController {
 	public Image soundOn = new Image("images/soundButton.png");
 	public Image soundOff = new Image("images/soundOffButton.png");
 	private WinnerBox winnerBox;
+	private MessageBox messageBox;
 	private ConfirmBox confirmBox;
 	private ChangeScene changeScene;
 	private int powerBarValue = 0;
@@ -379,12 +391,6 @@ public class GameController {
 		lbPotValue.setText("§" + Integer.toString(playerPot));
 		lbPlayerAction.setText(action);
 		setSliderValues();
-	}
-
-	/**
-	 * DEPRECATED. Never successfully implemented.
-	 */
-	public void saveGame() {
 	}
 
 	/**
@@ -724,7 +730,7 @@ public class GameController {
 	}
 
 	/**
-	 * Method which sets the player as dealer
+	 * Method which sets the player aaler
 	 * 
 	 * @param i not used.
 	 */
@@ -1534,4 +1540,79 @@ public class GameController {
 			ivSound.setImage(soundOff);
 		}
 	}
+	
+	/**
+	 * method for saving a game
+	 */
+	
+	@SuppressWarnings("rawtypes")
+	public void saveGame() {
+		System.out.println("SAVED BUTTON PRESSED");
+		LinkedList saveList = new LinkedList();
+		saveList.add(getUsername());
+		saveList.add(getPlayerPot());
+		saveList.add(aiPlayers.size());
+
+		try {
+			new SaveGame(saveList);
+			System.out.println("GAME SAVED");
+			try {
+
+				messageBox = new MessageBox();
+				messageBox.showMessage("saved", getUsername());
+				
+			}catch(NullPointerException e) {
+				e.printStackTrace();
+			}
+			
+		} catch (NotSerializableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * method for loading the latest saved game
+	 * @param load
+	 */
+	public void loadGame(LoadGame load) {
+		settings  = new SettingsController();
+		System.out.println("TRYING TO LOAD GAME");
+		LinkedList loadedList = new LinkedList();
+
+		loadedList = load.load();
+		String loadname = (String)loadedList.pop();
+		this.playerPot = (int) loadedList.pop();
+		int nbrofPlayers = (int) loadedList.pop();
+		setUsername(loadname);
+		System.out.println(
+				"LOADED: name: " + loadname + ", pot: " + playerPot + ", number of players: " + nbrofPlayers);
+
+		
+	// attempts att showing saving and loading itself works but for some reason JOptionPane freezes the game
+		
+				if (loadedList != null) {
+					settings.startLoadedGameWindow(nbrofPlayers, (playerPot * nbrofPlayers), loadname);
+					try {
+
+						messageBox = new MessageBox();
+						messageBox.showMessage("load", loadname);
+						
+					}catch(NullPointerException e) {
+						e.printStackTrace();
+					}
+				} else if (loadedList == null) {
+					try {
+
+						messageBox = new MessageBox();
+						messageBox.showMessage("noload", getUsername());
+						
+					}catch(NullPointerException e) {
+						e.printStackTrace();
+					}
+				}
+		
+	}
+  
 }
